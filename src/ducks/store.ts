@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import countReducer from './count'
+import warscrollReducer from './warscroll'
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     counter: countReducer,
+    warscroll: warscrollReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

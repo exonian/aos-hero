@@ -12,7 +12,7 @@ function App() {
           AoS Hero
         </h1>
         <p>Sculpt your custom hero on the Anvil of Apotheosis</p>
-        <WarscrollComponent title="Lord Relictor on Dreadstallion" />
+        <WarscrollComponent />
         <CounterComponent />
       </header>
     </div>
