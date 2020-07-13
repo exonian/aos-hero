@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { CounterComponent } from './components/counter'
+import { EditorComponent } from './components/editor';
 import { WarscrollComponent } from './components/warscroll'
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
         </h1>
         <p>Sculpt your custom hero on the Anvil of Apotheosis</p>
         <WarscrollComponent />
-        <CounterComponent />
       </header>
+      <EditorComponent />
     </div>
   );
 }

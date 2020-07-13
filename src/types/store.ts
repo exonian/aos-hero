@@ -1,8 +1,3 @@
-export interface ICountSlice {
-  count: number
-  clicked: number
-}
-
 export interface IWarscrollSlice {
   title: string
   wounds: number
@@ -12,6 +7,5 @@ export interface IWarscrollSlice {
 }
 
 export interface IStore {
-  counter: ICountSlice
   warscroll: IWarscrollSlice
 }

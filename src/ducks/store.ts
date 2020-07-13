@@ -3,7 +3,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import countReducer from './count'
 import warscrollReducer from './warscroll'
 
 const persistConfig = {
@@ -12,7 +11,6 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    counter: countReducer,
     warscroll: warscrollReducer,
 })
 
