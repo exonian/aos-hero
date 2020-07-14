@@ -8,10 +8,11 @@ export const WarscrollComponent: React.FC = () => {
   const armyKeywordOrEmptyArray = armyKeyword || []
   const ancestryKeywords = ancestry ? ancestry.keywords : []
   const combinedKeywords = ancestryKeywords.concat(armyKeywordOrEmptyArray, "HERO")
+  const cost = ancestry ? ancestry.cost : 0
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2>{title} ({cost}DP)</h2>
       {ancestry ?
         <ul>
           {combinedKeywords.map((keyword, i) => {
