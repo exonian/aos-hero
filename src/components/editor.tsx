@@ -1,23 +1,13 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { selectWarscroll, warscrollActions } from '../ducks/warscroll'
+import { TitleInput } from './input/title';
+import { AncestryInput } from './input/ancestry';
 
 export const EditorComponent: React.FC = () => {
-  const { title } = useSelector(selectWarscroll)
-  const { setTitle } = warscrollActions
-  const dispatch = useDispatch()
-
   return (
     <div>
-      <input
-        className="form-control form-control-sm"
-        placeholder="Name your hero"
-        value={title}
-        onChange={event => dispatch(setTitle(event.target.value))}
-        tabIndex={0}
-        autoFocus
-      /> 
+      <TitleInput />
+      <AncestryInput />
     </div>
   )
 }

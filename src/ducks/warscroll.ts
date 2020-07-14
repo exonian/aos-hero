@@ -1,15 +1,20 @@
 import { createSlice, CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { IWarscrollSlice, IStore } from '../types/store'
+import { Ancestries } from '../data/ancestries';
 
 const initialState: IWarscrollSlice = {
   title: 'Untitled',
+  ancestry: null,
   wounds: 5,
   movement: 5,
   save: 4,
   bravery: 7,
 }
 
-// const setTitle = (state: IStore['warscroll'], {payload: }) => {
+const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
+  state.ancestry = Ancestries[action.payload]
+}
+
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   state.title = action.payload
 }
@@ -19,6 +24,7 @@ export const warscrollSlice = createSlice({
   initialState,
   reducers: {
     resetWarscroll: () => initialState,
+    setAncestryByKey,
     setTitle,
   },
 })
