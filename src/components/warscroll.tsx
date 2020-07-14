@@ -16,7 +16,7 @@ export const WarscrollComponent: React.FC = () => {
       {ancestry ?
         <ul>
           {combinedKeywords.map((keyword, i) => {
-            return <li>{ keyword }</li>
+            return <li key={keyword}>{ keyword }</li>
           })}
         </ul>
       : ''}
