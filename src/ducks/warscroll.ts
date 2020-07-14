@@ -5,6 +5,7 @@ import { Ancestries } from '../data/ancestries';
 const initialState: IWarscrollSlice = {
   title: 'Untitled',
   ancestry: null,
+  armyKeyword: null,
   wounds: 5,
   movement: 5,
   save: 4,
@@ -12,7 +13,15 @@ const initialState: IWarscrollSlice = {
 }
 
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  state.ancestry = Ancestries[action.payload]
+  const ancestry = Ancestries[action.payload]
+  if (ancestry !== state.ancestry) {
+    state.ancestry = Ancestries[action.payload]
+    state.armyKeyword = null
+  }
+}
+
+const setArmyKeyword: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
+  state.armyKeyword = action.payload
 }
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -25,6 +34,7 @@ export const warscrollSlice = createSlice({
   reducers: {
     resetWarscroll: () => initialState,
     setAncestryByKey,
+    setArmyKeyword,
     setTitle,
   },
 })
