@@ -6,10 +6,6 @@ const initialState: IWarscrollSlice = {
   title: 'Untitled',
   ancestry: null,
   armyKeyword: null,
-  wounds: 5,
-  movement: 5,
-  save: 4,
-  bravery: 7,
 }
 
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
