@@ -142,7 +142,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
     bravery: 8,
     cost: 7,
   },
-  "Oy9yssiarch Bonereaper" : {
+  "Ossiarch Bonereaper" : {
     name: "Ossiarch Bonereaper",
     keywords: ["DEATH", "OSSIARCH BONEREAPERS"],
     wounds: 5,

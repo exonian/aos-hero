@@ -6,15 +6,21 @@ import { WarscrollComponent } from './components/warscroll'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="container">
+      <div className="jumbotron jumbotron-fluid text-center">
         <h1>
           AoS Hero
         </h1>
         <p>Sculpt your custom hero on the Anvil of Apotheosis</p>
-        <WarscrollComponent />
-      </header>
-      <EditorComponent />
+      </div>
+      <div className="row">
+        <div className="col-md">
+          <WarscrollComponent />
+        </div>
+        <div className="col-md">
+          <EditorComponent />
+        </div>
+      </div>
     </div>
   );
 }

@@ -13,11 +13,9 @@ export const WarscrollComponent: React.FC = () => {
     <div>
       <h2>{title} ({cost}DP)</h2>
       {ancestry ?
-        <ul>
-          {combinedKeywords.map((keyword, i) => {
-            return <li key={keyword}>{ keyword }</li>
-          })}
-        </ul>
+        <p>
+          { combinedKeywords.join(', ') }
+        </p>
       : ''}
     </div>
   )

@@ -10,8 +10,9 @@ export const TitleInput: React.FC = () => {
 
   return (
     <input
-      className="form-control form-control-sm"
+      className="form-control form-control-md"
       placeholder="Name your hero"
+      type="text"
       value={title}
       onChange={event => dispatch(setTitle(event.target.value))}
       tabIndex={0}
