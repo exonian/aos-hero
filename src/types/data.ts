@@ -1,3 +1,5 @@
+import { TemplateLiteral } from "@babel/types";
+
 export type TKeyword = string
 
 export type TAncestry = {
@@ -9,4 +11,10 @@ export type TAncestry = {
   save: number
   bravery: number
   cost: number
+}
+
+export type TArchetype = {
+  name: string
+  keywords: TKeyword[]
+  excludedKeywords: TKeyword[]
 }
