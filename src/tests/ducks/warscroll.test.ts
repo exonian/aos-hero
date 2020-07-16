@@ -15,6 +15,7 @@ it('should handle setAncestryByKey', () => {
       "ancestry": Ancestries.Duardin,
       "armyKeywords": [],
       "title": "Untitled",
+      "archetype": null,
     }
   )
 })
@@ -33,6 +34,7 @@ it('should handle setArmyKeywords', () => {
       "ancestry": null,
       "armyKeywords": ['FYRESLAYERS'],
       "title": "Untitled",
+      "archetype": null,
     }
   )
 })
@@ -51,6 +53,7 @@ it('should handle setTitle', () => {
       "ancestry": null,
       "armyKeywords": [],
       "title": "My First Hero",
+      "archetype": null,
     }
   )
 })
