@@ -89,7 +89,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   },
   "Human" : {
     name: "Human",
-    keywords: ["ORDER", "HUMAN", "CITIES_OF_SIGMAR"],
+    keywords: ["ORDER", "HUMAN", "CITIES OF SIGMAR"],
     wounds: 5,
     movement: 5,
     save: 5,
