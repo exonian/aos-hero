@@ -77,6 +77,16 @@ export const Ancestries: {[key: string]: TAncestry} = {
     bravery: 6,
     cost: 3,
   },
+  "Grot" : {
+    name: "Grot",
+    keywords: ["DESTRUCTION", "GROT", "GLOOMSPITE GITZ"],
+    armyKeywords: ["MOONCLAN", "SPIDERFANG"],
+    wounds: 4,
+    movement: 5,
+    save: 6,
+    bravery: 4,
+    cost: 3,
+  },
   "Stormcast Eternal" : {
     name: "Stormcast Eternal",
     keywords: ["ORDER", "CELESTIAL", "HUMAN", "STORMCAST ETERNALS"],
