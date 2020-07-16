@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux'
 import { selectWarscroll } from '../ducks/warscroll'
 
 export const WarscrollComponent: React.FC = () => {
-  const { ancestry, armyKeyword, title } = useSelector(selectWarscroll)
-  const armyKeywordOrEmptyArray = armyKeyword || []
+  const { ancestry, armyKeywords, title } = useSelector(selectWarscroll)
   const ancestryKeywords = ancestry ? ancestry.keywords : []
-  const combinedKeywords = ancestryKeywords.concat(armyKeywordOrEmptyArray, "HERO")
+  const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO")
   const cost = ancestry ? ancestry.cost : 0
 
   return (

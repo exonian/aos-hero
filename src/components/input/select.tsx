@@ -6,3 +6,7 @@ export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: A
 export const convertToOptions = (items: string[] = []): TDropdownOption[] => {
   return items.map(i => ({ value: i, label: i }))
 }
+
+export const convertArraysToOptions = (items: string[][] = []): TDropdownOption[] => {
+  return items.map(i => ({ value: i.join('|'), label: i.join(', ') }))
+}

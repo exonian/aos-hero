@@ -2,24 +2,24 @@ import React, { useCallback } from 'react'
 import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { convertToOptions } from './select';
+import { convertArraysToOptions } from './select';
 import { warscrollActions, selectWarscroll } from '../../ducks/warscroll';
 
 export const ArmyKeywordInput: React.FC = () => {
   const { ancestry } = useSelector(selectWarscroll)
-  const options = ancestry ? convertToOptions(ancestry.armyKeywords) : []
+  const options = ancestry ? convertArraysToOptions(ancestry.armyKeywords) : []
 
-  const { setArmyKeyword } = warscrollActions
+  const { setArmyKeywords } = warscrollActions
   const dispatch = useDispatch()
 
-  const { armyKeyword } = useSelector(selectWarscroll)
-  const armyKeywordValue = armyKeyword ? convertToOptions([armyKeyword])[0] : null
+  const { armyKeywords } = useSelector(selectWarscroll)
+  const armyKeywordValue = armyKeywords ? convertArraysToOptions([armyKeywords])[0] : null
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(setArmyKeyword(args[0].value))
+      dispatch(setArmyKeywords(args[0].value.split('|')))
     },
-    [dispatch, setArmyKeyword]
+    [dispatch, setArmyKeywords]
   )
 
   return (

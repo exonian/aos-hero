@@ -3,7 +3,7 @@ import { TAncestry, TKeyword } from "./data";
 export interface IWarscrollSlice {
   title: string
   ancestry: TAncestry | null
-  armyKeyword: TKeyword | null
+  armyKeywords: TKeyword[]
 }
 
 export interface IStore {

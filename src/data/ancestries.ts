@@ -4,7 +4,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Aelf" : {
     name: "Aelf",
     keywords: ["ORDER", "AELF"],
-    armyKeywords: ["DAUGHTERS OF KHAINE", "IDONETH DEEPKIN", "LUMINETH REALM-LORDS", "CITIES OF SIGMAR"],
+    armyKeywords: [["DAUGHTERS OF KHAINE"], ["IDONETH DEEPKIN"], ["LUMINETH REALM-LORDS"], ["CITIES OF SIGMAR"]],
     wounds: 5,
     movement: 6,
     save: 6,
@@ -32,7 +32,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Daemon" : {
     name: "Daemon",
     keywords: ["CHAOS", "DAEMON"],
-    armyKeywords: ["KHORNE", "TZEENTCH", "NURGLE", "SLAANESH"],
+    armyKeywords: [["KHORNE"], ["TZEENTCH"], ["NURGLE"], ["SLAANESH"]],
     wounds: 5,
     movement: 5,
     save: 5,
@@ -60,7 +60,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Duardin" : {
     name: "Duardin",
     keywords: ["ORDER", "DUARDIN"],
-    armyKeywords: ["CITIES OF SIGMAR", "KHARADRON OVERLORDS", "FYRESLAYERS"],
+    armyKeywords: [["CITIES OF SIGMAR"], ["KHARADRON OVERLORDS"], ["FYRESLAYERS"]],
     wounds: 5,
     movement: 4,
     save: 4,
@@ -70,7 +70,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Gor" : {
     name: "Gor",
     keywords: ["CHAOS", "GOR", "BRAYHERD"],
-    armyKeywords: ["BEASTS OF CHAOS", "TZEENTCH"],
+    armyKeywords: [["BEASTS OF CHAOS"], ["TZEENTCH"]],
     wounds: 5,
     movement: 6,
     save: 6,
@@ -80,7 +80,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Grot" : {
     name: "Grot",
     keywords: ["DESTRUCTION", "GROT", "GLOOMSPITE GITZ"],
-    armyKeywords: ["MOONCLAN", "SPIDERFANG"],
+    armyKeywords: [["MOONCLAN"], ["SPIDERFANG"]],
     wounds: 4,
     movement: 5,
     save: 6,
@@ -126,7 +126,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
   "Mortal" : {
     name: "Mortal",
     keywords: ["CHAOS", "MORTAL"],
-    armyKeywords: ["KHORNE", "TZEENTCH", "NURGLE", "SLAANESH", "SLAVES TO DARKNESS"],
+    armyKeywords: [["KHORNE"], ["TZEENTCH"], ["NURGLE"], ["SLAANESH"], ["SLAVES TO DARKNESS"]],
     wounds: 5,
     movement: 5,
     save: 5,
@@ -141,6 +141,34 @@ export const Ancestries: {[key: string]: TAncestry} = {
     save: 5,
     bravery: 8,
     cost: 7,
+  },
+  "Ossiarch Bonereaper" : {
+    name: "Ossiarch Bonereaper",
+    keywords: ["DEATH", "OSSIARCH BONEREAPERS"],
+    wounds: 5,
+    movement: 5,
+    save: 5,
+    bravery: 10,
+    cost: 5,
+  },
+  "Saurus" : {
+    name: "Saurus",
+    keywords: ["ORDER", "SERAPHON", "SAURUS"],
+    wounds: 6,
+    movement: 5,
+    save: 4,
+    bravery: 8,
+    cost: 6,
+  },
+  "Skaven" : {
+    name: "Skaven",
+    keywords: ["CHAOS", "SKAVEN", "SKAVENTIDE"],
+    armyKeywords: [["MASTERCLAN"], ["CLANS PESTILENS", "NURGLE"], ["CLANS VERMINUS"], ["CLANS SKRYRE"], ["CLANS MOULDER"], ["CLANS ESHIN"]],
+    wounds: 5,
+    movement: 6,
+    save: 6,
+    bravery: 6,
+    cost: 3,
   },
   "Stormcast Eternal" : {
     name: "Stormcast Eternal",

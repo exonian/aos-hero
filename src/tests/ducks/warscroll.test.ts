@@ -13,7 +13,25 @@ it('should handle setAncestryByKey', () => {
   ).toEqual(
     {
       "ancestry": Ancestries.Duardin,
-      "armyKeyword": null,
+      "armyKeywords": [],
+      "title": "Untitled",
+    }
+  )
+})
+
+it('should handle setArmyKeywords', () => {
+  const { setArmyKeywords } = warscrollActions
+  expect(
+    warscroll(
+      initialState
+    , {
+      type: setArmyKeywords.type,
+      payload: ['FYRESLAYERS'],
+    })
+  ).toEqual(
+    {
+      "ancestry": null,
+      "armyKeywords": ['FYRESLAYERS'],
       "title": "Untitled",
     }
   )
@@ -31,7 +49,7 @@ it('should handle setTitle', () => {
   ).toEqual(
     {
       "ancestry": null,
-      "armyKeyword": null,
+      "armyKeywords": [],
       "title": "My First Hero",
     }
   )
