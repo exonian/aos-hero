@@ -142,7 +142,7 @@ export const Ancestries: {[key: string]: TAncestry} = {
     bravery: 8,
     cost: 7,
   },
-  "Ossiarch Bonereaper" : {
+  "Oy9yssiarch Bonereaper" : {
     name: "Ossiarch Bonereaper",
     keywords: ["DEATH", "OSSIARCH BONEREAPERS"],
     wounds: 5,
@@ -170,6 +170,24 @@ export const Ancestries: {[key: string]: TAncestry} = {
     bravery: 6,
     cost: 3,
   },
+  "Skeleton" : {
+    name: "Skeleton",
+    keywords: ["DEATH", "SKELETON", "DEATHRATTLE"],
+    wounds: 5,
+    movement: 4,
+    save: 6,
+    bravery: 10,
+    cost: 3,
+  },
+  "Skink" : {
+    name: "Skink",
+    keywords: ["ORDER", "SERAPHON", "SKINK"],
+    wounds: 4,
+    movement: 8,
+    save: 6,
+    bravery: 6,
+    cost: 4,
+  },
   "Stormcast Eternal" : {
     name: "Stormcast Eternal",
     keywords: ["ORDER", "CELESTIAL", "HUMAN", "STORMCAST ETERNALS"],
@@ -178,5 +196,23 @@ export const Ancestries: {[key: string]: TAncestry} = {
     save: 4,
     bravery: 8,
     cost: 5,
+  },
+  "Sylvaneth" : {
+    name: "Sylvaneth",
+    keywords: ["ORDER", "SYLVANETH"],
+    wounds: 5,
+    movement: 5,
+    save: 5,
+    bravery: 7,
+    cost: 4,
+  },
+  "Vampire" : {
+    name: "Vampire",
+    keywords: ["DEATH", "VAMPIRE", "SOULBLIGHT"],
+    wounds: 5,
+    movement: 5,
+    save: 5,
+    bravery: 10,
+    cost: 4,
   },
 }
