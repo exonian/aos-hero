@@ -1,6 +1,6 @@
-import { TAncestry } from "../types/data";
+import { TAncestries } from "../types/data";
 
-export const Ancestries: {[key: string]: TAncestry} = {
+export const Ancestries: TAncestries = {
   "Aelf" : {
     name: "Aelf",
     keywords: ["ORDER", "AELF"],

@@ -12,6 +12,7 @@ export type TAncestry = {
   bravery: number
   cost: number
 }
+export type TAncestries = Record<string, TAncestry>
 
 export type TArchetype = {
   name: string
@@ -19,5 +20,4 @@ export type TArchetype = {
   restrictions: TKeyword[]
   restrictionExceptions?: TKeyword[]
 }
-
 export type TArchetypes = Record<string, TArchetype>
