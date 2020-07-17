@@ -8,14 +8,14 @@ import { ArmyKeywordInput } from './input/army_keyword';
 import { selectWarscroll } from '../ducks/warscroll';
 
 export const EditorComponent: React.FC = () => {
-  const { ancestry } = useSelector(selectWarscroll)
+  const { ancestry, armyKeywords } = useSelector(selectWarscroll)
 
   return (
     <div>
       <TitleInput />
       <AncestryInput />
       { ancestry && ancestry.armyKeywords && <ArmyKeywordInput /> }
-      { ancestry && <ArchetypeInput /> }
+      { ancestry && (armyKeywords.length > 0 || !ancestry.armyKeywords ) && <ArchetypeInput /> }
     </div>
   )
 }

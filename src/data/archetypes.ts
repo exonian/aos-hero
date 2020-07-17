@@ -1,19 +1,19 @@
-import { TArchetype } from "../types/data";
+import { TArchetypes } from "../types/data";
 
-export const Archetypes: {[key: string]: TArchetype} = {
+export const Archetypes: TArchetypes = {
   "Commander" : {
     name: "Commander",
     keywords: [],
-    excludedKeywords: ["DEATHMAGE", "MASTERCLAN"],
+    restrictions: ["DEATHMAGE", "MASTERCLAN"],
   },
   "Acolyte" : {
     name: "Acolyte",
     keywords: ["PRIEST"],
-    excludedKeywords: ["DAEMON", "DEATHMAGE", "SAURUS", "SKAVEN"],
+    restrictions: ["DAEMON", "DEATHMAGE", "SAURUS", "SKAVEN"],
   },
   "Mage" : {
     name: "Mage",
     keywords: ["WIZARD"],
-    excludedKeywords: ["DUARDIN", "KHORNE", "SAURUS"],
+    restrictions: ["DUARDIN", "KHORNE", "SAURUS"],
   },
 }

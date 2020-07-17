@@ -16,5 +16,8 @@ export type TAncestry = {
 export type TArchetype = {
   name: string
   keywords: TKeyword[]
-  excludedKeywords: TKeyword[]
+  restrictions: TKeyword[]
+  restrictionExceptions?: TKeyword[]
 }
+
+export type TArchetypes = Record<string, TArchetype>

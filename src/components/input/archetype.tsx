@@ -5,12 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { convertToOptions } from './select';
 import { warscrollActions, selectWarscroll } from '../../ducks/warscroll';
 import { Archetypes } from '../../data/archetypes';
+import { filterByRestrictions } from '../../utils/restrictions';
 
 export const ArchetypeInput: React.FC = () => {
-  const options = convertToOptions(Object.keys(Archetypes))
+  const { ancestry, archetype, armyKeywords } = useSelector(selectWarscroll)
+  const ancestryKeywords = ancestry ? ancestry.keywords : []
+  const archetypeKeywords = archetype ? archetype.keywords : []
+  const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
+
+  const archetypes = filterByRestrictions(Archetypes, combinedKeywords)
+  const options = convertToOptions(Object.keys(archetypes))
   const { setArchetypeByKey } = warscrollActions
   const dispatch = useDispatch()
-  const { archetype } = useSelector(selectWarscroll)
   const archetypeValue = archetype ? convertToOptions([archetype.name])[0] : archetype
 
   const handleChange = useCallback(

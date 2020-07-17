@@ -13,10 +13,12 @@ export const initialState: IWarscrollSlice = {
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   state.ancestry = Ancestries[action.payload]
   state.armyKeywords = []
+  state.archetype = null
 }
 
 const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (state, action) => {
   state.armyKeywords = action.payload
+  state.archetype = null
 }
 
 const setArchetypeByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
