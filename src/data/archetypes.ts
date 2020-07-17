@@ -10,6 +10,7 @@ export const Archetypes: TArchetypes = {
     name: "Acolyte",
     keywords: ["PRIEST"],
     restrictions: ["DAEMON", "DEATHMAGE", "SAURUS", "SKAVEN"],
+    restrictionExceptions: ["CLANS PESTILENS"],
   },
   "Mage" : {
     name: "Mage",
