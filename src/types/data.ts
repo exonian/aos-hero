@@ -1,5 +1,3 @@
-import { TemplateLiteral } from "@babel/types";
-
 export type TKeyword = string
 
 export type TAncestry = {
