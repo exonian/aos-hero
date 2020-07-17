@@ -1,9 +1,15 @@
-import { titleCase } from "../../utils/text";
+import { titleCase, noOp } from "../../utils/text";
 
 export type TDropdownOption = { value: string; label: string }
 
-export const convertToOptions = (items: string[] = []): TDropdownOption[] => {
-  return items.map(i => ({ value: i, label: titleCase(i) }))
+type OptionConversionFn = (item: any) => string
+
+export const convertToOptions = (
+  items: string[] = [],
+  valueConversion: OptionConversionFn = noOp,
+  labelConversion: OptionConversionFn = titleCase,
+): TDropdownOption[] => {
+  return items.map(i => ({ value: valueConversion(i), label: labelConversion(i) }))
 }
 
 export const convertArraysToOptions = (items: string[][] = []): TDropdownOption[] => {
