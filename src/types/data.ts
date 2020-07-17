@@ -1,5 +1,13 @@
 export type TKeyword = string
 
+export type TAbility = {
+  name: string
+  description: string
+  cost?: number
+  exclusions?: TKeyword[]
+}
+export type TAbilities = Record<string, TAbility>
+
 export type TAncestry = {
   name: string
   keywords: TKeyword[]
