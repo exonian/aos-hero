@@ -6,13 +6,13 @@ export const Archetypes: {[key: string]: TArchetype} = {
     keywords: [],
     excludedKeywords: ["DEATHMAGE", "MASTERCLAN"],
   },
-  "Mage" : {
-    name: "Mage",
+  "Acolyte" : {
+    name: "Acolyte",
     keywords: ["PRIEST"],
     excludedKeywords: ["DAEMON", "DEATHMAGE", "SAURUS", "SKAVEN"],
   },
-  "Acolyte" : {
-    name: "Acolyte",
+  "Mage" : {
+    name: "Mage",
     keywords: ["WIZARD"],
     excludedKeywords: ["DUARDIN", "KHORNE", "SAURUS"],
   },
