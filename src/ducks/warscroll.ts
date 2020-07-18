@@ -1,13 +1,16 @@
 import { createSlice, CaseReducer, PayloadAction } from '@reduxjs/toolkit'
+
 import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
+import { Abilities } from '../data/abilities';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
   ancestry: null,
   armyKeywords: [],
   archetype: null,
+  abilities: [],
 }
 
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -29,6 +32,10 @@ const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, ac
   state.title = action.payload
 }
 
+const addAbilityByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
+  state.abilities = state.abilities.concat(Abilities[action.payload])
+}
+
 export const warscrollSlice = createSlice({
   name: 'warscroll',
   initialState,
@@ -38,6 +45,7 @@ export const warscrollSlice = createSlice({
     setArmyKeywords,
     setArchetypeByKey,
     setTitle,
+    addAbilityByKey,
   },
 })
 

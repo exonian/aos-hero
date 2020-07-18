@@ -1,5 +1,6 @@
 import warscroll, { warscrollActions, initialState } from '../../ducks/warscroll'
 import { Ancestries } from '../../data/ancestries';
+import { Abilities } from '../../data/abilities';
 
 it('should handle setAncestryByKey', () => {
   const { setAncestryByKey } = warscrollActions
@@ -16,6 +17,7 @@ it('should handle setAncestryByKey', () => {
       "armyKeywords": [],
       "title": "Untitled",
       "archetype": null,
+      "abilities": [],
     }
   )
 })
@@ -35,6 +37,7 @@ it('should handle setArmyKeywords', () => {
       "armyKeywords": ['FYRESLAYERS'],
       "title": "Untitled",
       "archetype": null,
+      "abilities": [],
     }
   )
 })
@@ -54,6 +57,49 @@ it('should handle setTitle', () => {
       "armyKeywords": [],
       "title": "My First Hero",
       "archetype": null,
+      "abilities": [],
+    }
+  )
+})
+
+it('should handle addAbilityByKey', () => {
+  const { addAbilityByKey } = warscrollActions
+  expect(
+    warscroll(
+      initialState
+    , {
+      type: addAbilityByKey.type,
+      payload: 'Divine Prayers',
+    })
+  ).toEqual(
+    {
+      "ancestry": null,
+      "armyKeywords": [],
+      "title": "Untitled",
+      "archetype": null,
+      "abilities": [Abilities["Divine Prayers"]],
+    }
+  )
+  expect(
+    warscroll(
+      {
+        "ancestry": null,
+        "armyKeywords": [],
+        "title": "Untitled",
+        "archetype": null,
+        "abilities": [Abilities["Divine Prayers"]],
+      }
+    , {
+      type: addAbilityByKey.type,
+      payload: 'Wrathful Invocation',
+    })
+  ).toEqual(
+    {
+      "ancestry": null,
+      "armyKeywords": [],
+      "title": "Untitled",
+      "archetype": null,
+      "abilities": [Abilities["Divine Prayers"], Abilities["Wrathful Invocation"]],
     }
   )
 })

@@ -25,5 +25,6 @@ export type TArchetype = {
   keywords: TKeyword[]
   exclusions: TKeyword[]
   exclusionExceptions?: TKeyword[]
+  grants: (string | string[])[]
 }
 export type TArchetypes = Record<string, TArchetype>
