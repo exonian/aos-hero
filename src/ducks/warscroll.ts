@@ -18,7 +18,6 @@ export const initialState: IWarscrollSlice = {
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   state.ancestry = Ancestries[action.payload]
   state.armyKeywords = []
-  state.archetype = null
 }
 
 const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (state, action) => {
@@ -74,20 +73,26 @@ export default warscrollSlice.reducer
 
 
 export const updateArchetype = (
-  name: string
+  name?: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  console.log('HELLO')
   const state = getState()
   const {warscroll} = state
   const {archetype, abilities} = warscroll
   if (archetype) {
     const abilitiesToKeep = abilities.reduce((accum, ability) => {
-      if (ability.source !== archetype) {
+      if (!ability.source || ability.source.name !== archetype.name) {
         accum.push(ability)
       }
       return accum
     }, [] as TAddedAbility[])
     dispatch(warscrollActions.setAbilities(abilitiesToKeep))
   }
-  dispatch(warscrollActions.setArchetypeByKey(name))
+  if (name) dispatch(warscrollActions.setArchetypeByKey(name))
+}
+
+export const changeAncestry = (
+  name: string
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) => {
+  dispatch(warscrollActions.setAncestryByKey(name))
+  dispatch(updateArchetype())
 }
