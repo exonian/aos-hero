@@ -1,10 +1,11 @@
-import { createSlice, CaseReducer, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, CaseReducer, PayloadAction, ThunkAction, Action } from '@reduxjs/toolkit'
 
 import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant } from '../types/data';
+import { AutomaticGrant, TAddedAbility } from '../types/data';
+import { RootState } from './store';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -25,27 +26,19 @@ const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (
   state.archetype = null
 }
 
-const setArchetypeByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  const archetype = Archetypes[action.payload]
-  state.archetype = archetype
-  state.abilities = []
-
-  archetype.grants.forEach(grant => {
-    const { grantType, abilityNames } = grant
-    if (grantType === AutomaticGrant) {
-      abilityNames.forEach(abilityName => {
-        state.abilities.push(Abilities[abilityName])
-      })
-    }
-  })
-}
-
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   state.title = action.payload
 }
 
 const addAbilityByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  state.abilities = state.abilities.concat(Abilities[action.payload])
+  state.abilities = state.abilities.concat({ability: Abilities[action.payload]})
+}
+
+const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>> = (state, action) => {
+  state.abilities = action.payload.reduce((accum, ability) => {
+    accum.push(ability)
+    return accum
+  }, [] as TAddedAbility[])
 }
 
 export const warscrollSlice = createSlice({
@@ -55,9 +48,22 @@ export const warscrollSlice = createSlice({
     resetWarscroll: () => initialState,
     setAncestryByKey,
     setArmyKeywords,
-    setArchetypeByKey,
     setTitle,
     addAbilityByKey,
+    setAbilities,
+    setArchetypeByKey(state, { payload }: PayloadAction<string>) {
+      const archetype = Archetypes[payload]
+      state.archetype = archetype
+
+      archetype.grants.forEach(grant => {
+        const { grantType, abilityNames } = grant
+        if (grantType === AutomaticGrant) {
+          abilityNames.forEach(abilityName => {
+            state.abilities.push({ability: Abilities[abilityName], source: archetype})
+          })
+        }
+      })
+    }
   },
 })
 
@@ -65,3 +71,23 @@ export const warscrollActions = warscrollSlice.actions
 export const selectWarscroll = (state: IStore): IWarscrollSlice => state.warscroll
 
 export default warscrollSlice.reducer
+
+
+export const updateArchetype = (
+  name: string
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  console.log('HELLO')
+  const state = getState()
+  const {warscroll} = state
+  const {archetype, abilities} = warscroll
+  if (archetype) {
+    const abilitiesToKeep = abilities.reduce((accum, ability) => {
+      if (ability.source !== archetype) {
+        accum.push(ability)
+      }
+      return accum
+    }, [] as TAddedAbility[])
+    dispatch(warscrollActions.setAbilities(abilitiesToKeep))
+  }
+  dispatch(warscrollActions.setArchetypeByKey(name))
+}

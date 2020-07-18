@@ -8,6 +8,11 @@ export type TAbility = {
 }
 export type TAbilities = Record<string, TAbility>
 
+export type TAddedAbility = {
+  ability: TAbility
+  source?: TArchetype
+}
+
 export type TAncestry = {
   name: string
   keywords: TKeyword[]

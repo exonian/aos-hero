@@ -6,13 +6,14 @@ import storage from 'redux-persist/lib/storage'
 import warscrollReducer from './warscroll'
 
 const persistConfig = {
-  key: 'root',
+  key: 'root-v200718b',
   storage,
 }
 
 const rootReducer = combineReducers({
     warscroll: warscrollReducer,
 })
+export type RootState = ReturnType<typeof rootReducer>
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

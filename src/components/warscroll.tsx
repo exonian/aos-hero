@@ -19,7 +19,7 @@ export const WarscrollComponent: React.FC = () => {
           { combinedKeywords.join(', ') }
         </p>
       : ''}
-      <AbilitiesComponent abilities={abilities} />
+      <AbilitiesComponent addedAbilities={abilities} />
     </div>
   )
 }

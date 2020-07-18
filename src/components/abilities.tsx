@@ -1,18 +1,18 @@
 import React from 'react'
-import { TAbility } from '../types/data';
+import { TAddedAbility } from '../types/data';
 import { AbilityComponent } from './ability';
 
 interface IAbilitiesProps {
-  abilities: TAbility[]
+  addedAbilities: TAddedAbility[]
 }
 
 export const AbilitiesComponent: React.FC<IAbilitiesProps> = props => {
-  const { abilities } = props
+  const { addedAbilities } = props
 
   return (
     <>
-      {abilities.map((ability, i) => {
-        return <AbilityComponent ability={ability} />
+      {addedAbilities.map((addedAbility, i) => {
+        return <AbilityComponent addedAbility={addedAbility} key={addedAbility.ability.name} />
       })}
     </>
   )

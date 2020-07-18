@@ -1,7 +1,13 @@
-import warscroll, { warscrollActions, initialState } from '../../ducks/warscroll'
+import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store'
+
+import warscroll, { warscrollActions, initialState, updateArchetype } from '../../ducks/warscroll'
 import { Ancestries } from '../../data/ancestries';
 import { Abilities } from '../../data/abilities';
 import { Archetypes } from '../../data/archetypes';
+
+const middlewares = [thunk]
+const mockStore = configureStore(middlewares)
 
 it('should handle setAncestryByKey', () => {
   const { setAncestryByKey } = warscrollActions
@@ -78,7 +84,7 @@ it('should handle addAbilityByKey', () => {
       "armyKeywords": [],
       "title": "Untitled",
       "archetype": null,
-      "abilities": [Abilities["Divine Prayers"]],
+      "abilities": [{ability: Abilities["Divine Prayers"]}],
     }
   )
   expect(
@@ -88,7 +94,7 @@ it('should handle addAbilityByKey', () => {
         "armyKeywords": [],
         "title": "Untitled",
         "archetype": null,
-        "abilities": [Abilities["Divine Prayers"]],
+        "abilities": [{ability: Abilities["Divine Prayers"]}],
       }
     , {
       type: addAbilityByKey.type,
@@ -100,27 +106,7 @@ it('should handle addAbilityByKey', () => {
       "armyKeywords": [],
       "title": "Untitled",
       "archetype": null,
-      "abilities": [Abilities["Divine Prayers"], Abilities["Wrathful Invocation"]],
-    }
-  )
-})
-
-it('should handle setArchetypeByKey', () => {
-  const { setArchetypeByKey } = warscrollActions
-  expect(
-    warscroll(
-      initialState
-    , {
-      type: setArchetypeByKey.type,
-      payload: 'Acolyte',
-    })
-  ).toEqual(
-    {
-      "ancestry": null,
-      "armyKeywords": [],
-      "title": "Untitled",
-      "archetype": Archetypes.Acolyte,
-      "abilities": [Abilities["Divine Prayers"]],
+      "abilities": [{ability: Abilities["Divine Prayers"]}, {ability: Abilities["Wrathful Invocation"]}],
     }
   )
 })

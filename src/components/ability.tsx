@@ -1,12 +1,13 @@
 import React from 'react'
-import { TAbility } from '../types/data';
+import { TAddedAbility } from '../types/data';
 
 interface IAbilityProps {
-  ability: TAbility
+  addedAbility: TAddedAbility
 }
 
 export const AbilityComponent: React.FC<IAbilityProps> = props => {
-  const { ability } = props
+  const { addedAbility } = props
+  const ability = addedAbility.ability
 
   return (
     <div>
