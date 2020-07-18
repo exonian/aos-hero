@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { selectWarscroll } from '../ducks/warscroll'
-import { Abilities } from '../data/abilities';
 import { AbilitiesComponent } from './abilities';
 
 export const WarscrollComponent: React.FC = () => {

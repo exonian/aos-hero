@@ -1,4 +1,4 @@
-import { TAbilities, TAbility } from "../types/data";
+import { TAbilities } from "../types/data";
 
 export const Abilities: TAbilities = {
   // Commander archetype

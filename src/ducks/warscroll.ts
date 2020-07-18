@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { TGrants, AutomaticGrant, TAbility, TAbilities } from '../types/data';
+import { AutomaticGrant } from '../types/data';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -32,7 +32,7 @@ const setArchetypeByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (
 
   archetype.grants.forEach(grant => {
     const { grantType, abilityNames } = grant
-    if (grantType == AutomaticGrant) {
+    if (grantType === AutomaticGrant) {
       abilityNames.forEach(abilityName => {
         state.abilities.push(Abilities[abilityName])
       })
