@@ -20,11 +20,19 @@ export type TAncestry = {
 }
 export type TAncestries = Record<string, TAncestry>
 
+export const AutomaticGrant = "automatic"
+export const ChooseOneGrant = "chooseOne"
+export type TGrantType = "automatic"|"chooseOne"
+export type TGrants = {
+  grantType: TGrantType
+  abilityNames: string[]
+}
+
 export type TArchetype = {
   name: string
   keywords: TKeyword[]
   exclusions: TKeyword[]
   exclusionExceptions?: TKeyword[]
-  grants: (string | string[])[]
+  grants: TGrants[]
 }
 export type TArchetypes = Record<string, TArchetype>

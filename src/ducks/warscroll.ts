@@ -4,6 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
+import { TGrants, AutomaticGrant, TAbility, TAbilities } from '../types/data';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -25,7 +26,18 @@ const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (
 }
 
 const setArchetypeByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  state.archetype = Archetypes[action.payload]
+  const archetype = Archetypes[action.payload]
+  state.archetype = archetype
+  state.abilities = []
+
+  archetype.grants.forEach(grant => {
+    const { grantType, abilityNames } = grant
+    if (grantType == AutomaticGrant) {
+      abilityNames.forEach(abilityName => {
+        state.abilities.push(Abilities[abilityName])
+      })
+    }
+  })
 }
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {

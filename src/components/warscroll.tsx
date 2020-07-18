@@ -2,9 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { selectWarscroll } from '../ducks/warscroll'
+import { Abilities } from '../data/abilities';
+import { AbilitiesComponent } from './abilities';
 
 export const WarscrollComponent: React.FC = () => {
-  const { ancestry, archetype, armyKeywords, title } = useSelector(selectWarscroll)
+  const { abilities, ancestry, archetype, armyKeywords, title } = useSelector(selectWarscroll)
   const ancestryKeywords = ancestry ? ancestry.keywords : []
   const archetypeKeywords = archetype ? archetype.keywords : []
   const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
@@ -18,6 +20,7 @@ export const WarscrollComponent: React.FC = () => {
           { combinedKeywords.join(', ') }
         </p>
       : ''}
+      <AbilitiesComponent abilities={abilities} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import warscroll, { warscrollActions, initialState } from '../../ducks/warscroll'
 import { Ancestries } from '../../data/ancestries';
 import { Abilities } from '../../data/abilities';
+import { Archetypes } from '../../data/archetypes';
 
 it('should handle setAncestryByKey', () => {
   const { setAncestryByKey } = warscrollActions
@@ -100,6 +101,26 @@ it('should handle addAbilityByKey', () => {
       "title": "Untitled",
       "archetype": null,
       "abilities": [Abilities["Divine Prayers"], Abilities["Wrathful Invocation"]],
+    }
+  )
+})
+
+it('should handle setArchetypeByKey', () => {
+  const { setArchetypeByKey } = warscrollActions
+  expect(
+    warscroll(
+      initialState
+    , {
+      type: setArchetypeByKey.type,
+      payload: 'Acolyte',
+    })
+  ).toEqual(
+    {
+      "ancestry": null,
+      "armyKeywords": [],
+      "title": "Untitled",
+      "archetype": Archetypes.Acolyte,
+      "abilities": [Abilities["Divine Prayers"]],
     }
   )
 })

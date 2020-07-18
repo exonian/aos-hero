@@ -1,18 +1,32 @@
-import { TArchetypes } from "../types/data";
+import { TArchetypes, AutomaticGrant, ChooseOneGrant } from "../types/data";
 
 export const Archetypes: TArchetypes = {
   "Commander" : {
     name: `Commander`,
     keywords: [],
     exclusions: [`DEATHMAGE`, `MASTERCLAN`],
-    grants: [["Lead the Attack", "Lead the Defence"]],
+    grants: [
+      {
+        grantType: ChooseOneGrant,
+        abilityNames: ["Lead the Attack", "Lead the Defence"],
+      },
+    ]
   },
   "Acolyte" : {
     name: `Acolyte`,
     keywords: [`PRIEST`],
     exclusions: [`DAEMON`, `DEATHMAGE`, `SAURUS`, `SKAVEN`],
     exclusionExceptions: [`CLANS PESTILENS`],
-    grants: ["Divine Prayers", ["Wrathful Invocation", "Shield of Faith"]],
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Divine Prayers"],
+      },
+      {
+        grantType: ChooseOneGrant,
+        abilityNames: ["Wrathful Invocation", "Shield of Faith"],
+      },
+    ]
   },
   "Mage" : {
     name: `Mage`,
