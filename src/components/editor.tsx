@@ -15,7 +15,7 @@ export const EditorComponent: React.FC = () => {
       <TitleInput />
       <AncestryInput />
       { ancestry && ancestry.armyKeywords && <ArmyKeywordInput /> }
-      { ancestry && (armyKeywords.length > 0 || !ancestry.armyKeywords ) && <ArchetypeInput /> }
+      { ancestry && <ArchetypeInput /> }
     </div>
   )
 }
