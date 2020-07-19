@@ -79,7 +79,7 @@ export const updateArchetype = (
   const {archetype, abilities} = warscroll
   if (archetype) {
     const abilitiesToKeep = abilities.reduce((accum, ability) => {
-      if (ability.source !== archetype) {
+      if (!ability.source || ability.source.name !== archetype.name) {
         accum.push(ability)
       }
       return accum
