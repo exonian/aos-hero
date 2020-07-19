@@ -76,7 +76,6 @@ export default warscrollSlice.reducer
 export const updateArchetype = (
   name: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  console.log('HELLO')
   const state = getState()
   const {warscroll} = state
   const {archetype, abilities} = warscroll
