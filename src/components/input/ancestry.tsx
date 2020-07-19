@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Ancestries } from '../../data/ancestries'
 import { convertToOptions } from './select';
-import { selectWarscroll, changeAncestry } from '../../ducks/warscroll';
+import { warscrollActions, selectWarscroll } from '../../ducks/warscroll';
 import { TAncestry } from '../../types/data';
 import { titleCase } from '../../utils/text';
 
@@ -14,15 +14,16 @@ const nameAndCostFn = (item: TAncestry): string => { return titleCase(item.name)
 
 export const AncestryInput: React.FC = () => {
   const options = convertToOptions(Object.values(Ancestries), nameFn, nameAndCostFn)
+  const { setAncestryByKey } = warscrollActions
   const dispatch = useDispatch()
   const { ancestry } = useSelector(selectWarscroll)
   const ancestryValue = ancestry ? convertToOptions([ancestry], nameFn, nameAndCostFn)[0] : ancestry
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(changeAncestry(args[0].value))
+      dispatch(setAncestryByKey(args[0].value))
     },
-    [dispatch]
+    [dispatch, setAncestryByKey]
   )
 
   return (
