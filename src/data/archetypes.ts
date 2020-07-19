@@ -32,6 +32,15 @@ export const Archetypes: TArchetypes = {
     name: `Mage`,
     keywords: [`WIZARD`],
     exclusions: [`DUARDIN`, `KHORNE`, `SAURUS`],
-    grants: [],
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Magic"],
+      },
+      {
+        grantType: ChooseOneGrant,
+        abilityNames: ["Aura of Protection", "Curse of Damnation", "Wildfire", "Raise Dead"],
+      },
+    ]
   },
 }

@@ -6,6 +6,8 @@ import { convertToOptions } from './select';
 import { selectWarscroll, updateArchetype } from '../../ducks/warscroll';
 import { Archetypes } from '../../data/archetypes';
 import { filterByRestrictions } from '../../utils/restrictions';
+import { ChooseOneGrant } from '../../types/data';
+import { AbilityInput } from './ability';
 
 export const ArchetypeInput: React.FC = () => {
   const { ancestry, archetype, armyKeywords } = useSelector(selectWarscroll)
@@ -17,6 +19,7 @@ export const ArchetypeInput: React.FC = () => {
   const options = convertToOptions(Object.keys(archetypes))
   const dispatch = useDispatch()
   const archetypeValue = archetype ? convertToOptions([archetype.name])[0] : archetype
+  const grantChoices = archetype ? archetype.grants.filter(grant => grant.grantType === ChooseOneGrant) : []
 
   const handleChange = useCallback(
     (...args) => {
@@ -26,10 +29,15 @@ export const ArchetypeInput: React.FC = () => {
   )
 
   return (
-    <Select
-      options={options}
-      onChange={handleChange}
-      value={archetypeValue}
-    />
+    <>
+      <Select
+        options={options}
+        onChange={handleChange}
+        value={archetypeValue}
+      />
+      {grantChoices.map((grant, i) => {
+        return <AbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
+      })}
+    </>
   )
 }

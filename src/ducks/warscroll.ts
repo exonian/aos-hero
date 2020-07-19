@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype } from '../types/data';
 import { RootState } from './store';
 
 export const initialState: IWarscrollSlice = {
@@ -57,7 +57,7 @@ export const warscrollSlice = createSlice({
         const { grantType, abilityNames } = grant
         if (grantType === AutomaticGrant) {
           abilityNames.forEach(abilityName => {
-            state.abilities.push({ability: Abilities[abilityName], source: archetype})
+            state.abilities.push({ability: Abilities[abilityName], source: archetype.name})
           })
         }
       })
@@ -78,13 +78,35 @@ export const updateArchetype = (
   const {warscroll} = state
   const {archetype, abilities} = warscroll
   if (archetype) {
-    const abilitiesToKeep = abilities.reduce((accum, ability) => {
-      if (!ability.source || ability.source.name !== archetype.name) {
-        accum.push(ability)
-      }
-      return accum
-    }, [] as TAddedAbility[])
+    const abilitiesToKeep = abilities.filter(ability => {
+      return ability.source !== archetype.name
+    })
     dispatch(warscrollActions.setAbilities(abilitiesToKeep))
   }
   dispatch(warscrollActions.setArchetypeByKey(name))
+}
+
+export const changeAbility = (
+  name: string,
+  source?: TArchetype|null,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+  const abilitiesToKeep = source ?
+    abilities.filter(ability => {
+      return ability.source !== source.name
+    }) : abilities
+  const ability = {'ability': Abilities[name], 'source': source ? source.name : ''}
+  const automaticAbilities = source ? source.grants.reduce((accum, grant) => {
+    const { grantType, abilityNames } = grant
+    if (grantType === AutomaticGrant) {
+      abilityNames.forEach(abilityName => {
+        accum.push({ability: Abilities[abilityName], source: source.name})
+      })
+    }
+    return accum
+  }, [] as TAddedAbility[]) : []
+  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities, ability)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
 }

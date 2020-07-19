@@ -10,7 +10,7 @@ export type TAbilities = Record<string, TAbility>
 
 export type TAddedAbility = {
   ability: TAbility
-  source?: TArchetype
+  source?: string
 }
 
 export type TAncestry = {
