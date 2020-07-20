@@ -1,28 +1,28 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router';
+
 import './App.css';
+import Anvil from './components/routes/anvil';
+import fourOhFour from './components/routes/fourOhFour';
 
-import { EditorComponent } from './components/editor';
-import { WarscrollComponent } from './components/warscroll'
+export const ROUTES = {
+  ANVIL: '/',
+}
 
-function App() {
+const App = () => {
   return (
-    <div className="container">
-      <div className="jumbotron jumbotron-fluid text-center">
-        <h1>
-          AoS Hero
-        </h1>
-        <p>Sculpt your custom hero on the Anvil of Apotheosis</p>
-      </div>
-      <div className="row">
-        <div className="col-md">
-          <WarscrollComponent />
-        </div>
-        <div className="col-md">
-          <EditorComponent />
-        </div>
-      </div>
+    <div className={`d-block`}>
+      <BrowserRouter>
+        <Switch>
+          {/* The hero builder */}
+          <Route path={ROUTES.ANVIL} exact component={Anvil} />
+          {/* The hero builder */}
+          <Route component={fourOhFour} />
+        </Switch>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App;
