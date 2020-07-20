@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { WarscrollComponent } from "../warscroll";
 import { EditorComponent } from "../editor";
+import { logPageView } from '../../utils/analytics';
 
 const Anvil: React.FC = () => {
+
+  useEffect(() => {
+    logPageView()
+  }, [])
+
   return (
     <div className="container">
       <div className="jumbotron jumbotron-fluid text-center">

@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../App';
+import { logPageView } from '../../utils/analytics';
 
-const fourOhFour: React.FC = () => {
+const FourOhFour: React.FC = () => {
+
+  useEffect(() => {
+    logPageView()
+  }, [])
+
   return (
     <div className="container">
       <div className="jumbotron jumbotron-fluid text-center">
@@ -15,4 +21,4 @@ const fourOhFour: React.FC = () => {
   )
 }
 
-export default fourOhFour
+export default FourOhFour

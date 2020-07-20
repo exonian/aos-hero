@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router';
 
 import './App.css';
 import Anvil from './components/routes/anvil';
-import fourOhFour from './components/routes/fourOhFour';
+import FourOhFour from './components/routes/fourOhFour';
 
 export const ROUTES = {
   ANVIL: '/',
@@ -18,7 +18,7 @@ const App = () => {
           {/* The hero builder */}
           <Route path={ROUTES.ANVIL} exact component={Anvil} />
           {/* The hero builder */}
-          <Route component={fourOhFour} />
+          <Route component={FourOhFour} />
         </Switch>
       </BrowserRouter>
     </div>
