@@ -8,6 +8,7 @@ import { Archetypes } from '../../data/archetypes';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { ChooseOneGrant } from '../../types/data';
 import { AbilityInput } from './ability';
+import { logSelection } from '../../utils/analytics';
 
 export const ArchetypeInput: React.FC = () => {
   const { ancestry, archetype, armyKeywords } = useSelector(selectWarscroll)
@@ -24,6 +25,7 @@ export const ArchetypeInput: React.FC = () => {
   const handleChange = useCallback(
     (...args) => {
       dispatch(updateArchetype(args[0].value))
+      logSelection('Archetype', args[0].value)
     },
     [dispatch]
   )

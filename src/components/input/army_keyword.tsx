@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { convertToOptions, } from './select';
 import { warscrollActions, selectWarscroll } from '../../ducks/warscroll';
 import { titleCase } from '../../utils/text';
+import { logSelection } from '../../utils/analytics';
 
 
 const pipeJoinStrings = (item: string[]): string => { return item.join('|') }
@@ -22,7 +23,9 @@ export const ArmyKeywordInput: React.FC = () => {
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(setArmyKeywords(args[0].value.split('|')))
+      const value = args[0].value.split('|')
+      dispatch(setArmyKeywords(value))
+      logSelection('Army Keywords', value)
     },
     [dispatch, setArmyKeywords]
   )

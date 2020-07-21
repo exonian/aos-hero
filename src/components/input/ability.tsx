@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { convertToOptions } from './select';
 import { selectWarscroll, changeAbility } from '../../ducks/warscroll';
 import { TArchetype } from '../../types/data';
+import { logSelection } from '../../utils/analytics';
 
 
 interface IAbilityInputProps {
@@ -25,6 +26,7 @@ export const AbilityInput: React.FC<IAbilityInputProps> = props => {
   const handleChange = useCallback(
     (...args) => {
       dispatch(changeAbility(args[0].value, source))
+      logSelection('Ability', args[0].value)
     },
     [dispatch, source]
   )

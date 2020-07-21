@@ -7,6 +7,7 @@ import { convertToOptions } from './select';
 import { warscrollActions, selectWarscroll } from '../../ducks/warscroll';
 import { TAncestry } from '../../types/data';
 import { titleCase } from '../../utils/text';
+import { logSelection } from '../../utils/analytics';
 
 
 const nameFn = (item: TAncestry): string => { return item.name }
@@ -21,7 +22,9 @@ export const AncestryInput: React.FC = () => {
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(setAncestryByKey(args[0].value))
+      const value = args[0].value
+      dispatch(setAncestryByKey(value))
+      logSelection('Ancestry', value)
     },
     [dispatch, setAncestryByKey]
   )

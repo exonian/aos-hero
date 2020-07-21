@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectWarscroll, warscrollActions } from "../../ducks/warscroll";
+import { logSelection } from "../../utils/analytics";
 
 export const TitleInput: React.FC = () => {
   const { title } = useSelector(selectWarscroll)
   const { setTitle } = warscrollActions
   const dispatch = useDispatch()
+
+  const handleChange = useCallback(
+    (event: { target: { value: any; }; }) => {
+      const value = event.target.value
+      dispatch(setTitle(value))
+      logSelection('Title', value)
+    },
+    [dispatch, setTitle]
+  )
 
   return (
     <input
@@ -14,7 +24,7 @@ export const TitleInput: React.FC = () => {
       placeholder="Name your hero"
       type="text"
       value={title}
-      onChange={event => dispatch(setTitle(event.target.value))}
+      onChange={handleChange}
       tabIndex={0}
       autoFocus
     /> 
