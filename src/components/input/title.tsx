@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectWarscroll, warscrollActions } from "../../ducks/warscroll";
-import { logSelection } from "../../utils/analytics";
+import { logRename } from "../../utils/analytics";
 
 export const TitleInput: React.FC = () => {
   const { title } = useSelector(selectWarscroll)
@@ -13,7 +13,17 @@ export const TitleInput: React.FC = () => {
     (event: { target: { value: any; }; }) => {
       const value = event.target.value
       dispatch(setTitle(value))
-      logSelection('Title', value)
+    },
+    [dispatch, setTitle]
+  )
+
+  const handleBlur = useCallback(
+    e => {
+      const value = e.target.value
+      if (!value) {
+        dispatch(setTitle('Untitled'))
+      }
+      logRename('Title', value)
     },
     [dispatch, setTitle]
   )
@@ -25,6 +35,7 @@ export const TitleInput: React.FC = () => {
       type="text"
       value={title}
       onChange={handleChange}
+      onBlur={handleBlur}
       tabIndex={0}
       autoFocus
     /> 

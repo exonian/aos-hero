@@ -29,7 +29,8 @@ const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, ac
 }
 
 const addAbilityByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  state.abilities = state.abilities.concat({ability: Abilities[action.payload]})
+  const name = action.payload
+  state.abilities = state.abilities.concat({ability: Abilities[name], customName: name})
 }
 
 const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>> = (state, action) => {
@@ -57,7 +58,7 @@ export const warscrollSlice = createSlice({
         const { grantType, abilityNames } = grant
         if (grantType === AutomaticGrant) {
           abilityNames.forEach(abilityName => {
-            state.abilities.push({ability: Abilities[abilityName], source: archetype.name})
+            state.abilities.push({ability: Abilities[abilityName], source: archetype.name, customName: abilityName})
           })
         }
       })
@@ -97,12 +98,12 @@ export const changeAbility = (
     abilities.filter(ability => {
       return ability.source !== source.name
     }) : abilities
-  const ability = {'ability': Abilities[name], 'source': source ? source.name : ''}
+  const ability = {'ability': Abilities[name], 'source': source ? source.name : '', customName: name}
   const automaticAbilities = source ? source.grants.reduce((accum, grant) => {
     const { grantType, abilityNames } = grant
     if (grantType === AutomaticGrant) {
       abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: source.name})
+        accum.push({ability: Abilities[abilityName], source: source.name, customName: abilityName})
       })
     }
     return accum

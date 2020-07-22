@@ -84,7 +84,7 @@ it('should handle addAbilityByKey', () => {
       "armyKeywords": [],
       "title": "Untitled",
       "archetype": null,
-      "abilities": [{ability: Abilities["Divine Prayers"]}],
+      "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
     }
   )
   expect(
@@ -94,7 +94,7 @@ it('should handle addAbilityByKey', () => {
         "armyKeywords": [],
         "title": "Untitled",
         "archetype": null,
-        "abilities": [{ability: Abilities["Divine Prayers"]}],
+        "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
       }
     , {
       type: addAbilityByKey.type,
@@ -106,7 +106,10 @@ it('should handle addAbilityByKey', () => {
       "armyKeywords": [],
       "title": "Untitled",
       "archetype": null,
-      "abilities": [{ability: Abilities["Divine Prayers"]}, {ability: Abilities["Wrathful Invocation"]}],
+      "abilities": [
+        {ability: Abilities["Divine Prayers"], customName:"Divine Prayers"},
+        {ability: Abilities["Wrathful Invocation"], customName:"Wrathful Invocation"},
+      ],
     }
   )
 })

@@ -30,7 +30,7 @@ const logToGA = (event: { category: string; action: string; label: string }) => 
 }
 
 /**
- * Used for logging individual units, traits, abilities, etc
+ * Used for logging selection of ancestries, archetypes etc
  * @param type
  * @param name
  */
@@ -41,5 +41,20 @@ export const logSelection = (type: string, name: string) => {
     category: `${type}`,
     action: `Selection`,
     label: `${name}`,
+  })
+}
+
+/**
+ * Used for logging selection of ancestries, archetypes etc
+ * @param original
+ * @param custom
+ */
+export const logRename = (original: string, custom: string) => {
+  if (!original || !custom) return
+
+  logToGA({
+    category: `${original}`,
+    action: `Rename`,
+    label: `${custom}`,
   })
 }
