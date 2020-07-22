@@ -1,6 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Codeship Status for exonian/aos-hero](https://app.codeship.com/projects/cfe2ed80-a89e-0138-8418-02f3d218284f/status?branch=main)](https://app.codeship.com/projects/402964)
 
-## Available Scripts
+## Project Trajectory
+At the moment, I am building out the functionality.
+- If you spot anything missing, don't worry about it for now :)
+- If you spot anything definitely wrong, feel free to create an issue or get in touch with me, eg [on Twitter](https://twitter.com/rogue_michael)
+
+I'm not currently inviting assistance with new features, as this is in part a learning project for me.
+
+
+## Technical stuff
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
