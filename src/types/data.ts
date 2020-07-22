@@ -5,12 +5,14 @@ export type TAbility = {
   description: string
   cost?: number
   exclusions?: TKeyword[]
+  cannotRename?: boolean
 }
 export type TAbilities = Record<string, TAbility>
 
 export type TAddedAbility = {
   ability: TAbility
   source?: string
+  customName?: string
 }
 
 export type TAncestry = {

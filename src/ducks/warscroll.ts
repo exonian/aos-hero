@@ -110,3 +110,21 @@ export const changeAbility = (
   const combinedAbilities = abilitiesToKeep.concat(automaticAbilities, ability)
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
+
+export const editAbilityCustomName = (
+  keyName: string,
+  customName: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+  const abilitiesWithEdit = abilities.map((addedAbility, i) => {
+    if (addedAbility.ability.name === keyName) {
+      return Object.assign({}, addedAbility, {
+        customName: customName
+      })
+    }
+    else return addedAbility
+  }, [] as TAddedAbility[])
+  dispatch(warscrollActions.setAbilities(abilitiesWithEdit))
+}
