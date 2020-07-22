@@ -44,4 +44,12 @@ export const Abilities: TAbilities = {
     name: `Raise Dead`,
     description: `Raise Dead has a casting value of 6. If successfully cast, pick 1 friendly unit within 12" of the caster and visible to them. You may return a number of slain models that have a combined Wounds characteristic of D3 or less to that unit.`
   },
+  "Arcane Bolt" : {
+    name: `Arcane Bolt`,
+    description: `Arcane Bolt has a casting value of 5. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them. That unit suffers 1 mortal wound. If the casting roll was 10 or more, the unit suffers D3 mortal wounds instead`
+  },
+  "Mystic Shield" : {
+    name: `Mystic Shield`,
+    description: `Mystic Shield has a casting value of 6. If successfully cast, pick a friendly unit within 18" of the caster and visible to them. Re-roll save rolls of 1 for that unit until your next hero phase.`
+  },
 }

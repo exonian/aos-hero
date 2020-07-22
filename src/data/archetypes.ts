@@ -35,7 +35,7 @@ export const Archetypes: TArchetypes = {
     grants: [
       {
         grantType: AutomaticGrant,
-        abilityNames: ["Magic"],
+        abilityNames: ["Magic", "Arcane Bolt", "Mystic Shield"],
       },
       {
         grantType: ChooseOneGrant,
