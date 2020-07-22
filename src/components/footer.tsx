@@ -14,7 +14,7 @@ export default FooterComponent
 const DisclaimerComponent = () => {
   return (
     <div className={`row justify-content-center text-center`}>
-      <div className="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+      <div className="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
         <small>
           Disclaimer: This tool is in no way endorsed or sanctioned by Games Workshop - it is unofficial and fan-made.<br />
           I take absolutely no credit for any of the Games Workshop content displayed above.<br />
