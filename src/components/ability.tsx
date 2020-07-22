@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { TAddedAbility } from '../types/data';
 import { editAbilityCustomName } from '../ducks/warscroll';
 import { logRename } from '../utils/analytics';
+import { replaceSpecialChars } from '../utils/text';
 
 interface IAbilityProps {
   addedAbility: TAddedAbility
@@ -26,7 +27,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
 
   const handleCustomNameBlur = useCallback(
     e => {
-      const value = e.target.innerHTML
+      const value = replaceSpecialChars(e.target.innerHTML)
       if (!value) {
         dispatch(editAbilityCustomName(ability.name, ability.name))
       }
@@ -44,7 +45,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
         onBlur={handleCustomNameBlur}
         tagName='h4'
       />
-      <p>{ability.description.replace("<NAME>", customName)}</p>
+      <p>{ability.description.replace("<NAME>", replaceSpecialChars(customName))}</p>
     </div>
   )
 }
