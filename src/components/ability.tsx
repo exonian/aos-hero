@@ -33,7 +33,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
         onChange={handleCustomNameChange}
         tagName='h4'
       />
-      <p>{ability.description}</p>
+      <p>{ability.description.replace("<NAME>", customName)}</p>
     </div>
   )
 }

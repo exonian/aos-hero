@@ -31,19 +31,19 @@ export const Abilities: TAbilities = {
   },
   "Aura of Protection" : {
     name: `Aura of Protection`,
-    description: `Aura of Protection has a casting value of 7. If successfully cast, until the start of your next hero phase, roll a dice each time a wound or mortal wound is allocated to a friendly unit wholly within 12" of the caster. On a 6, that wound or mortal wound is negated.`,
+    description: `<NAME> has a casting value of 7. If successfully cast, until the start of your next hero phase, roll a dice each time a wound or mortal wound is allocated to a friendly unit wholly within 12" of the caster. On a 6, that wound or mortal wound is negated.`,
   },
   "Curse of Damnation" : {
     name: `Curse of Damnation`,
-    description: `Curse of Damnation has a casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster and visible to them. That unit suffers D3 mortal wounds. In addition, subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
+    description: `<NAME> has a casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster and visible to them. That unit suffers D3 mortal wounds. In addition, subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
   },
   "Wildfire" : {
     name: `Wildfire`,
-    description: `Wildfire has a casting value of 6. If successfully cast, pick 1 enemy unit. Roll 1 dice for each model in that unit that is within 12" of the caster and visible to them. For each 5+, that unit suffers 1 mortal wound. If that unit has only 1 model, roll 3 dice instead of 1.`,
+    description: `<NAME> has a casting value of 6. If successfully cast, pick 1 enemy unit. Roll 1 dice for each model in that unit that is within 12" of the caster and visible to them. For each 5+, that unit suffers 1 mortal wound. If that unit has only 1 model, roll 3 dice instead of 1.`,
   },
   "Raise Dead" : {
     name: `Raise Dead`,
-    description: `Raise Dead has a casting value of 6. If successfully cast, pick 1 friendly unit within 12" of the caster and visible to them. You may return a number of slain models that have a combined Wounds characteristic of D3 or less to that unit.`,
+    description: `<NAME> has a casting value of 6. If successfully cast, pick 1 friendly unit within 12" of the caster and visible to them. You may return a number of slain models that have a combined Wounds characteristic of D3 or less to that unit.`,
   },
   "Arcane Bolt" : {
     name: `Arcane Bolt`,
