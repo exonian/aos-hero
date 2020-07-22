@@ -1,1 +1,14 @@
-@import "~bootstrap/scss/bootstrap"
+$themeLightBlue: #15bcff;
+
+@import "~bootstrap/scss/bootstrap";
+
+
+*[contenteditable="true"] {
+  outline: 0px solid $themeLightBlue;
+  &:hover {
+    outline-width: 1px;
+  }
+  &:focus {
+    outline-width: 2px;
+  }
+}
