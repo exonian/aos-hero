@@ -9,6 +9,7 @@ import { filterByRestrictions } from '../../utils/restrictions';
 import { ChooseOneGrant } from '../../types/data';
 import { AbilityInput } from './ability';
 import { logSelection } from '../../utils/analytics';
+import { errorStyle } from '../selectStyles';
 
 export const ArchetypeInput: React.FC = () => {
   const { ancestry, archetype, armyKeywords } = useSelector(selectWarscroll)
@@ -21,6 +22,7 @@ export const ArchetypeInput: React.FC = () => {
   const dispatch = useDispatch()
   const archetypeValue = archetype ? convertToOptions([archetype.name])[0] : archetype
   const grantChoices = archetype ? archetype.grants.filter(grant => grant.grantType === ChooseOneGrant) : []
+  const valid = archetype ? Object.keys(archetypes).includes(archetype.name) : true
 
   const handleChange = useCallback(
     (...args) => {
@@ -36,6 +38,7 @@ export const ArchetypeInput: React.FC = () => {
         options={options}
         onChange={handleChange}
         value={archetypeValue}
+        styles={valid ? {} : errorStyle}
       />
       {grantChoices.map((grant, i) => {
         return <AbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
