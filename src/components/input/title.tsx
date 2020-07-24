@@ -37,7 +37,6 @@ export const TitleInput: React.FC = () => {
       onChange={handleChange}
       onBlur={handleBlur}
       tabIndex={0}
-      autoFocus
     /> 
   )
 }
