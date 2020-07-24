@@ -34,6 +34,7 @@ export const AncestryInput: React.FC = () => {
       options={options}
       onChange={handleChange}
       value={ancestryValue}
+      isSearchable={false}
     />
   )
 }

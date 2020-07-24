@@ -36,6 +36,7 @@ export const AbilityInput: React.FC<IAbilityInputProps> = props => {
       options={options}
       onChange={handleChange}
       value={abilityValue}
+      isSearchable={false}
     />
   )
 }

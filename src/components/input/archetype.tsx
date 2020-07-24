@@ -39,6 +39,7 @@ export const ArchetypeInput: React.FC = () => {
         onChange={handleChange}
         value={archetypeValue}
         styles={valid ? {} : errorStyle}
+        isSearchable={false}
       />
       {grantChoices.map((grant, i) => {
         return <AbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />

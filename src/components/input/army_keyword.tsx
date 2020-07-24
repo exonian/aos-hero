@@ -35,6 +35,7 @@ export const ArmyKeywordInput: React.FC = () => {
       options={options}
       onChange={handleChange}
       value={armyKeywordValue}
+      isSearchable={false}
     />
   )
 }
