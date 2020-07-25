@@ -7,6 +7,7 @@ import { calculateSave } from '../../utils/save';
 import { TAbility } from '../../types/data';
 import { calculateCost } from '../../utils/cost';
 import { WeaponsComponent } from './weapons';
+import { DescriptionComponent } from './description';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
@@ -43,6 +44,7 @@ export const WarscrollComponent: React.FC = () => {
           </ul>
         </>
       : ''}
+      <DescriptionComponent />
       <WeaponsComponent />
       <AbilitiesComponent addedAbilities={abilities} />
     </div>

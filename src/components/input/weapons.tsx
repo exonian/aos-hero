@@ -10,4 +10,3 @@ export const WeaponInputs: React.FC = () => {
     </>
   )
 }
-
