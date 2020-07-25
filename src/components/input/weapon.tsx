@@ -7,7 +7,12 @@ import { logSelection } from '../../utils/analytics';
 import { selectWarscroll, changeWeapon, clearWeapon } from '../../ducks/warscroll';
 import { Weapons } from '../../data/weapons';
 import { filterByRestrictions } from '../../utils/restrictions';
-import { TWeapons } from '../../types/data';
+import { TWeapons, TWeapon } from '../../types/data';
+import { titleCase } from '../../utils/text';
+
+
+const nameFn = (item: TWeapon): string => { return item.name }
+const nameAndCostFn = (item: TWeapon): string => { return titleCase(item.name) + ' (' + item.cost  + 'DP)' }
 
 interface IWeaponInputProps {
   weaponField: "weaponOne" | "weaponTwo"
@@ -40,8 +45,8 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
     return accum
   }, {} as TWeapons) : unrestrictedWeapons
 
-  const options = [{value: '', label: '-----'}].concat(convertToOptions(Object.keys(compatibleWeapons)))
-  const value = currentWeapon ? convertToOptions([currentWeapon.weapon.name])[0] : null
+  const options = [{value: '', label: '-----'}].concat(convertToOptions(Object.values(compatibleWeapons), nameFn, nameAndCostFn))
+  const value = currentWeapon ? convertToOptions([currentWeapon.weapon], nameFn, nameAndCostFn)[0] : null
   const dispatch = useDispatch()
 
   const handleChange = useCallback(

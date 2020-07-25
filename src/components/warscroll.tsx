@@ -5,9 +5,11 @@ import { selectWarscroll } from '../ducks/warscroll'
 import { AbilitiesComponent } from './abilities';
 import { calculateSave } from '../utils/save';
 import { TAbility } from '../types/data';
+import { calculateCost } from '../utils/cost';
 
 export const WarscrollComponent: React.FC = () => {
-  const { abilities, ancestry, archetype, armyKeywords, title } = useSelector(selectWarscroll)
+  const warscrollState = useSelector(selectWarscroll)
+  const { abilities, ancestry, archetype, armyKeywords, title } = warscrollState
   const ancestryKeywords = ancestry ? ancestry.keywords : []
   const archetypeKeywords = archetype ? archetype.keywords : []
   const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
@@ -22,7 +24,7 @@ export const WarscrollComponent: React.FC = () => {
   const movement = ancestry ? ancestry.movement : null
   const save = calculateSave(statsInputs)
   const bravery = ancestry ? ancestry.bravery : null
-  const cost = ancestry ? ancestry.cost : 0
+  const cost = calculateCost(warscrollState)
 
   return (
     <div>

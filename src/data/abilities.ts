@@ -59,7 +59,6 @@ export const Abilities: TAbilities = {
   "Shield" : {
     name: `Shield`,
     description: `Improve your hero's save characteristic by 1`,
-    cost: 2,
     enhancement: true,
     characteristic: 'save',
     change: '+',
