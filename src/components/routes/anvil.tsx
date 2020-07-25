@@ -21,7 +21,7 @@ const Anvil: React.FC = () => {
         <p>Website by <a href="https://twitter.com/rogue_michael">Michael Blatherwick</a>, everything else from GHB 2020.</p>
       </div>
       <div className="row">
-        <div className="col-md-auto">
+        <div className="col-md-8">
           <WarscrollComponent />
         </div>
         <div className="col-md">
