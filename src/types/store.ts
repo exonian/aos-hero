@@ -1,4 +1,4 @@
-import { TAncestry, TKeyword, TArchetype, TAbility, TAddedAbility } from "./data";
+import { TAncestry, TKeyword, TArchetype, TAbility, TAddedAbility, TAddedWeapon } from "./data";
 
 export interface IWarscrollSlice {
   title: string
@@ -6,6 +6,8 @@ export interface IWarscrollSlice {
   armyKeywords: TKeyword[]
   archetype: TArchetype | null
   abilities: TAddedAbility[]
+  weaponOne: TAddedWeapon | null
+  weaponTwo: TAddedWeapon | null
 }
 
 export interface IStore {

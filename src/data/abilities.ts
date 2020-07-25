@@ -55,4 +55,14 @@ export const Abilities: TAbilities = {
     description: `Mystic Shield has a casting value of 6. If successfully cast, pick a friendly unit within 18" of the caster and visible to them. Re-roll save rolls of 1 for that unit until your next hero phase.`,
     cannotRename: true
   },
+  // Shield
+  "Shield" : {
+    name: `Shield`,
+    description: `Improve your hero's save characteristic by 1`,
+    cost: 2,
+    enhancement: true,
+    characteristic: 'save',
+    change: '+',
+    value: 1,
+  },
 }

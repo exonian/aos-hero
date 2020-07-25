@@ -4,8 +4,9 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon } from '../types/data';
 import { RootState } from './store';
+import { Weapons } from '../data/weapons';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -13,6 +14,8 @@ export const initialState: IWarscrollSlice = {
   armyKeywords: [],
   archetype: null,
   abilities: [],
+  weaponOne: null,
+  weaponTwo: null,
 }
 
 const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -40,6 +43,22 @@ const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>>
   }, [] as TAddedAbility[])
 }
 
+const setWeaponOne: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon>> = (state, action) => {
+  state.weaponOne = action.payload
+}
+
+const setWeaponTwo: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon>> = (state, action) => {
+  state.weaponTwo = action.payload
+}
+
+const clearWeaponOne: CaseReducer<IWarscrollSlice> = (state, action) => {
+  state.weaponOne = null
+}
+
+const clearWeaponTwo: CaseReducer<IWarscrollSlice> = (state, action) => {
+  state.weaponTwo = null
+}
+
 export const warscrollSlice = createSlice({
   name: 'warscroll',
   initialState,
@@ -50,6 +69,10 @@ export const warscrollSlice = createSlice({
     setTitle,
     addAbilityByKey,
     setAbilities,
+    setWeaponOne,
+    setWeaponTwo,
+    clearWeaponOne,
+    clearWeaponTwo,
     setArchetypeByKey(state, { payload }: PayloadAction<string>) {
       const archetype = Archetypes[payload]
       state.archetype = archetype
@@ -128,4 +151,57 @@ export const editAbilityCustomName = (
     else return addedAbility
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesWithEdit))
+}
+
+export const changeWeapon = (
+  weaponField: "weaponOne" | "weaponTwo",
+  name: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+  const currentWeapon = warscroll[weaponField]
+  const currentWeaponName = currentWeapon ? currentWeapon.weapon.name : null
+  const weapon = Weapons[name]
+
+  const abilitiesToKeep = currentWeaponName ?
+    abilities.filter(ability => {
+      return ability.source !== currentWeaponName
+    }) : abilities
+
+  const grantedAbilities = weapon.grants ? weapon.grants.reduce((accum, grant) => {
+    const { grantType, abilityNames } = grant
+    if (grantType === AutomaticGrant) {
+      abilityNames.forEach(abilityName => {
+        accum.push({ability: Abilities[abilityName], source: name, customName: name})
+      })
+    }
+    return accum
+  }, [] as TAddedAbility[]) : []
+
+  const combinedAbilities = abilitiesToKeep.concat(grantedAbilities)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
+
+  const addedWeapon = {'weapon': weapon, 'customName': weapon.name}
+  if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
+  if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
+}
+
+export const clearWeapon = (
+  weaponField: "weaponOne" | "weaponTwo",
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const currentWeapon = warscroll[weaponField]
+  const currentWeaponName = currentWeapon ? currentWeapon.weapon.name : null
+
+  const {abilities} = warscroll
+  const abilitiesToKeep = currentWeaponName ?
+    abilities.filter(ability => {
+      return ability.source !== currentWeaponName
+    }) : abilities
+  dispatch(warscrollActions.setAbilities(abilitiesToKeep))
+
+  if (weaponField === "weaponOne") dispatch(warscrollActions.clearWeaponOne())
+  if (weaponField === "weaponTwo") dispatch(warscrollActions.clearWeaponTwo())
 }

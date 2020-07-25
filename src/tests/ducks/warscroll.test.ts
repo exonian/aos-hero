@@ -23,6 +23,8 @@ it('should handle setAncestryByKey', () => {
       "ancestry": Ancestries.Duardin,
       "armyKeywords": [],
       "title": "Untitled",
+      "weaponOne": null,
+      "weaponTwo": null,
       "archetype": null,
       "abilities": [],
     }
@@ -43,6 +45,8 @@ it('should handle setArmyKeywords', () => {
       "ancestry": null,
       "armyKeywords": ['FYRESLAYERS'],
       "title": "Untitled",
+      "weaponOne": null,
+      "weaponTwo": null,
       "archetype": null,
       "abilities": [],
     }
@@ -63,6 +67,8 @@ it('should handle setTitle', () => {
       "ancestry": null,
       "armyKeywords": [],
       "title": "My First Hero",
+      "weaponOne": null,
+      "weaponTwo": null,
       "archetype": null,
       "abilities": [],
     }
@@ -83,6 +89,8 @@ it('should handle addAbilityByKey', () => {
       "ancestry": null,
       "armyKeywords": [],
       "title": "Untitled",
+      "weaponOne": null,
+      "weaponTwo": null,
       "archetype": null,
       "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
     }
@@ -93,6 +101,8 @@ it('should handle addAbilityByKey', () => {
         "ancestry": null,
         "armyKeywords": [],
         "title": "Untitled",
+        "weaponOne": null,
+        "weaponTwo": null,
         "archetype": null,
         "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
       }
@@ -105,6 +115,8 @@ it('should handle addAbilityByKey', () => {
       "ancestry": null,
       "armyKeywords": [],
       "title": "Untitled",
+      "weaponOne": null,
+      "weaponTwo": null,
       "archetype": null,
       "abilities": [
         {ability: Abilities["Divine Prayers"], customName:"Divine Prayers"},
