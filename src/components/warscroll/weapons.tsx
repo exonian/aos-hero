@@ -9,8 +9,8 @@ export const WeaponsComponent = () => {
 
   return (
     <>
-      <WeaponComponent addedWeapon={weaponOne} />
-      <WeaponComponent addedWeapon={weaponTwo} />
+      { weaponOne ? <WeaponComponent addedWeapon={weaponOne} weaponField="weaponOne" /> : null }
+      { weaponTwo ? <WeaponComponent addedWeapon={weaponTwo} weaponField="weaponTwo" /> : null }
     </>
   )
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectWarscroll } from "../../ducks/warscroll";
+import { replaceSpecialChars } from "../../utils/text";
 
 
 export const DescriptionComponent: React.FC = () => {
@@ -18,6 +19,7 @@ export const DescriptionComponent: React.FC = () => {
       weaponString += `${weaponOne ? weaponOne.customName : ''}${weaponTwo ? weaponTwo.customName : ''}`
     }
   }
+  weaponString = replaceSpecialChars(weaponString)
 
   return (
     <>

@@ -205,3 +205,17 @@ export const clearWeapon = (
   if (weaponField === "weaponOne") dispatch(warscrollActions.clearWeaponOne())
   if (weaponField === "weaponTwo") dispatch(warscrollActions.clearWeaponTwo())
 }
+
+export const editWeaponCustomName = (
+  weaponField: "weaponOne" | "weaponTwo",
+  customName: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const addedWeapon = warscroll[weaponField]
+  const renamedWeapon = Object.assign({}, addedWeapon, {
+    customName: customName
+  })
+  if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(renamedWeapon))
+  if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(renamedWeapon))
+}

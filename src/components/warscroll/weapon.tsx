@@ -1,21 +1,54 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import ContentEditable from "react-contenteditable";
 
 import { TAddedWeapon, TWeapon } from "../../types/data";
+import { replaceSpecialChars } from "../../utils/text";
+import { logRename } from "../../utils/analytics";
+import { editWeaponCustomName } from "../../ducks/warscroll";
 
 interface IAbilityProps {
   addedWeapon: TAddedWeapon | null
+  weaponField: "weaponOne" | "weaponTwo",
 }
 
 export const WeaponComponent: React.FC<IAbilityProps> = props => {
-  const { addedWeapon } = props
+  const { addedWeapon, weaponField } = props
   const weapon = addedWeapon ? addedWeapon.weapon as TWeapon: null
   const customName = addedWeapon && addedWeapon.customName
+  const dispatch = useDispatch()
+
+  const handleCustomNameChange = useCallback(
+    e => {
+      if (!weapon) return
+      const value = e.target.value
+      dispatch(editWeaponCustomName(weaponField, value))
+    },
+    [dispatch, weapon, weaponField]
+  )
+
+  const handleCustomNameBlur = useCallback(
+    e => {
+      if (!weapon) return
+      const value = replaceSpecialChars(e.target.innerHTML)
+      if (!value) {
+        dispatch(editWeaponCustomName(weaponField, weapon.name))
+      }
+      logRename(weapon.name, value)
+    },
+    [dispatch, weapon, weaponField]
+  )
 
   if (!weapon || weapon.type.name === "shield") return null
 
   return (
     <>
-      <h4>{ customName }</h4>
+      <ContentEditable
+        html={customName || ''}
+        onChange={handleCustomNameChange}
+        onBlur={handleCustomNameBlur}
+        tagName='h4'
+      />
       <table className="table text-center">
         <thead className="thead-dark">
           <tr>
