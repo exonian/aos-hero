@@ -63,6 +63,6 @@ export const Abilities: TAbilities = {
     enhancement: true,
     characteristic: 'save',
     change: '+',
-    value: 1,
+    value: -1,
   },
 }

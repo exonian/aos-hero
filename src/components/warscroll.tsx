@@ -3,15 +3,24 @@ import { useSelector } from 'react-redux'
 
 import { selectWarscroll } from '../ducks/warscroll'
 import { AbilitiesComponent } from './abilities';
+import { calculateSave } from '../utils/save';
+import { TAbility } from '../types/data';
 
 export const WarscrollComponent: React.FC = () => {
   const { abilities, ancestry, archetype, armyKeywords, title } = useSelector(selectWarscroll)
   const ancestryKeywords = ancestry ? ancestry.keywords : []
   const archetypeKeywords = archetype ? archetype.keywords : []
   const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
+
+  const enhancements = abilities.reduce((accum, item) => {
+    if (item.ability.enhancement) accum.push(item.ability)
+    return accum
+  }, [] as TAbility[])
+  const statsInputs = {'ancestry': ancestry, 'enhancements': enhancements}
+
   const wounds = ancestry ? ancestry.wounds : null
   const movement = ancestry ? ancestry.movement : null
-  const save = ancestry ? ancestry.save : null
+  const save = calculateSave(statsInputs)
   const bravery = ancestry ? ancestry.bravery : null
   const cost = ancestry ? ancestry.cost : 0
 
