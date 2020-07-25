@@ -1,5 +1,5 @@
 import React from 'react'
-import { TAddedAbility } from '../types/data';
+import { TAddedAbility } from '../../types/data';
 import { AbilityComponent } from './ability';
 
 interface IAbilitiesProps {

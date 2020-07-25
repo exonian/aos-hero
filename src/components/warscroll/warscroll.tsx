@@ -1,11 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectWarscroll } from '../ducks/warscroll'
+import { selectWarscroll } from '../../ducks/warscroll'
 import { AbilitiesComponent } from './abilities';
-import { calculateSave } from '../utils/save';
-import { TAbility } from '../types/data';
-import { calculateCost } from '../utils/cost';
+import { calculateSave } from '../../utils/save';
+import { TAbility } from '../../types/data';
+import { calculateCost } from '../../utils/cost';
+import { WeaponsComponent } from './weapons';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
@@ -42,6 +43,7 @@ export const WarscrollComponent: React.FC = () => {
           </ul>
         </>
       : ''}
+      <WeaponsComponent />
       <AbilitiesComponent addedAbilities={abilities} />
     </div>
   )

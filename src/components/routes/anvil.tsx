@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { WarscrollComponent } from "../warscroll";
+import { WarscrollComponent } from "../warscroll/warscroll";
 import { EditorComponent } from "../editor";
 import { logPageView } from '../../utils/analytics';
 import FooterComponent from '../footer';

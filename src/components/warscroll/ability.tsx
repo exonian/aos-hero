@@ -2,10 +2,10 @@ import React, { useCallback } from 'react'
 import ContentEditable from 'react-contenteditable'
 import { useDispatch } from 'react-redux';
 
-import { TAddedAbility } from '../types/data';
-import { editAbilityCustomName } from '../ducks/warscroll';
-import { logRename } from '../utils/analytics';
-import { replaceSpecialChars } from '../utils/text';
+import { TAddedAbility } from '../../types/data';
+import { editAbilityCustomName } from '../../ducks/warscroll';
+import { logRename } from '../../utils/analytics';
+import { replaceSpecialChars } from '../../utils/text';
 
 interface IAbilityProps {
   addedAbility: TAddedAbility
