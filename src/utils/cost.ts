@@ -1,4 +1,3 @@
-import { TAncestry, TAbility, TAddedWeapon } from "../types/data";
 import { IWarscrollSlice } from "../types/store";
 
 export const calculateCost = (warscrollState: IWarscrollSlice): number | null => {
