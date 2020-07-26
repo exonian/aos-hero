@@ -26,33 +26,39 @@ export const Abilities: TAbilities = {
   // Mage archetype
   "Magic" : {
     name: `Magic`,
-    description: `This HERO is a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the Arcane Bolt and Mystic Shield spells. In addition, they know any spells you have picked for them from the Spell Table.`,
+    description: `This HERO is a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the <KNOWN_SPELLS> spells.`,
     cannotRename: true
   },
   "Aura of Protection" : {
     name: `Aura of Protection`,
     description: `<NAME> has a casting value of 7. If successfully cast, until the start of your next hero phase, roll a dice each time a wound or mortal wound is allocated to a friendly unit wholly within 12" of the caster. On a 6, that wound or mortal wound is negated.`,
+    spell: true,
   },
   "Curse of Damnation" : {
     name: `Curse of Damnation`,
     description: `<NAME> has a casting value of 7. If successfully cast, pick 1 enemy unit within 12" of the caster and visible to them. That unit suffers D3 mortal wounds. In addition, subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
+    spell: true,
   },
   "Wildfire" : {
     name: `Wildfire`,
     description: `<NAME> has a casting value of 6. If successfully cast, pick 1 enemy unit. Roll 1 dice for each model in that unit that is within 12" of the caster and visible to them. For each 5+, that unit suffers 1 mortal wound. If that unit has only 1 model, roll 3 dice instead of 1.`,
+    spell: true,
   },
   "Raise Dead" : {
     name: `Raise Dead`,
     description: `<NAME> has a casting value of 6. If successfully cast, pick 1 friendly unit within 12" of the caster and visible to them. You may return a number of slain models that have a combined Wounds characteristic of D3 or less to that unit.`,
+    spell: true,
   },
   "Arcane Bolt" : {
     name: `Arcane Bolt`,
     description: `Arcane Bolt has a casting value of 5. If successfully cast, pick an enemy unit within 18" of the caster that is visible to them. That unit suffers 1 mortal wound. If the casting roll was 10 or more, the unit suffers D3 mortal wounds instead`,
+    spell: true,
     cannotRename: true
   },
   "Mystic Shield" : {
     name: `Mystic Shield`,
     description: `Mystic Shield has a casting value of 6. If successfully cast, pick a friendly unit within 18" of the caster and visible to them. Re-roll save rolls of 1 for that unit until your next hero phase.`,
+    spell: true,
     cannotRename: true
   },
   // Shield

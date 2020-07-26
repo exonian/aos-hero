@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react'
 import ContentEditable from 'react-contenteditable'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TAddedAbility } from '../../types/data';
-import { editAbilityCustomName } from '../../ducks/warscroll';
+import { editAbilityCustomName, selectWarscroll } from '../../ducks/warscroll';
 import { logRename } from '../../utils/analytics';
 import { replaceSpecialChars } from '../../utils/text';
+import { replaceWarscrollValues } from '../../utils/dyanmicStrings';
 
 interface IAbilityProps {
   addedAbility: TAddedAbility
@@ -15,7 +16,12 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
   const { addedAbility } = props
   const ability = addedAbility.ability
   const customName = addedAbility.customName
+  const state = useSelector(selectWarscroll)
   const dispatch = useDispatch()
+
+  let description = replaceWarscrollValues(ability.description, state)
+  description = description.replace("<NAME>", customName)
+  description = replaceSpecialChars(description)
 
   const handleCustomNameChange = useCallback(
     e => {
@@ -45,7 +51,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
         onBlur={handleCustomNameBlur}
         tagName='h4'
       />
-      <p>{ability.description.replace("<NAME>", replaceSpecialChars(customName))}</p>
+      <p>{description}</p>
     </div>
   )
 }

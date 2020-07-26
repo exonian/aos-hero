@@ -6,6 +6,7 @@ export type TAbility = {
   cost?: number
   exclusions?: TKeyword[]
   cannotRename?: boolean
+  spell?: boolean
   enhancement?: boolean
   characteristic?: string
   change?: "+" | "="
