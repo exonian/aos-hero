@@ -9,6 +9,7 @@ import { Weapons } from '../../data/weapons';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { TWeapons, TWeapon } from '../../types/data';
 import { titleCase } from '../../utils/text';
+import { errorStyle } from '../selectStyles';
 
 
 const nameFn = (item: TWeapon): string => { return item.name }
@@ -47,6 +48,7 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
 
   const options = [{value: '', label: '-----'}].concat(convertToOptions(Object.values(compatibleWeapons), nameFn, nameAndCostFn))
   const value = currentWeapon ? convertToOptions([currentWeapon.weapon], nameFn, nameAndCostFn)[0] : null
+  const valid = currentWeapon ? Object.keys(compatibleWeapons).includes(currentWeapon.weapon.name) : true
   const dispatch = useDispatch()
 
   const handleChange = useCallback(
@@ -63,6 +65,7 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
     <Select
       options={options}
       value={value}
+      styles={valid ? {} : errorStyle}
       onChange={handleChange}
       isSearchable={false}
     />
