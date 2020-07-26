@@ -6,6 +6,8 @@ import { TAddedWeapon, TWeapon } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 import { logRename } from "../../utils/analytics";
 import { editWeaponCustomName } from "../../ducks/warscroll";
+import { WeaponProfile } from "./weaponTable";
+import { Abilities } from "../../data/abilities";
 
 interface IAbilityProps {
   addedWeapon: TAddedWeapon | null
@@ -14,7 +16,7 @@ interface IAbilityProps {
 
 export const WeaponComponent: React.FC<IAbilityProps> = props => {
   const { addedWeapon, weaponField } = props
-  const weapon = addedWeapon ? addedWeapon.weapon as TWeapon: null
+  const weapon = addedWeapon ? addedWeapon.weapon : null
   const customName = addedWeapon && addedWeapon.customName
   const dispatch = useDispatch()
 
@@ -39,7 +41,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
     [dispatch, weapon, weaponField]
   )
 
-  if (!weapon || weapon.type.name === "shield") return null
+  if (!weapon) return null
 
   return (
     <>
@@ -49,28 +51,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
         onBlur={handleCustomNameBlur}
         tagName='h4'
       />
-      <table className="table text-center">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Range</th>
-            <th scope="col">Attacks</th>
-            <th scope="col">To Hit</th>
-            <th scope="col">To Wound</th>
-            <th scope="col">Rend</th>
-            <th scope="col">Damage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{ weapon.range }"</td>
-            <td>{ weapon.attacks }</td>
-            <td>{ weapon.toHit }+</td>
-            <td>{ weapon.toWound }+</td>
-            <td>-{ weapon.rend ? weapon.rend : '' }</td>
-            <td>{ weapon.damage }</td>
-          </tr>
-        </tbody>
-      </table>
+      { weapon.type.name === "shield" ? <p>{Abilities.Shield.description}.</p> : <WeaponProfile weapon={weapon as TWeapon} />}
     </>
   )
 }
