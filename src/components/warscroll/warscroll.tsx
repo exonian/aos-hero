@@ -8,6 +8,7 @@ import { TAbility } from '../../types/data';
 import { calculateCost } from '../../utils/cost';
 import { WeaponsComponent } from './weapons';
 import { DescriptionComponent } from './description';
+import { TitleEditable } from '../input/titleEditable';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
@@ -30,7 +31,7 @@ export const WarscrollComponent: React.FC = () => {
 
   return (
     <div>
-      <h2>{title} ({cost}DP)</h2>
+      <TitleEditable title={title} cost={cost} />
       {ancestry ?
         <>
           <p>
