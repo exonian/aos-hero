@@ -18,11 +18,6 @@ export const initialState: IWarscrollSlice = {
   weaponTwo: null,
 }
 
-const setAncestryByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
-  state.ancestry = Ancestries[action.payload]
-  state.armyKeywords = []
-}
-
 const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (state, action) => {
   state.armyKeywords = action.payload
 }
@@ -64,7 +59,9 @@ export const warscrollSlice = createSlice({
   initialState,
   reducers: {
     resetWarscroll: () => initialState,
-    setAncestryByKey,
+    setAncestryByKey(state, { payload }: PayloadAction<string>) {
+      state.ancestry = Ancestries[payload]
+    },
     setArmyKeywords,
     setTitle,
     addAbilityByKey,
@@ -74,17 +71,7 @@ export const warscrollSlice = createSlice({
     clearWeaponOne,
     clearWeaponTwo,
     setArchetypeByKey(state, { payload }: PayloadAction<string>) {
-      const archetype = Archetypes[payload]
-      state.archetype = archetype
-
-      archetype.grants.forEach(grant => {
-        const { grantType, abilityNames } = grant
-        if (grantType === AutomaticGrant) {
-          abilityNames.forEach(abilityName => {
-            state.abilities.push({ability: Abilities[abilityName], source: archetype.name, customName: abilityName})
-          })
-        }
-      })
+      state.archetype = Archetypes[payload]
     }
   },
 })
@@ -95,18 +82,55 @@ export const selectWarscroll = (state: IStore): IWarscrollSlice => state.warscro
 export default warscrollSlice.reducer
 
 
+export const updateAncestry = (
+  name: string
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {ancestry, abilities} = warscroll
+  const newAncestry = Ancestries[name]
+
+  const abilitiesToKeep = ancestry ?
+    abilities.filter(ability => {
+      return ability.source !== ancestry.name
+    }) : abilities
+  const automaticAbilities = newAncestry.grants ? newAncestry.grants.reduce((accum, grant) => {
+    const { grantType, abilityNames } = grant
+    if (grantType === AutomaticGrant) {
+      abilityNames.forEach(abilityName => {
+        accum.push({ability: Abilities[abilityName], source: newAncestry.name, customName: abilityName})
+      })
+    }
+    return accum
+  }, [] as TAddedAbility[]) : []
+  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
+  dispatch(warscrollActions.setAncestryByKey(name))
+}
+
 export const updateArchetype = (
   name: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
   const {archetype, abilities} = warscroll
-  if (archetype) {
-    const abilitiesToKeep = abilities.filter(ability => {
+  const newArchetype = Archetypes[name]
+
+  const abilitiesToKeep = archetype ?
+    abilities.filter(ability => {
       return ability.source !== archetype.name
-    })
-    dispatch(warscrollActions.setAbilities(abilitiesToKeep))
-  }
+    }) : abilities
+  const automaticAbilities = newArchetype.grants ? newArchetype.grants.reduce((accum, grant) => {
+    const { grantType, abilityNames } = grant
+    if (grantType === AutomaticGrant) {
+      abilityNames.forEach(abilityName => {
+        accum.push({ability: Abilities[abilityName], source: newArchetype.name, customName: abilityName})
+      })
+    }
+    return accum
+  }, [] as TAddedAbility[]) : []
+  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
   dispatch(warscrollActions.setArchetypeByKey(name))
 }
 

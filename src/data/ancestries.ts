@@ -1,4 +1,4 @@
-import { TAncestries } from "../types/data";
+import { TAncestries, AutomaticGrant } from "../types/data";
 
 export const Ancestries: TAncestries = {
   "Aelf" : {
@@ -108,6 +108,12 @@ export const Ancestries: TAncestries = {
   "Malignant" : {
     name: `Malignant`,
     keywords: [`DEATH`, `MALIGNANT`, `NIGHTHAUNT`],
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Ethereal", "Fly"],
+      },
+    ],
     wounds: 5,
     movement: 6,
     save: 4,

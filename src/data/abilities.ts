@@ -70,4 +70,15 @@ export const Abilities: TAbilities = {
     change: '+',
     value: -1,
   },
+  // Choosable abilities
+  "Ethereal" : {
+    name: `Ethereal`,
+    description: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
+    cost: 4,
+  },
+  "Fly" : {
+    name: `Fly`,
+    description: `This model can fly.`,
+    cost: 4,
+  },
 }

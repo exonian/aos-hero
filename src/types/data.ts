@@ -1,5 +1,13 @@
 export type TKeyword = string
 
+export const AutomaticGrant = "automatic"
+export const ChooseOneGrant = "chooseOne"
+export type TGrantType = "automatic"|"chooseOne"
+export type TGrants = {
+  grantType: TGrantType
+  abilityNames: string[]
+}
+
 export type TAbility = {
   name: string
   description: string
@@ -29,16 +37,9 @@ export type TAncestry = {
   save: number
   bravery: number
   cost: number
+  grants?: TGrants[]
 }
 export type TAncestries = Record<string, TAncestry>
-
-export const AutomaticGrant = "automatic"
-export const ChooseOneGrant = "chooseOne"
-export type TGrantType = "automatic"|"chooseOne"
-export type TGrants = {
-  grantType: TGrantType
-  abilityNames: string[]
-}
 
 export type TArchetype = {
   name: string
@@ -88,4 +89,19 @@ export type TAddedWeapon = {
 
 export interface IRestrictableSelections {
   exclusions?: TKeyword[]
+}
+
+export type TMount = {
+  name: string
+  keywords: TKeyword[]
+  exclusions: TKeyword[]
+  exclusionExceptions?: TKeyword[]
+  grants: TGrants[]
+  cost: number
+}
+export type TMounts = Record<string, TMount>
+
+export type TAddedMount = {
+  ability: TMount
+  customName: string
 }
