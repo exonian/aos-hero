@@ -82,7 +82,7 @@ export const selectWarscroll = (state: IStore): IWarscrollSlice => state.warscro
 export default warscrollSlice.reducer
 
 
-export const updateAncestry = (
+export const changeAncestry = (
   name: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
@@ -108,7 +108,7 @@ export const updateAncestry = (
   dispatch(warscrollActions.setAncestryByKey(name))
 }
 
-export const updateArchetype = (
+export const changeArchetype = (
   name: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()

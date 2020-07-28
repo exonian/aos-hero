@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store'
 
-import warscroll, { warscrollActions, initialState, updateArchetype } from '../../ducks/warscroll'
+import warscroll, { warscrollActions, initialState } from '../../ducks/warscroll'
 import { Ancestries } from '../../data/ancestries';
 import { Abilities } from '../../data/abilities';
 import { Archetypes } from '../../data/archetypes';

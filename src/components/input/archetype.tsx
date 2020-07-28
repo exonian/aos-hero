@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { convertToOptions } from './select';
-import { selectWarscroll, updateArchetype } from '../../ducks/warscroll';
+import { selectWarscroll, changeArchetype } from '../../ducks/warscroll';
 import { Archetypes } from '../../data/archetypes';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { ChooseOneGrant } from '../../types/data';
@@ -26,7 +26,7 @@ export const ArchetypeInput: React.FC = () => {
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(updateArchetype(args[0].value))
+      dispatch(changeArchetype(args[0].value))
       logSelection('Archetype', args[0].value)
     },
     [dispatch]

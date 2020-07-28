@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Ancestries } from '../../data/ancestries'
 import { convertToOptions } from './select';
-import { selectWarscroll, updateAncestry } from '../../ducks/warscroll';
+import { selectWarscroll, changeAncestry } from '../../ducks/warscroll';
 import { TAncestry } from '../../types/data';
 import { titleCase } from '../../utils/text';
 import { logSelection } from '../../utils/analytics';
@@ -22,7 +22,7 @@ export const AncestryInput: React.FC = () => {
   const handleChange = useCallback(
     (...args) => {
       const value = args[0].value
-      dispatch(updateAncestry(value))
+      dispatch(changeAncestry(value))
       logSelection('Ancestry', value)
     },
     [dispatch]
