@@ -7,7 +7,7 @@ import { selectWarscroll, updateArchetype } from '../../ducks/warscroll';
 import { Archetypes } from '../../data/archetypes';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { ChooseOneGrant } from '../../types/data';
-import { AbilityInput } from './ability';
+import { ChooseOneGrantedAbilityInput } from './ability';
 import { logSelection } from '../../utils/analytics';
 import { errorStyle } from '../selectStyles';
 
@@ -42,7 +42,7 @@ export const ArchetypeInput: React.FC = () => {
         isSearchable={false}
       />
       {grantChoices.map((grant, i) => {
-        return <AbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
+        return <ChooseOneGrantedAbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
       })}
     </>
   )

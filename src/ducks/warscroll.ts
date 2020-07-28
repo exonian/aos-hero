@@ -134,9 +134,9 @@ export const updateArchetype = (
   dispatch(warscrollActions.setArchetypeByKey(name))
 }
 
-export const changeAbility = (
+export const replaceGrantedAbility = (
   name: string,
-  source?: TArchetype|null,
+  source: TArchetype|null,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state

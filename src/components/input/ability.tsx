@@ -3,17 +3,17 @@ import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { convertToOptions } from './select';
-import { selectWarscroll, changeAbility } from '../../ducks/warscroll';
+import { selectWarscroll, replaceGrantedAbility } from '../../ducks/warscroll';
 import { TArchetype } from '../../types/data';
 import { logSelection } from '../../utils/analytics';
 
 
-interface IAbilityInputProps {
+interface IChooseOneGrantedAbilityInputProps {
   abilityChoices: string[]
-  source?: TArchetype|null
+  source: TArchetype|null
 }
 
-export const AbilityInput: React.FC<IAbilityInputProps> = props => {
+export const ChooseOneGrantedAbilityInput: React.FC<IChooseOneGrantedAbilityInputProps> = props => {
   const { abilityChoices, source } = props
 
   const options = convertToOptions(abilityChoices)
@@ -25,7 +25,7 @@ export const AbilityInput: React.FC<IAbilityInputProps> = props => {
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(changeAbility(args[0].value, source))
+      dispatch(replaceGrantedAbility(args[0].value, source))
       logSelection('Ability', args[0].value)
     },
     [dispatch, source]
