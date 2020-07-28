@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 
@@ -38,20 +38,12 @@ const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>>
   }, [] as TAddedAbility[])
 }
 
-const setWeaponOne: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon>> = (state, action) => {
+const setWeaponOne: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
   state.weaponOne = action.payload
 }
 
-const setWeaponTwo: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon>> = (state, action) => {
+const setWeaponTwo: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
   state.weaponTwo = action.payload
-}
-
-const clearWeaponOne: CaseReducer<IWarscrollSlice> = (state, action) => {
-  state.weaponOne = null
-}
-
-const clearWeaponTwo: CaseReducer<IWarscrollSlice> = (state, action) => {
-  state.weaponTwo = null
 }
 
 export const warscrollSlice = createSlice({
@@ -68,8 +60,6 @@ export const warscrollSlice = createSlice({
     setAbilities,
     setWeaponOne,
     setWeaponTwo,
-    clearWeaponOne,
-    clearWeaponTwo,
     setArchetypeByKey(state, { payload }: PayloadAction<string>) {
       state.archetype = Archetypes[payload]
     }
@@ -82,29 +72,42 @@ export const selectWarscroll = (state: IStore): IWarscrollSlice => state.warscro
 export default warscrollSlice.reducer
 
 
+const handleGrantedAbilities = (
+  oldObject: TAncestry | TArchetype | TWeapon | TEquipment | null,
+  newObject: TAncestry | TArchetype | TWeapon | TEquipment | null,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+
+  const abilitiesToKeep = oldObject ?
+    abilities.filter(ability => {
+      return ability.source !== oldObject.name
+    }) : abilities
+  const automaticAbilities = newObject ?
+    newObject.grants ? newObject.grants.reduce((accum, grant) => {
+      const { grantType, abilityNames } = grant
+      if (grantType === AutomaticGrant) {
+        abilityNames.forEach(abilityName => {
+          accum.push({ability: Abilities[abilityName], source: newObject.name, customName: abilityName})
+        })
+      }
+      return accum
+    }, [] as TAddedAbility[]) : []
+    : []
+  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
+}
+
 export const changeAncestry = (
   name: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
-  const {ancestry, abilities} = warscroll
+  const oldAncestry = warscroll.ancestry
   const newAncestry = Ancestries[name]
 
-  const abilitiesToKeep = ancestry ?
-    abilities.filter(ability => {
-      return ability.source !== ancestry.name
-    }) : abilities
-  const automaticAbilities = newAncestry.grants ? newAncestry.grants.reduce((accum, grant) => {
-    const { grantType, abilityNames } = grant
-    if (grantType === AutomaticGrant) {
-      abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: newAncestry.name, customName: abilityName})
-      })
-    }
-    return accum
-  }, [] as TAddedAbility[]) : []
-  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities)
-  dispatch(warscrollActions.setAbilities(combinedAbilities))
+  dispatch(handleGrantedAbilities(oldAncestry, newAncestry))
   dispatch(warscrollActions.setAncestryByKey(name))
 }
 
@@ -113,25 +116,28 @@ export const changeArchetype = (
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
-  const {archetype, abilities} = warscroll
+  const oldArchetype = warscroll.archetype
   const newArchetype = Archetypes[name]
 
-  const abilitiesToKeep = archetype ?
-    abilities.filter(ability => {
-      return ability.source !== archetype.name
-    }) : abilities
-  const automaticAbilities = newArchetype.grants ? newArchetype.grants.reduce((accum, grant) => {
-    const { grantType, abilityNames } = grant
-    if (grantType === AutomaticGrant) {
-      abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: newArchetype.name, customName: abilityName})
-      })
-    }
-    return accum
-  }, [] as TAddedAbility[]) : []
-  const combinedAbilities = abilitiesToKeep.concat(automaticAbilities)
-  dispatch(warscrollActions.setAbilities(combinedAbilities))
+  dispatch(handleGrantedAbilities(oldArchetype, newArchetype))
   dispatch(warscrollActions.setArchetypeByKey(name))
+}
+
+export const changeWeapon = (
+  weaponField: "weaponOne" | "weaponTwo",
+  name: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const oldAddedWeapon = warscroll[weaponField]
+  const oldWeapon = oldAddedWeapon ? oldAddedWeapon.weapon : null
+  const newWeapon = Weapons[name]
+
+  dispatch(handleGrantedAbilities(oldWeapon, newWeapon))
+
+  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'customName': newWeapon.name} : null
+  if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
+  if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
 }
 
 export const replaceGrantedAbility = (
@@ -175,59 +181,6 @@ export const editAbilityCustomName = (
     else return addedAbility
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesWithEdit))
-}
-
-export const changeWeapon = (
-  weaponField: "weaponOne" | "weaponTwo",
-  name: string,
-): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  const state = getState()
-  const {warscroll} = state
-  const {abilities} = warscroll
-  const currentWeapon = warscroll[weaponField]
-  const currentWeaponName = currentWeapon ? currentWeapon.weapon.name : null
-  const weapon = Weapons[name]
-
-  const abilitiesToKeep = currentWeaponName ?
-    abilities.filter(ability => {
-      return ability.source !== currentWeaponName
-    }) : abilities
-
-  const grantedAbilities = weapon.grants ? weapon.grants.reduce((accum, grant) => {
-    const { grantType, abilityNames } = grant
-    if (grantType === AutomaticGrant) {
-      abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: name, customName: name})
-      })
-    }
-    return accum
-  }, [] as TAddedAbility[]) : []
-
-  const combinedAbilities = abilitiesToKeep.concat(grantedAbilities)
-  dispatch(warscrollActions.setAbilities(combinedAbilities))
-
-  const addedWeapon = {'weapon': weapon, 'customName': weapon.name}
-  if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
-  if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
-}
-
-export const clearWeapon = (
-  weaponField: "weaponOne" | "weaponTwo",
-): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  const state = getState()
-  const {warscroll} = state
-  const currentWeapon = warscroll[weaponField]
-  const currentWeaponName = currentWeapon ? currentWeapon.weapon.name : null
-
-  const {abilities} = warscroll
-  const abilitiesToKeep = currentWeaponName ?
-    abilities.filter(ability => {
-      return ability.source !== currentWeaponName
-    }) : abilities
-  dispatch(warscrollActions.setAbilities(abilitiesToKeep))
-
-  if (weaponField === "weaponOne") dispatch(warscrollActions.clearWeaponOne())
-  if (weaponField === "weaponTwo") dispatch(warscrollActions.clearWeaponTwo())
 }
 
 export const editWeaponCustomName = (

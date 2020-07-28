@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 import { convertToOptions } from './select';
 import { logSelection } from '../../utils/analytics';
-import { selectWarscroll, changeWeapon, clearWeapon } from '../../ducks/warscroll';
+import { selectWarscroll, changeWeapon } from '../../ducks/warscroll';
 import { Weapons } from '../../data/weapons';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { TWeapons, TWeapon } from '../../types/data';
@@ -54,8 +54,7 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
   const handleChange = useCallback(
     (...args) => {
       const value = args[0].value
-      if (value) dispatch(changeWeapon(weaponField, value))
-      else dispatch(clearWeapon(weaponField))
+      dispatch(changeWeapon(weaponField, value))
       logSelection('Weapon', value)
     },
     [dispatch, weaponField]
