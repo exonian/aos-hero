@@ -1,7 +1,7 @@
 import { IWarscrollSlice } from "../types/store";
 
 export const calculateCost = (warscrollState: IWarscrollSlice): number | null => {
-  const {ancestry, abilities, weaponOne, weaponTwo} = warscrollState
+  const {ancestry, abilities, beast, weaponOne, weaponTwo} = warscrollState
   if (!ancestry) return null
 
   let cost = ancestry.cost
@@ -13,6 +13,8 @@ export const calculateCost = (warscrollState: IWarscrollSlice): number | null =>
 
   if (weaponOne && weaponOne.weapon.cost) cost += weaponOne.weapon.cost
   if (weaponTwo && weaponTwo.weapon.cost) cost += weaponTwo.weapon.cost
+
+  if (beast) cost += beast.beast.cost
 
   return cost
 }

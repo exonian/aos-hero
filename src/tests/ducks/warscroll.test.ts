@@ -26,6 +26,7 @@ it('should handle setAncestryByKey', () => {
       "weaponOne": null,
       "weaponTwo": null,
       "archetype": null,
+      "beast": null,
       "abilities": [],
     }
   )
@@ -48,6 +49,7 @@ it('should handle setArmyKeywords', () => {
       "weaponOne": null,
       "weaponTwo": null,
       "archetype": null,
+      "beast": null,
       "abilities": [],
     }
   )
@@ -70,6 +72,7 @@ it('should handle setTitle', () => {
       "weaponOne": null,
       "weaponTwo": null,
       "archetype": null,
+      "beast": null,
       "abilities": [],
     }
   )
@@ -92,6 +95,7 @@ it('should handle addAbilityByKey', () => {
       "weaponOne": null,
       "weaponTwo": null,
       "archetype": null,
+      "beast": null,
       "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
     }
   )
@@ -104,6 +108,7 @@ it('should handle addAbilityByKey', () => {
         "weaponOne": null,
         "weaponTwo": null,
         "archetype": null,
+        "beast": null,
         "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
       }
     , {
@@ -118,6 +123,7 @@ it('should handle addAbilityByKey', () => {
       "weaponOne": null,
       "weaponTwo": null,
       "archetype": null,
+      "beast": null,
       "abilities": [
         {ability: Abilities["Divine Prayers"], customName:"Divine Prayers"},
         {ability: Abilities["Wrathful Invocation"], customName:"Wrathful Invocation"},

@@ -9,13 +9,12 @@ import { calculateCost } from '../../utils/cost';
 import { WeaponsComponent } from './weapons';
 import { DescriptionComponent } from './description';
 import { TitleEditable } from '../input/titleEditable';
+import { calculateKeywords } from '../../utils/keywords';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
-  const { abilities, ancestry, archetype, armyKeywords, title } = warscrollState
-  const ancestryKeywords = ancestry ? ancestry.keywords : []
-  const archetypeKeywords = archetype ? archetype.keywords : []
-  const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
+  const { abilities, ancestry, title } = warscrollState
+  const keywords = calculateKeywords(warscrollState)
 
   const enhancements = abilities.reduce((accum, item) => {
     if (item.ability.enhancement) accum.push(item.ability)
@@ -35,7 +34,7 @@ export const WarscrollComponent: React.FC = () => {
       {ancestry ?
         <>
           <p>
-            { combinedKeywords.join(', ') }
+            { keywords.join(', ') }
           </p>
           <ul>
             <li className="warscrollStat">WOUNDS: {wounds}</li>

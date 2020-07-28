@@ -10,6 +10,7 @@ import { filterByRestrictions } from '../../utils/restrictions';
 import { TWeapons, TWeapon } from '../../types/data';
 import { titleCase } from '../../utils/text';
 import { errorStyle } from '../selectStyles';
+import { calculateKeywords } from '../../utils/keywords';
 
 
 const nameFn = (item: TWeapon): string => { return item.name }
@@ -24,16 +25,11 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
   const otherWeaponField = weaponField === "weaponOne" ? "weaponTwo" : "weaponOne"
 
   const warscrollState = useSelector(selectWarscroll)
-  const { ancestry, archetype, armyKeywords } = warscrollState
 
   const currentWeapon = warscrollState[weaponField]
   const otherWeapon = warscrollState[otherWeaponField]
 
-  const ancestryKeywords = ancestry ? ancestry.keywords : []
-  const archetypeKeywords = archetype ? archetype.keywords : []
-  const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
-
-  const unrestrictedWeapons = filterByRestrictions(Weapons, combinedKeywords) as TWeapons
+  const unrestrictedWeapons = filterByRestrictions(Weapons, calculateKeywords(warscrollState)) as TWeapons
   const otherWeaponType = otherWeapon ? otherWeapon.weapon.type : null
 
   const compatibleWeapons = otherWeaponType ? Object.entries(unrestrictedWeapons).reduce((accum, item) => {

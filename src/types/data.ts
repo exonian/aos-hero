@@ -91,7 +91,7 @@ export interface IRestrictableSelections {
   exclusions?: TKeyword[]
 }
 
-export type TMount = {
+export type TBeast = {
   name: string
   keywords: TKeyword[]
   exclusions: TKeyword[]
@@ -99,9 +99,9 @@ export type TMount = {
   grants: TGrants[]
   cost: number
 }
-export type TMounts = Record<string, TMount>
+export type TBeasts = Record<string, TBeast>
 
-export type TAddedMount = {
-  ability: TMount
+export type TAddedBeast = {
+  beast: TBeast
   customName: string
 }

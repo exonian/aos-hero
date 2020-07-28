@@ -10,14 +10,13 @@ import { ChooseOneGrant } from '../../types/data';
 import { ChooseOneGrantedAbilityInput } from './ability';
 import { logSelection } from '../../utils/analytics';
 import { errorStyle } from '../selectStyles';
+import { calculateKeywords } from '../../utils/keywords';
 
 export const ArchetypeInput: React.FC = () => {
-  const { ancestry, archetype, armyKeywords } = useSelector(selectWarscroll)
-  const ancestryKeywords = ancestry ? ancestry.keywords : []
-  const archetypeKeywords = archetype ? archetype.keywords : []
-  const combinedKeywords = ancestryKeywords.concat(armyKeywords, "HERO", archetypeKeywords)
+  const state = useSelector(selectWarscroll)
+  const { archetype } = state
 
-  const archetypes = filterByRestrictions(Archetypes, combinedKeywords)
+  const archetypes = filterByRestrictions(Archetypes, calculateKeywords(state))
   const options = convertToOptions(Object.keys(archetypes))
   const dispatch = useDispatch()
   const archetypeValue = archetype ? convertToOptions([archetype.name])[0] : archetype

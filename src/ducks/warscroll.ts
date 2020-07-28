@@ -4,9 +4,10 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TAddedBeast, TBeast } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
+import { Beasts } from '../data/beasts';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -14,12 +15,17 @@ export const initialState: IWarscrollSlice = {
   armyKeywords: [],
   archetype: null,
   abilities: [],
+  beast: null,
   weaponOne: null,
   weaponTwo: null,
 }
 
 const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (state, action) => {
   state.armyKeywords = action.payload
+}
+
+const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TAddedBeast|null>> = (state, action) => {
+  state.beast = action.payload
 }
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -55,6 +61,7 @@ export const warscrollSlice = createSlice({
       state.ancestry = Ancestries[payload]
     },
     setArmyKeywords,
+    setBeast,
     setTitle,
     addAbilityByKey,
     setAbilities,
@@ -73,8 +80,8 @@ export default warscrollSlice.reducer
 
 
 const handleGrantedAbilities = (
-  oldObject: TAncestry | TArchetype | TWeapon | TEquipment | null,
-  newObject: TAncestry | TArchetype | TWeapon | TEquipment | null,
+  oldObject: TAncestry | TArchetype | TBeast | TWeapon | TEquipment | null,
+  newObject: TAncestry | TArchetype | TBeast | TWeapon | TEquipment | null,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
@@ -121,6 +128,21 @@ export const changeArchetype = (
 
   dispatch(handleGrantedAbilities(oldArchetype, newArchetype))
   dispatch(warscrollActions.setArchetypeByKey(name))
+}
+
+export const changeBeast = (
+  name: string
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const oldAddedBeast = warscroll.beast
+  const oldBeast = oldAddedBeast ? oldAddedBeast.beast : null
+  const newBeast = Beasts[name]
+
+  dispatch(handleGrantedAbilities(oldBeast, newBeast))
+
+  const addedBeast = newBeast ? {'beast': newBeast, 'customName': newBeast.name} : null
+  dispatch(warscrollActions.setBeast(addedBeast))
 }
 
 export const changeWeapon = (
