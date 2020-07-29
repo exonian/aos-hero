@@ -18,13 +18,23 @@ export const Beasts: TBeasts = {
     cost: 8,
     keywords: [],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],
-    grants: []
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Mounted Beast Wounds", "Mounted Beast Movement"],
+      },
+    ]
   },
   "Gargantuan Beast" : {
     name: `Gargantuan Beast`,
     cost: 15,
     keywords: [`MONSTER`],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],
-    grants: []
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Gargantuan Beast Wounds", "Gargantuan Beast Movement"],
+      },
+    ]
   },
 }

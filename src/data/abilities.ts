@@ -79,6 +79,40 @@ export const Abilities: TAbilities = {
     change: '+',
     value: 1,
   },
+  // Mounted beast
+  "Mounted Beast Wounds" : {
+    name: `Mounted Beast Wounds`,
+    description: `Add 2 to your hero's Wounds characteristic`,
+    enhancement: true,
+    characteristic: 'wounds',
+    change: '+',
+    value: 2,
+  },
+  "Mounted Beast Movement" : {
+    name: `Mounted Beast Movement]`,
+    description: `Change your hero's Move characteristic to 8"`,
+    enhancement: true,
+    characteristic: 'movement',
+    change: '=',
+    value: 8,
+  },
+  // Gargantuan beast
+  "Gargantuan Beast Wounds" : {
+    name: `Gargantuan Beast Wounds`,
+    description: `Add 8 to your hero's Wounds characteristic`,
+    enhancement: true,
+    characteristic: 'wounds',
+    change: '+',
+    value: 8,
+  },
+  "Gargantuan Beast Movement" : {
+    name: `Gargantuan Beast Movement]`,
+    description: `Change your hero's Move characteristic to *"`,
+    enhancement: true,
+    characteristic: 'movement',
+    change: '=',
+    value: 100,
+  },
   // Choosable abilities
   "Ethereal" : {
     name: `Ethereal`,

@@ -34,7 +34,7 @@ export const WarscrollComponent: React.FC = () => {
           </p>
           <ul>
             <li className="warscrollStat">WOUNDS: {wounds}</li>
-            <li className="warscrollStat">MOVEMENT: {movement}"</li>
+            <li className="warscrollStat">MOVEMENT: {movement < 100 ? movement + `"` : `*`}</li>
             <li className="warscrollStat">SAVE: {save}+</li>
             <li className="warscrollStat">BRAVERY: {bravery}</li>
           </ul>
