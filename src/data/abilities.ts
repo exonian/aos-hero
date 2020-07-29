@@ -70,6 +70,15 @@ export const Abilities: TAbilities = {
     change: '+',
     value: -1,
   },
+  // Minor beast
+  "Minor Beast Wounds" : {
+    name: `Minor Beast Wounds`,
+    description: `Add 1 to your hero's Wounds characteristic`,
+    enhancement: true,
+    characteristic: 'wounds',
+    change: '+',
+    value: 1,
+  },
   // Choosable abilities
   "Ethereal" : {
     name: `Ethereal`,

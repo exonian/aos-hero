@@ -1,4 +1,4 @@
-import { TBeasts } from "../types/data";
+import { TBeasts, AutomaticGrant } from "../types/data";
 
 export const Beasts: TBeasts = {
   "Minor Beast" : {
@@ -6,7 +6,12 @@ export const Beasts: TBeasts = {
     cost: 6,
     keywords: [],
     exclusions: [],
-    grants: []
+    grants: [
+      {
+        grantType: AutomaticGrant,
+        abilityNames: ["Minor Beast Wounds"],
+      },
+    ]
   },
   "Mounted Beast" : {
     name: `Mounted Beast`,

@@ -3,29 +3,25 @@ import { useSelector } from 'react-redux'
 
 import { selectWarscroll } from '../../ducks/warscroll'
 import { AbilitiesComponent } from './abilities';
-import { calculateSave } from '../../utils/save';
 import { TAbility } from '../../types/data';
 import { calculateCost } from '../../utils/cost';
 import { WeaponsComponent } from './weapons';
 import { DescriptionComponent } from './description';
 import { TitleEditable } from '../input/titleEditable';
 import { calculateKeywords } from '../../utils/keywords';
+import { calculateStats } from '../../utils/stats';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
-  const { abilities, ancestry, title } = warscrollState
   const keywords = calculateKeywords(warscrollState)
+  const { abilities, ancestry, title } = warscrollState
 
   const enhancements = abilities.reduce((accum, item) => {
     if (item.ability.enhancement) accum.push(item.ability)
     return accum
   }, [] as TAbility[])
-  const statsInputs = {'ancestry': ancestry, 'enhancements': enhancements}
+  const { wounds, movement, save, bravery } = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
 
-  const wounds = ancestry ? ancestry.wounds : null
-  const movement = ancestry ? ancestry.movement : null
-  const save = calculateSave(statsInputs)
-  const bravery = ancestry ? ancestry.bravery : null
   const cost = calculateCost(warscrollState)
 
   return (
