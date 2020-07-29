@@ -42,6 +42,12 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
     [dispatch, ability.name]
   )
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+    }
+  }
+
   return ability.enhancement ? null : (
     <div>
       <ContentEditable
@@ -49,6 +55,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
         disabled={ability.cannotRename === true}
         onChange={handleCustomNameChange}
         onBlur={handleCustomNameBlur}
+        onKeyDown={handleKeyDown}
         tagName='h4'
       />
       <p>{description}</p>

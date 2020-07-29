@@ -36,12 +36,17 @@ export const TitleEditable: React.FC<ITitleEditableProps> = props => {
     [dispatch, setTitle]
   )
 
+  const handleKeyDown = (e: { key: string; preventDefault: () => void; }) => {
+    if (e.key === 'Enter') e.preventDefault()
+  }
+
   return (
     <h2>
       <ContentEditable
         html={title}
         onChange={handleChange}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         tagName='span'
       />
       { cost && (<> ({cost}DP)</>)}

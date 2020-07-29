@@ -40,6 +40,10 @@ export const BeastComponent: React.FC = () => {
     [dispatch, editBeastCustomName, beast.name]
   )
 
+  const handleKeyDown = (e: { key: string; preventDefault: () => void; }) => {
+    if (e.key === 'Enter') e.preventDefault()
+  }
+
   return (
     <>
       <h4>{beast.beastAbilityName}</h4>
@@ -48,6 +52,7 @@ export const BeastComponent: React.FC = () => {
         html={customName}
         onChange={handleChange}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         tagName='span'
       />
       <> attacks with its {weaponOneString} and {weaponTwoString}.

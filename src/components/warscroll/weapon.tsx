@@ -41,6 +41,12 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
     [dispatch, weapon, weaponField]
   )
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+    }
+  }
+
   if (!weapon) return null
 
   return (
@@ -49,6 +55,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
         html={customName || ''}
         onChange={handleCustomNameChange}
         onBlur={handleCustomNameBlur}
+        onKeyDown={handleKeyDown}
         tagName='h4'
       />
       { weapon.type.name === "shield" ? <p>{Abilities.Shield.description}.</p> : <WeaponProfile weapon={weapon as TWeapon} />}
