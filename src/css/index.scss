@@ -11,4 +11,6 @@ $themeLightBlue: #15bcff;
   &:focus {
     outline-width: 2px;
   }
+  display: inline-block;
+  min-width: 1em;
 }

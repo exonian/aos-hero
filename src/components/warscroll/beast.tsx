@@ -33,7 +33,7 @@ export const BeastComponent: React.FC = () => {
     e => {
       const value = replaceSpecialChars(e.target.innerHTML)
       if (!value) {
-        dispatch(editBeastCustomName(value))
+        dispatch(editBeastCustomName(beast.name))
       }
       logRename(beast.name, value)
     },
