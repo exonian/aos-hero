@@ -10,11 +10,12 @@ import { DescriptionComponent } from './description';
 import { TitleEditable } from '../input/titleEditable';
 import { calculateKeywords } from '../../utils/keywords';
 import { calculateStats } from '../../utils/stats';
+import { BeastComponent } from './beast';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
   const keywords = calculateKeywords(warscrollState)
-  const { abilities, ancestry, title } = warscrollState
+  const { abilities, ancestry, beast, title } = warscrollState
 
   const enhancements = abilities.reduce((accum, item) => {
     if (item.ability.enhancement) accum.push(item.ability)
@@ -41,6 +42,7 @@ export const WarscrollComponent: React.FC = () => {
         </>
       : ''}
       <DescriptionComponent />
+      { beast && <BeastComponent /> }
       <WeaponsComponent />
       <AbilitiesComponent addedAbilities={abilities} />
     </div>

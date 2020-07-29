@@ -3,6 +3,7 @@ import { TBeasts, AutomaticGrant } from "../types/data";
 export const Beasts: TBeasts = {
   "Minor Beast" : {
     name: `Minor Beast`,
+    beastAbilityName: `Minor Beast`,
     cost: 6,
     keywords: [],
     exclusions: [],
@@ -15,6 +16,7 @@ export const Beasts: TBeasts = {
   },
   "Mounted Beast" : {
     name: `Mounted Beast`,
+    beastAbilityName: `Mount`,
     cost: 8,
     keywords: [],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],
@@ -27,6 +29,7 @@ export const Beasts: TBeasts = {
   },
   "Gargantuan Beast" : {
     name: `Gargantuan Beast`,
+    beastAbilityName: `Mount`,
     cost: 15,
     keywords: [`MONSTER`],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],

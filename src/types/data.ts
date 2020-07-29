@@ -93,6 +93,7 @@ export interface IRestrictableSelections {
 
 export type TBeast = {
   name: string
+  beastAbilityName: string
   keywords: TKeyword[]
   exclusions: TKeyword[]
   exclusionExceptions?: TKeyword[]

@@ -52,6 +52,10 @@ const setWeaponTwo: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null
   state.weaponTwo = action.payload
 }
 
+const editBeastCustomName: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
+  if (state.beast) state.beast.customName = action.payload
+}
+
 export const warscrollSlice = createSlice({
   name: 'warscroll',
   initialState,
@@ -69,7 +73,8 @@ export const warscrollSlice = createSlice({
     setWeaponTwo,
     setArchetypeByKey(state, { payload }: PayloadAction<string>) {
       state.archetype = Archetypes[payload]
-    }
+    },
+    editBeastCustomName,
   },
 })
 
