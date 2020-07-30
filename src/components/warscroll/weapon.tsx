@@ -11,7 +11,7 @@ import { Abilities } from "../../data/abilities";
 
 interface IAbilityProps {
   addedWeapon: TAddedWeapon | null
-  weaponField: "weaponOne" | "weaponTwo",
+  weaponField: "claws" | "maw" | "weaponOne" | "weaponTwo",
 }
 
 export const WeaponComponent: React.FC<IAbilityProps> = props => {
@@ -48,6 +48,8 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
   }
 
   if (!weapon) return null
+
+  console.log(weapon)
 
   return (
     <>

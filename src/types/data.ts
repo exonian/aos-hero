@@ -50,7 +50,7 @@ export type TArchetype = {
 }
 export type TArchetypes = Record<string, TArchetype>
 
-export type TWeaponTypeName = "one-handed-melee" | "one-handed-missile" | "two-handed-melee" | "two-handed-missile" | "shield"
+export type TWeaponTypeName = "one-handed-melee" | "one-handed-missile" | "two-handed-melee" | "two-handed-missile" | "shield" | "small-beast" | "large-beast"
 
 export type TWeaponType = {
   name: TWeaponTypeName
@@ -97,6 +97,7 @@ export type TBeast = {
   keywords: TKeyword[]
   exclusions: TKeyword[]
   exclusionExceptions?: TKeyword[]
+  weapons: TWeapons
   grants: TGrants[]
   cost: number
 }

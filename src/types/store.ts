@@ -9,6 +9,8 @@ export interface IWarscrollSlice {
   beast: TAddedBeast | null
   weaponOne: TAddedWeapon | null
   weaponTwo: TAddedWeapon | null
+  claws: TAddedWeapon | null
+  maw: TAddedWeapon | null
 }
 
 export interface IStore {

@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TAddedBeast, TBeast } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -18,14 +18,31 @@ export const initialState: IWarscrollSlice = {
   beast: null,
   weaponOne: null,
   weaponTwo: null,
+  claws: null,
+  maw: null,
 }
 
 const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (state, action) => {
   state.armyKeywords = action.payload
 }
 
-const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TAddedBeast|null>> = (state, action) => {
-  state.beast = action.payload
+const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TBeast|null>> = (state, action) => {
+  const beast = action.payload
+
+  if (beast) {
+    const addedBeast = beast ? {'beast': beast, 'customName': beast.name} : null
+    const { Claws, Maw } = beast.weapons
+    const addedClaws = {'weapon': Claws, 'customName': Claws.name}
+    const addedMaw = {'weapon': Maw, 'customName': Maw.name}
+    state.beast = addedBeast
+    state.claws = addedClaws
+    state.maw = addedMaw
+  }
+  else {
+    state.beast = null
+    state.claws = null
+    state.maw = null
+  }
 }
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -42,6 +59,14 @@ const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>>
     accum.push(ability)
     return accum
   }, [] as TAddedAbility[])
+}
+
+const setClaws: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
+  state.claws = action.payload
+}
+
+const setMaw: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
+  state.maw = action.payload
 }
 
 const setWeaponOne: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
@@ -69,6 +94,8 @@ export const warscrollSlice = createSlice({
     setTitle,
     addAbilityByKey,
     setAbilities,
+    setClaws,
+    setMaw,
     setWeaponOne,
     setWeaponTwo,
     setArchetypeByKey(state, { payload }: PayloadAction<string>) {
@@ -146,8 +173,7 @@ export const changeBeast = (
 
   dispatch(handleGrantedAbilities(oldBeast, newBeast))
 
-  const addedBeast = newBeast ? {'beast': newBeast, 'customName': newBeast.name} : null
-  dispatch(warscrollActions.setBeast(addedBeast))
+  dispatch(warscrollActions.setBeast(newBeast))
 }
 
 export const changeWeapon = (
@@ -211,7 +237,7 @@ export const editAbilityCustomName = (
 }
 
 export const editWeaponCustomName = (
-  weaponField: "weaponOne" | "weaponTwo",
+  weaponField: "claws" | "maw" | "weaponOne" | "weaponTwo",
   customName: string,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
@@ -220,6 +246,8 @@ export const editWeaponCustomName = (
   const renamedWeapon = Object.assign({}, addedWeapon, {
     customName: customName
   })
+  if (weaponField === "claws") dispatch(warscrollActions.setClaws(renamedWeapon))
+  if (weaponField === "maw") dispatch(warscrollActions.setMaw(renamedWeapon))
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(renamedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(renamedWeapon))
 }

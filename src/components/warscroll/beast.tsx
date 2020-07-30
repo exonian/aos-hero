@@ -11,13 +11,11 @@ import { TAddedBeast } from "../../types/data";
 export const BeastComponent: React.FC = () => {
   const state = useSelector(selectWarscroll)
   const addedBeast = state.beast as TAddedBeast
+  const { claws, maw } = state
 
   const beast = addedBeast.beast
   const customName = addedBeast.customName
   
-  const weaponOneString = 'Claws'
-  const weaponTwoString = 'Maw'
-
   const dispatch = useDispatch()
   const { editBeastCustomName } = warscrollActions
 
@@ -55,8 +53,8 @@ export const BeastComponent: React.FC = () => {
         onKeyDown={handleKeyDown}
         tagName='span'
       />
-      <> attacks with its {weaponOneString} and {weaponTwoString}.
-         { beast.name === 'Minor Beast' && `For rules purposes it is treated the same as a mount.` }</></p>
+      <> attacks with its { claws && claws.customName } and { maw && maw.customName }.
+         { beast.name === 'Minor Beast' && ` For rules purposes it is treated the same as a mount.` }</></p>
     </>
   )
 }

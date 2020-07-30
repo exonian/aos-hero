@@ -1,4 +1,5 @@
 import { TBeasts, AutomaticGrant } from "../types/data";
+import { SmallBeastWeapons, LargeBeastWeapons } from "./beastWeapons";
 
 export const Beasts: TBeasts = {
   "Minor Beast" : {
@@ -7,6 +8,7 @@ export const Beasts: TBeasts = {
     cost: 6,
     keywords: [],
     exclusions: [],
+    weapons: SmallBeastWeapons,
     grants: [
       {
         grantType: AutomaticGrant,
@@ -20,6 +22,7 @@ export const Beasts: TBeasts = {
     cost: 8,
     keywords: [],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],
+    weapons: SmallBeastWeapons,
     grants: [
       {
         grantType: AutomaticGrant,
@@ -33,6 +36,7 @@ export const Beasts: TBeasts = {
     cost: 15,
     keywords: [`MONSTER`],
     exclusions: [`BULLGOR`, `DRAGON OGOR`],
+    weapons: LargeBeastWeapons,
     grants: [
       {
         grantType: AutomaticGrant,
