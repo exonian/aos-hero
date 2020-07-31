@@ -8,6 +8,7 @@ import { ArmyKeywordInput } from './input/army_keyword';
 import { selectWarscroll } from '../ducks/warscroll';
 import { WeaponInputs } from './input/weapons';
 import { BeastInput } from './input/beast';
+import { BoughtAbilityInputs } from './input/boughtAbilities';
 
 export const EditorComponent: React.FC = () => {
   const { ancestry } = useSelector(selectWarscroll)
@@ -20,6 +21,7 @@ export const EditorComponent: React.FC = () => {
       { ancestry && <ArchetypeInput /> }
       <WeaponInputs />
       <BeastInput />
+      <BoughtAbilityInputs />
     </div>
   )
 }
