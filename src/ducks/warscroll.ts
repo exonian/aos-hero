@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -26,23 +26,8 @@ const setArmyKeywords: CaseReducer<IWarscrollSlice, PayloadAction<string[]>> = (
   state.armyKeywords = action.payload
 }
 
-const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TBeast|null>> = (state, action) => {
-  const beast = action.payload
-
-  if (beast) {
-    const addedBeast = beast ? {'beast': beast, 'customName': beast.name} : null
-    const { Claws, Maw } = beast.weapons
-    const addedClaws = {'weapon': Claws, 'customName': Claws.name}
-    const addedMaw = {'weapon': Maw, 'customName': Maw.name}
-    state.beast = addedBeast
-    state.claws = addedClaws
-    state.maw = addedMaw
-  }
-  else {
-    state.beast = null
-    state.claws = null
-    state.maw = null
-  }
+const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TAddedBeast|null>> = (state, action) => {
+  state.beast = action.payload
 }
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -168,12 +153,21 @@ export const changeBeast = (
   const state = getState()
   const {warscroll} = state
   const oldAddedBeast = warscroll.beast
+  const oldAddedClaws = warscroll.claws
+  const oldAddedMaw = warscroll.maw
   const oldBeast = oldAddedBeast ? oldAddedBeast.beast : null
   const newBeast = Beasts[name]
+  const newAddedBeast = newBeast ? {'beast': newBeast, 'customName': newBeast.name} : null
 
   dispatch(handleGrantedAbilities(oldBeast, newBeast))
+  dispatch(warscrollActions.setBeast(newAddedBeast))
 
-  dispatch(warscrollActions.setBeast(newBeast))
+  const { Claws, Maw } = newBeast ? newBeast.weapons : {'Claws': null, 'Maw': null}
+  const addedClaws = Claws ? {'weapon': Claws, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
+  const addedMaw = Maw ? {'weapon': Maw, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
+
+  dispatch(warscrollActions.setClaws(addedClaws))
+  dispatch(warscrollActions.setMaw(addedMaw))
 }
 
 export const changeWeapon = (
