@@ -1,4 +1,5 @@
 import { TAbilities } from "../types/data";
+import { STAR } from "../utils/stats";
 
 export const Abilities: TAbilities = {
   // Commander archetype
@@ -111,7 +112,7 @@ export const Abilities: TAbilities = {
     enhancement: true,
     characteristic: 'movement',
     change: '=',
-    value: 100,
+    value: STAR,
   },
   // Choosable abilities
   "Ethereal" : {

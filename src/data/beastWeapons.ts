@@ -1,4 +1,5 @@
 import { TWeaponTypes, TWeapons } from "../types/data";
+import { STAR } from "../utils/stats";
 
 
 export const BeastWeaponTypes: TWeaponTypes = {
@@ -44,7 +45,7 @@ export const LargeBeastWeapons: TWeapons = {
     name: `Claws`,
     type: BeastWeaponTypes["large-beast"],
     range: 2,
-    attacks: 100,
+    attacks: STAR,
     toHit: 4,
     toWound: 3,
     rend: 1,
@@ -59,7 +60,7 @@ export const LargeBeastWeapons: TWeapons = {
     toHit: 3,
     toWound: 3,
     rend: 2,
-    damage: 100,
+    damage: STAR,
     cost: 0,
   },
 }

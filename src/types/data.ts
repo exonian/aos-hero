@@ -1,5 +1,7 @@
 export type TKeyword = string
 
+export type TStat = number | "D3"
+
 export const AutomaticGrant = "automatic"
 export const ChooseOneGrant = "chooseOne"
 export type TGrantType = "automatic"|"chooseOne"
@@ -66,7 +68,7 @@ export type TWeapon = {
   toHit: number
   toWound: number
   rend: number
-  damage: number | "D3"
+  damage: TStat
   cost: number
   grants?: TGrants[]
 }

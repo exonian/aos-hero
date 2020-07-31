@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TWeapon } from "../../types/data";
+import { statDisplayValue } from "../../utils/stats";
 
 
 interface IWeaponProfileProps {
@@ -29,7 +30,7 @@ export const WeaponProfile: React.FC<IWeaponProfileProps> = props => {
           <td>{ weapon.toHit }+</td>
           <td>{ weapon.toWound }+</td>
           <td>-{ weapon.rend ? weapon.rend : '' }</td>
-          <td>{ weapon.damage }</td>
+          <td>{ statDisplayValue(weapon.damage) }</td>
         </tr>
       </tbody>
     </table>

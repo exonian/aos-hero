@@ -1,4 +1,4 @@
-import { TAncestry, TAbility, TKeyword } from "../types/data";
+import { TAncestry, TAbility, TKeyword, TStat } from "../types/data";
 
 interface ICalculateStats {
   ancestry: TAncestry | null;
@@ -37,3 +37,9 @@ export const calculateStats = (args: ICalculateStats): Record<string, number> =>
 
   return values
 }
+
+export const STAR = 1000
+
+export const isStar = (stat: TStat): boolean => stat > STAR / 2
+
+export const statDisplayValue = (stat: TStat, suffix=``): string => isStar(stat) ? `*` : `${stat}${suffix}`

@@ -11,6 +11,8 @@ import { TitleEditable } from '../input/titleEditable';
 import { calculateKeywords } from '../../utils/keywords';
 import { calculateStats } from '../../utils/stats';
 import { BeastComponent } from './beast';
+import { StatsComponent } from './stats';
+import { KeywordsComponent } from './keywords';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
@@ -21,26 +23,15 @@ export const WarscrollComponent: React.FC = () => {
     if (item.ability.enhancement) accum.push(item.ability)
     return accum
   }, [] as TAbility[])
-  const { wounds, movement, save, bravery } = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
+  const stats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
 
   const cost = calculateCost(warscrollState)
 
   return (
     <div>
       <TitleEditable title={title} cost={cost} />
-      {ancestry ?
-        <>
-          <p>
-            { keywords.join(', ') }
-          </p>
-          <ul>
-            <li className="warscrollStat">WOUNDS: {wounds}</li>
-            <li className="warscrollStat">MOVEMENT: {movement < 100 ? movement + `"` : `*`}</li>
-            <li className="warscrollStat">SAVE: {save}+</li>
-            <li className="warscrollStat">BRAVERY: {bravery}</li>
-          </ul>
-        </>
-      : ''}
+      <StatsComponent stats={stats} />
+      <KeywordsComponent keywords={keywords} />
       <DescriptionComponent />
       { beast && <BeastComponent /> }
       <WeaponsComponent />
