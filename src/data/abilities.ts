@@ -1,5 +1,7 @@
 import { TAbilities } from "../types/data";
 import { STAR } from "../utils/stats";
+import { BuyableAbilities } from "./buyableAbilities";
+import { BuyableBeastAbilities } from "./buyableBeastAbilities";
 
 export const Abilities: TAbilities = {
   // Commander archetype
@@ -114,15 +116,6 @@ export const Abilities: TAbilities = {
     change: '=',
     value: STAR,
   },
-  // Choosable abilities
-  "Ethereal" : {
-    name: `Ethereal`,
-    description: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-    cost: 4,
-  },
-  "Fly" : {
-    name: `Fly`,
-    description: `This model can fly.`,
-    cost: 4,
-  },
+  ...BuyableAbilities,
+  ...BuyableBeastAbilities,
 }
