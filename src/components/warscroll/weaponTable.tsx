@@ -25,10 +25,10 @@ export const WeaponProfile: React.FC<IWeaponProfileProps> = props => {
       </thead>
       <tbody>
         <tr>
-          <td>{ weapon.range }"</td>
-          <td>{ weapon.attacks }</td>
-          <td>{ weapon.toHit }+</td>
-          <td>{ weapon.toWound }+</td>
+          <td>{ statDisplayValue(weapon.range, `"`) }</td>
+          <td>{ statDisplayValue(weapon.attacks) }</td>
+          <td>{ statDisplayValue(weapon.toHit, `+`) }</td>
+          <td>{ statDisplayValue(weapon.toWound, `+`) }</td>
           <td>-{ weapon.rend ? weapon.rend : '' }</td>
           <td>{ statDisplayValue(weapon.damage) }</td>
         </tr>
