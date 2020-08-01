@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectWarscroll } from "../../ducks/warscroll";
+import { BuyAbilityInput } from "./buyAbility";
 
 export const BoughtAbilityInputs: React.FC = () => {
   const { abilities } = useSelector(selectWarscroll)
@@ -9,8 +10,10 @@ export const BoughtAbilityInputs: React.FC = () => {
   return (
     <>
       {boughtAbilities.map((addedAbility, i) => {
-        return <p>{ addedAbility.customName }</p>
+        const key = `${addedAbility.ability.name}-${addedAbility.source}`
+        return <p key={key}>{ addedAbility.customName }</p>
       })}
+      <BuyAbilityInput />
     </>
   )
 }

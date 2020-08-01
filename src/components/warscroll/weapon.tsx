@@ -49,8 +49,6 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
 
   if (!weapon) return null
 
-  console.log(weapon)
-
   return (
     <>
       <ContentEditable

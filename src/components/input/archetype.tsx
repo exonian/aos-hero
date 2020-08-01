@@ -7,7 +7,7 @@ import { selectWarscroll, changeArchetype } from '../../ducks/warscroll';
 import { Archetypes } from '../../data/archetypes';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { ChooseOneGrant } from '../../types/data';
-import { ChooseOneGrantedAbilityInput } from './ability';
+import { ChooseOneGrantedAbilityInput } from './chooseOneGrantedAbility';
 import { logSelection } from '../../utils/analytics';
 import { errorStyle } from '../selectStyles';
 import { calculateKeywords } from '../../utils/keywords';

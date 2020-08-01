@@ -212,6 +212,18 @@ export const replaceGrantedAbility = (
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
 
+export const addBoughtAbility = (
+  name: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+
+  const ability = {'ability': Abilities[name], 'source': '', customName: name}
+  const combinedAbilities = abilities.concat(ability)
+  dispatch(warscrollActions.setAbilities(combinedAbilities))
+}
+
 export const editAbilityCustomName = (
   keyName: string,
   customName: string,
