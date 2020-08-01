@@ -12,7 +12,8 @@ export const AbilitiesComponent: React.FC<IAbilitiesProps> = props => {
   return (
     <>
       {addedAbilities.map((addedAbility, i) => {
-        return <AbilityComponent addedAbility={addedAbility} key={addedAbility.ability.name} />
+        const key = `${addedAbility.ability.name}-${addedAbility.source}`
+        return <AbilityComponent addedAbility={addedAbility} key={key} />
       })}
     </>
   )
