@@ -15,12 +15,15 @@ export type TAbility = {
   description: string
   cost?: number
   exclusions?: TKeyword[]
+  requirements?: TKeyword[]
+  beastTypes?: string[]
   cannotRename?: boolean
   spell?: boolean
   enhancement?: boolean
   characteristic?: string
   change?: "+" | "="
   value?: number
+  keywords?: TKeyword[]
 }
 export type TAbilities = Record<string, TAbility>
 
