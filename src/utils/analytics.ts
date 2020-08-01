@@ -46,6 +46,21 @@ export const logSelection = (type: string, name: string) => {
 
 /**
  * Used for logging selection of ancestries, archetypes etc
+ * @param type
+ * @param name
+ */
+export const logRemoval = (type: string, name: string) => {
+  if (!type || !name) return
+
+  logToGA({
+    category: `${type}`,
+    action: `Removal`,
+    label: `${name}`,
+  })
+}
+
+/**
+ * Used for logging selection of ancestries, archetypes etc
  * @param original
  * @param custom
  */

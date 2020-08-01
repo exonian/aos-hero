@@ -224,6 +224,20 @@ export const addBoughtAbility = (
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
 
+export const removeBoughtAbility = (
+  name: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+
+  const abilitiesToKeep = abilities.reduce((accum, addedAbility) => {
+    if (addedAbility.source || addedAbility.ability.name !== name) accum.push(addedAbility)
+    return accum
+  }, [] as TAddedAbility[])
+  dispatch(warscrollActions.setAbilities(abilitiesToKeep))
+}
+
 export const editAbilityCustomName = (
   keyName: string,
   customName: string,
