@@ -34,7 +34,7 @@ export const BuyableAbilities: TAbilities = {
     enhancement: true,
     characteristic: 'save',
     change: '+',
-    value: 1,
+    value: -1,
     cost: 2,
   },
   "Ethereal" : {
