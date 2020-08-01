@@ -3,6 +3,8 @@ import { STAR } from "../utils/stats";
 import { BuyableAbilities } from "./buyableAbilities";
 import { BuyableBeastAbilities } from "./buyableBeastAbilities";
 
+export const MAX_ENHANCEMENT_COUNT: number = 3
+
 export const Abilities: TAbilities = {
   // Commander archetype
   "Lead the Attack" : {

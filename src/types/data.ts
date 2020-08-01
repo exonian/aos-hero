@@ -31,6 +31,8 @@ export type TAddedAbility = {
   ability: TAbility
   source?: string
   customName: string
+  count: number
+  targetWeapon?: TWeapon
 }
 
 export type TAncestry = {

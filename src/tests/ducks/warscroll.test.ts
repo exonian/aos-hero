@@ -104,7 +104,7 @@ it('should handle addAbilityByKey', () => {
       "weaponTwo": null,
       "archetype": null,
       "beast": null,
-      "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
+      "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers", count: 1}],
     }
   )
   expect(
@@ -119,7 +119,7 @@ it('should handle addAbilityByKey', () => {
         "weaponTwo": null,
         "archetype": null,
         "beast": null,
-        "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers"}],
+        "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers", count: 1}],
       }
     , {
       type: addAbilityByKey.type,
@@ -137,8 +137,8 @@ it('should handle addAbilityByKey', () => {
       "archetype": null,
       "beast": null,
       "abilities": [
-        {ability: Abilities["Divine Prayers"], customName:"Divine Prayers"},
-        {ability: Abilities["Wrathful Invocation"], customName:"Wrathful Invocation"},
+        {ability: Abilities["Divine Prayers"], customName:"Divine Prayers", count: 1},
+        {ability: Abilities["Wrathful Invocation"], customName:"Wrathful Invocation", count: 1},
       ],
     }
   )

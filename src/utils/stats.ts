@@ -1,11 +1,11 @@
-import { TAncestry, TAbility, TKeyword, TStat } from "../types/data";
+import { TAncestry, TKeyword, TStat, TAddedAbility, TWeapon } from "../types/data";
 
 interface ICalculateStats {
   ancestry: TAncestry | null;
-  enhancements: TAbility[];
+  enhancements: TAddedAbility[];
 }
 
-interface IEnhancement  {
+type TEnhancement = {
   name: string
   description: string
   cost?: number
@@ -15,6 +15,14 @@ interface IEnhancement  {
   characteristic: string
   change: "+" | "="
   value: number
+}
+
+type TAddedEnhancement = {
+  ability: TEnhancement
+  source?: string
+  customName: string
+  count: number
+  targetWeapon?: TWeapon
 }
 
 export const calculateStats = (args: ICalculateStats): Record<string, number> => {
@@ -28,12 +36,12 @@ export const calculateStats = (args: ICalculateStats): Record<string, number> =>
   values.save = ancestry.save
   values.bravery = ancestry.bravery
 
-  const replacements = enhancements.filter(i => i.change === '=') as IEnhancement[]
-  const modifiers = enhancements.filter(i => i.change === '+') as IEnhancement[]
+  const replacements = enhancements.filter(i => i.ability.change === '=') as TAddedEnhancement[]
+  const modifiers = enhancements.filter(i => i.ability.change === '+') as TAddedEnhancement[]
 
-  replacements.forEach(replacement => values[replacement.characteristic] = replacement.value)
+  replacements.forEach(replacement => values[replacement.ability.characteristic] = replacement.ability.value)
 
-  modifiers.forEach(modifier => values[modifier.characteristic] += modifier.value)
+  modifiers.forEach(modifier => values[modifier.ability.characteristic] += modifier.ability.value * modifier.count)
 
   return values
 }

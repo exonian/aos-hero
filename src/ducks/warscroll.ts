@@ -3,7 +3,7 @@ import { createSlice, CaseReducer, PayloadAction, ThunkAction, Action } from '@r
 import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
-import { Abilities } from '../data/abilities';
+import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
 import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
@@ -36,7 +36,7 @@ const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, ac
 
 const addAbilityByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   const name = action.payload
-  state.abilities = state.abilities.concat({ability: Abilities[name], customName: name})
+  state.abilities = state.abilities.concat({ability: Abilities[name], customName: name, count: 1})
 }
 
 const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>> = (state, action) => {
@@ -113,7 +113,7 @@ const handleGrantedAbilities = (
       const { grantType, abilityNames } = grant
       if (grantType === AutomaticGrant) {
         abilityNames.forEach(abilityName => {
-          accum.push({ability: Abilities[abilityName], source: newObject.name, customName: abilityName})
+          accum.push({ability: Abilities[abilityName], source: newObject.name, customName: abilityName, count: 1})
         })
       }
       return accum
@@ -198,12 +198,12 @@ export const replaceGrantedAbility = (
     abilities.filter(ability => {
       return ability.source !== source.name
     }) : abilities
-  const ability = {'ability': Abilities[name], 'source': source ? source.name : '', customName: name}
+  const ability = {'ability': Abilities[name], 'source': source ? source.name : '', customName: name, count: 1}
   const automaticAbilities = source ? source.grants.reduce((accum, grant) => {
     const { grantType, abilityNames } = grant
     if (grantType === AutomaticGrant) {
       abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: source.name, customName: abilityName})
+        accum.push({ability: Abilities[abilityName], source: source.name, customName: abilityName, count: 1})
       })
     }
     return accum
@@ -219,7 +219,7 @@ export const addBoughtAbility = (
   const {warscroll} = state
   const {abilities} = warscroll
 
-  const ability = {'ability': Abilities[name], 'source': '', customName: name}
+  const ability = {'ability': Abilities[name], 'source': '', customName: name, count: 1}
   const combinedAbilities = abilities.concat(ability)
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
@@ -236,6 +236,25 @@ export const removeBoughtAbility = (
     return accum
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesToKeep))
+}
+
+export const incrementBoughtAbility = (
+  name: string,
+  change: -1 | 1
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+
+  const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
+    if (addedAbility.ability.name === name) {
+      const newCount = Math.min(addedAbility.count + change, MAX_ENHANCEMENT_COUNT)
+      if (newCount) accum.push({...addedAbility, count: newCount})
+    }
+    else accum.push(addedAbility)
+    return accum
+  }, [] as TAddedAbility[])
+  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
 }
 
 export const editAbilityCustomName = (

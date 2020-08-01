@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 import { selectWarscroll } from '../../ducks/warscroll'
 import { AbilitiesComponent } from './abilities';
-import { TAbility } from '../../types/data';
 import { calculateCost } from '../../utils/cost';
 import { WeaponsComponent } from './weapons';
 import { DescriptionComponent } from './description';
@@ -19,10 +18,7 @@ export const WarscrollComponent: React.FC = () => {
   const keywords = calculateKeywords(warscrollState)
   const { abilities, ancestry, beast, title } = warscrollState
 
-  const enhancements = abilities.reduce((accum, item) => {
-    if (item.ability.enhancement) accum.push(item.ability)
-    return accum
-  }, [] as TAbility[])
+  const enhancements = abilities.filter(addedAbility => addedAbility.ability.enhancement)
   const stats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
 
   const cost = calculateCost(warscrollState)
