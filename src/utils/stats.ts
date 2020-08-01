@@ -42,4 +42,6 @@ export const STAR = 1000
 
 export const isStar = (stat: TStat): boolean => stat > STAR / 2
 
-export const statDisplayValue = (stat: TStat, suffix=``): string => isStar(stat) ? `*` : `${stat}${suffix}`
+export const statDisplayValue = (stat: TStat, suffix=``): string => {
+  return stat ? isStar(stat) ? `*` : `${stat}${suffix}` : '-'
+}
