@@ -41,7 +41,7 @@ export const BuyAbilityInput: React.FC = () => {
     <Select
       options={options}
       onChange={handleChange}
-      isSearchable={false}
+      isSearchable={true}
       value={value}
     />
   )
