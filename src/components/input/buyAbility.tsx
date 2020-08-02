@@ -31,8 +31,10 @@ export const BuyAbilityInput: React.FC = () => {
   const handleChange = useCallback(
     (...args) => {
       const value = args[0].value
-      dispatch(addBoughtAbility(value))
-      logSelection('Bought Ability', value)
+      if (value) {
+        dispatch(addBoughtAbility(value))
+        logSelection('Bought Ability', value)
+      }
     },
     [dispatch]
   )
