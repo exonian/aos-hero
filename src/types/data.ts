@@ -32,7 +32,7 @@ export type TAddedAbility = {
   source?: string
   customName: string
   count: number
-  targetWeapon?: TWeapon
+  target?: "weaponOne" | "weaponTwo" | "claws" | "maw"
 }
 
 export type TAncestry = {

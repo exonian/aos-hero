@@ -217,10 +217,15 @@ export const addBoughtAbility = (
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
-  const {abilities} = warscroll
+  const { abilities, weaponOne, weaponTwo } = warscroll
 
-  const ability = {'ability': Abilities[name], 'source': '', customName: name, count: 1}
-  const combinedAbilities = abilities.concat(ability)
+  const ability = Abilities[name]
+  const addedAbility: TAddedAbility = {'ability': ability, 'source': '', customName: name, count: 1}
+  if (ability.characteristic && ability.characteristic.startsWith('weapon')) {
+    if (weaponOne || (!weaponOne && !weaponTwo)) addedAbility.target = "weaponOne"
+    else addedAbility.target = "weaponTwo"
+  }
+  const combinedAbilities = abilities.concat(addedAbility)
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
 
