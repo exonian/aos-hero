@@ -1,10 +1,5 @@
 import { TAncestry, TKeyword, TStat, TAddedAbility, TWeapon } from "../types/data";
 
-interface ICalculateStats {
-  ancestry: TAncestry | null;
-  enhancements: TAddedAbility[];
-}
-
 type TEnhancement = {
   name: string
   description: string
@@ -17,12 +12,17 @@ type TEnhancement = {
   value: number
 }
 
-type TAddedEnhancement = {
+export type TAddedEnhancement = {
   ability: TEnhancement
   source?: string
   customName: string
   count: number
   targetWeapon?: TWeapon
+}
+
+interface ICalculateStats {
+  ancestry: TAncestry | null;
+  enhancements: TAddedAbility[];
 }
 
 export const calculateStats = (args: ICalculateStats): Record<string, number> => {
@@ -45,6 +45,34 @@ export const calculateStats = (args: ICalculateStats): Record<string, number> =>
 
   return values
 }
+
+
+interface ICalculateWeaponStats {
+  weapon: TWeapon;
+  enhancements: TAddedEnhancement[];
+}
+
+export const calculateWeaponStats = (args: ICalculateWeaponStats): Record<string, TStat> => {
+  const {weapon, enhancements} = args
+
+  const values: Record<string, TStat> = {}
+
+  values.range = weapon.range
+  values.attacks = weapon.attacks
+  values.toHit = weapon.toHit
+  values.toWound = weapon.toWound
+  values.rend = weapon.rend
+  values.damage = weapon.damage
+
+  enhancements.forEach(enhancement => {
+    const characteristic = enhancement.ability.characteristic.split('.')[1]
+    const currentValue = values[characteristic]
+    if (typeof currentValue === "number") values[characteristic] = currentValue + enhancement.ability.value * enhancement.count
+  })
+
+  return values
+}
+
 
 export const STAR = 1000
 

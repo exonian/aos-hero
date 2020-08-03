@@ -1,15 +1,15 @@
 import React from "react";
 
-import { TWeapon } from "../../types/data";
+import { TStat } from "../../types/data";
 import { statDisplayValue } from "../../utils/stats";
 
 
 interface IWeaponProfileProps {
-  weapon: TWeapon
+  stats: Record<string, TStat>
 }
 
 export const WeaponProfile: React.FC<IWeaponProfileProps> = props => {
-  const { weapon } = props
+  const { stats } = props
 
   return (
     <table className="table text-center">
@@ -25,12 +25,12 @@ export const WeaponProfile: React.FC<IWeaponProfileProps> = props => {
       </thead>
       <tbody>
         <tr>
-          <td>{ statDisplayValue(weapon.range, `"`) }</td>
-          <td>{ statDisplayValue(weapon.attacks) }</td>
-          <td>{ statDisplayValue(weapon.toHit, `+`) }</td>
-          <td>{ statDisplayValue(weapon.toWound, `+`) }</td>
-          <td>-{ weapon.rend ? weapon.rend : '' }</td>
-          <td>{ statDisplayValue(weapon.damage) }</td>
+          <td>{ statDisplayValue(stats.range, `"`) }</td>
+          <td>{ statDisplayValue(stats.attacks) }</td>
+          <td>{ statDisplayValue(stats.toHit, `+`) }</td>
+          <td>{ statDisplayValue(stats.toWound, `+`) }</td>
+          <td>-{ stats.rend ? stats.rend : '' }</td>
+          <td>{ statDisplayValue(stats.damage) }</td>
         </tr>
       </tbody>
     </table>

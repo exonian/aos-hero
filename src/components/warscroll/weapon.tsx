@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ContentEditable from "react-contenteditable";
 
 import { TAddedWeapon, TWeapon } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 import { logRename } from "../../utils/analytics";
-import { editWeaponCustomName } from "../../ducks/warscroll";
+import { editWeaponCustomName, selectWarscroll } from "../../ducks/warscroll";
 import { WeaponProfile } from "./weaponTable";
 import { Abilities } from "../../data/abilities";
+import { calculateWeaponStats, TAddedEnhancement } from "../../utils/stats";
 
 interface IAbilityProps {
   addedWeapon: TAddedWeapon | null
@@ -19,6 +20,14 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
   const weapon = addedWeapon ? addedWeapon.weapon : null
   const customName = addedWeapon && addedWeapon.customName
   const dispatch = useDispatch()
+
+  const warscrollState = useSelector(selectWarscroll)
+  const { abilities } = warscrollState
+
+  const enhancements = abilities.filter(addedAbility => {
+    return addedAbility.ability.enhancement && addedAbility.target === weaponField
+  }) as TAddedEnhancement[]
+  const stats = weapon ? calculateWeaponStats({'weapon': weapon as TWeapon, 'enhancements': enhancements}) : {}
 
   const handleCustomNameChange = useCallback(
     e => {
@@ -58,7 +67,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
         onKeyDown={handleKeyDown}
         tagName='h4'
       />
-      { weapon.type.name === "shield" ? <p>{Abilities.Shield.description}.</p> : <WeaponProfile weapon={weapon as TWeapon} />}
+      { weapon.type.name === "shield" ? <p>{Abilities.Shield.description}.</p> : <WeaponProfile stats={stats} />}
     </>
   )
 }

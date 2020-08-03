@@ -52,7 +52,7 @@ export const BuyableAbilities: TAbilities = {
     enhancement: true,
     characteristic: 'weapon.rend',
     change: '+',
-    value: -1,
+    value: 1,
     cost: 2,
   },
   "Ethereal" : {
