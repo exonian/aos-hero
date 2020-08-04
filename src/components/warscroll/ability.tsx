@@ -6,7 +6,7 @@ import { TAddedAbility } from '../../types/data';
 import { editAbilityCustomName, selectWarscroll } from '../../ducks/warscroll';
 import { logRename } from '../../utils/analytics';
 import { replaceSpecialChars } from '../../utils/text';
-import { replaceWarscrollValues } from '../../utils/dyanmicStrings';
+import { replaceWarscrollValues } from '../../utils/dynamicStrings';
 
 interface IAbilityProps {
   addedAbility: TAddedAbility

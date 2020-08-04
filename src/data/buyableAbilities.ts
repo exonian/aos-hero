@@ -87,4 +87,9 @@ export const BuyableAbilities: TAbilities = {
     keywords: ['TOTEM'],
     cost: 1,
   },
+  "Inspiring" : {
+    name: `Inspiring`,
+    description: `While friendly units are wholly within < KEYWORDS.TOTEM ? 18 : 12 >" of this model, they can use this model's Bravery characteristic instead of their own.`,
+    cost: 1,
+  },
 }
