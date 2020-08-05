@@ -133,6 +133,7 @@ export const changeAncestry = (
 
   dispatch(handleGrantedAbilities(oldAncestry, newAncestry))
   dispatch(warscrollActions.setAncestryByKey(name))
+  dispatch(warscrollActions.setArmyKeywords([]))
 }
 
 export const changeArchetype = (
