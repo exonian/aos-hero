@@ -36,14 +36,16 @@ export const BeastInput: React.FC = () => {
   )
 
   return (
-    <>
+    <div className="form-group">
+      <label htmlFor="beastInput">Beast</label>
       <Select
+        id="beastInput"
         options={options}
         onChange={handleChange}
         value={value}
         styles={valid ? {} : errorStyle}
         isSearchable={false}
       />
-    </>
+    </div>
   )
 }

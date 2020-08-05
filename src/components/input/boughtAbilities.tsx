@@ -10,7 +10,11 @@ export const BoughtAbilityInputs: React.FC = () => {
 
   return (
     <>
-      {boughtAbilities.map((addedAbility, i) => <BoughtAbilityComponent addedAbility={addedAbility} key={ addedAbility.ability.name } />)}
+      <div className="card">
+        <ul className="list-group list-group-flush">
+          {boughtAbilities.map((addedAbility, i) => <BoughtAbilityComponent addedAbility={addedAbility} key={ addedAbility.ability.name } />)}
+        </ul>
+      </div>
       <BuyAbilityInput />
     </>
   )
