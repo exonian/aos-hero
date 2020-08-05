@@ -29,14 +29,18 @@ export const TitleInput: React.FC = () => {
   )
 
   return (
-    <input
-      className="form-control form-control-md"
-      placeholder="Name your hero"
-      type="text"
-      value={title}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      tabIndex={0}
-    /> 
+    <div className="form-group">
+      <label htmlFor="titleInput">Hero Name</label>
+      <input
+        id="titleInput"
+        className="form-control form-control-md"
+        placeholder="Name your hero"
+        type="text"
+        value={title}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        tabIndex={0}
+      /> 
+    </div>
   )
 }

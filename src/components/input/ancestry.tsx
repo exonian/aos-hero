@@ -8,6 +8,7 @@ import { selectWarscroll, changeAncestry } from '../../ducks/warscroll';
 import { TAncestry } from '../../types/data';
 import { titleCase } from '../../utils/text';
 import { logSelection } from '../../utils/analytics';
+import { ArmyKeywordInput } from './army_keyword';
 
 
 const nameFn = (item: TAncestry): string => { return item.name }
@@ -29,11 +30,16 @@ export const AncestryInput: React.FC = () => {
   )
 
   return (
-    <Select
-      options={options}
-      onChange={handleChange}
-      value={ancestryValue}
-      isSearchable={false}
-    />
+    <div className="form-group">
+      <label htmlFor="ancestryInput">Ancestry</label>
+      <Select
+        id="ancestryInput"
+        options={options}
+        onChange={handleChange}
+        value={ancestryValue}
+        isSearchable={false}
+      />
+      { ancestry && ancestry.armyKeywords && <ArmyKeywordInput /> }
+    </div>
   )
 }

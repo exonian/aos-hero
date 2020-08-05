@@ -32,8 +32,10 @@ export const ArchetypeInput: React.FC = () => {
   )
 
   return (
-    <>
+    <div className="form-group">
+      <label htmlFor="archetypeInput">Archetype</label>
       <Select
+        id="archetypeInput"
         options={options}
         onChange={handleChange}
         value={archetypeValue}
@@ -43,6 +45,6 @@ export const ArchetypeInput: React.FC = () => {
       {grantChoices.map((grant, i) => {
         return <ChooseOneGrantedAbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
       })}
-    </>
+    </div>
   )
 }
