@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TTargetWeapons } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -186,7 +186,8 @@ export const changeWeapon = (
   const addedWeapon = newWeapon ? {'weapon': newWeapon, 'customName': newWeapon.name} : null
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
-  if (!addedWeapon) dispatch(switchOrUnsetAbilityTargets(weaponField))
+  if (addedWeapon) dispatch(setAbilityTargets(undefined, weaponField))
+  else dispatch(switchOrUnsetAbilityTargets(weaponField))
 }
 
 export const replaceGrantedAbility = (
@@ -283,16 +284,26 @@ export const switchAbilityTarget = (
 }
 
 export const switchOrUnsetAbilityTargets = (
-  target: string,
+  target: TTargetWeapons,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const otherTargetField = target === "weaponOne" ? "weaponTwo" : "weaponOne"
+  const newTarget = warscroll[otherTargetField] ? otherTargetField : undefined
+
+  dispatch(setAbilityTargets(target, newTarget))
+}
+
+export const setAbilityTargets = (
+  oldTarget: TTargetWeapons | undefined,
+  newTarget: TTargetWeapons | undefined,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
   const {abilities} = warscroll
-  const otherTargetField = target === "weaponOne" ? "weaponTwo" : "weaponOne"
-  const newTarget = warscroll[otherTargetField] ? otherTargetField : undefined
 
   const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
-    if (addedAbility.target === target) {
+    if (addedAbility.target === oldTarget && addedAbility.ability.characteristic && addedAbility.ability.characteristic.startsWith('weapon')) {
       accum.push({...addedAbility, target: newTarget})
     }
     else accum.push(addedAbility)

@@ -27,12 +27,14 @@ export type TAbility = {
 }
 export type TAbilities = Record<string, TAbility>
 
+export type TTargetWeapons = "weaponOne" | "weaponTwo" | "claws" | "maw"
+
 export type TAddedAbility = {
   ability: TAbility
   source?: string
   customName: string
   count: number
-  target?: "weaponOne" | "weaponTwo" | "claws" | "maw"
+  target?: TTargetWeapons
 }
 
 export type TAncestry = {
