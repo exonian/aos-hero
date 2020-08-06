@@ -9,14 +9,14 @@ export const BoughtAbilityInputs: React.FC = () => {
   const boughtAbilities = abilities.filter(addedAbility => !addedAbility.source)
 
   return (
-    <>
+    <div className="form-group">
+      <label>Options</label>
       <div className="card">
         <ul className="list-group list-group-flush">
           {boughtAbilities.map((addedAbility, i) => <BoughtAbilityComponent addedAbility={addedAbility} key={ addedAbility.ability.name } />)}
         </ul>
       </div>
       <BuyAbilityInput />
-    </>
+    </div>
   )
 }
-

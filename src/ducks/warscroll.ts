@@ -263,6 +263,24 @@ export const incrementBoughtAbility = (
   dispatch(warscrollActions.setAbilities(abilitiesWithChange))
 }
 
+export const switchAbilityTarget = (
+  addedAbility: TAddedAbility,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+
+  const abilitiesWithChange = abilities.reduce((accum, currentAddedAbility) => {
+    if (currentAddedAbility === addedAbility) {
+      const newTarget = addedAbility.target === "weaponOne" ? "weaponTwo" : "weaponOne"
+      accum.push({...addedAbility, target: newTarget})
+    }
+    else accum.push(currentAddedAbility)
+    return accum
+  }, [] as TAddedAbility[])
+  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
+}
+
 export const editAbilityCustomName = (
   keyName: string,
   customName: string,

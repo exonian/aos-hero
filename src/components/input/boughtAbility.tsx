@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 
 import { TAddedAbility } from "../../types/data";
-import { removeBoughtAbility, incrementBoughtAbility, selectWarscroll } from "../../ducks/warscroll";
-import { useDispatch, useSelector } from "react-redux";
+import { removeBoughtAbility, incrementBoughtAbility } from "../../ducks/warscroll";
+import { useDispatch } from "react-redux";
 import { logRemoval, logOptionEvent } from "../../utils/analytics";
 import { MAX_ENHANCEMENT_COUNT } from "../../data/abilities";
-import { replaceSpecialChars } from "../../utils/text";
+import { TargetWeaponComponent } from "./targetWeapon";
 
 
 interface IBoughtAbilityProps {
@@ -16,9 +16,6 @@ export const BoughtAbilityComponent: React.FC<IBoughtAbilityProps> = props => {
   const { addedAbility } = props
   const ability = addedAbility.ability
   const dispatch = useDispatch()
-  const warscrollState = useSelector(selectWarscroll)
-  const target = addedAbility.target ? warscrollState[addedAbility.target] : null
-  const targetCustomName = target ? replaceSpecialChars(target.customName) : ''
 
   const handleRemovalClick = useCallback(
     e => {
@@ -54,7 +51,7 @@ export const BoughtAbilityComponent: React.FC<IBoughtAbilityProps> = props => {
           <button type="button" className="close" aria-label={`Remove ${ability.name}`} onClick={handleDecrementClick}>
             <span aria-hidden="true">&minus;</span>
           </button>
-          <p>{ addedAbility.count } &times; { ability.name } { targetCustomName && <>&ndash; { targetCustomName }</> } ({ ability.cost && ability.cost * addedAbility.count }DP)</p>
+          <p>{ addedAbility.count } &times; { ability.name } <TargetWeaponComponent addedAbility={addedAbility} /> ({ ability.cost && ability.cost * addedAbility.count }DP)</p>
         </>
       ) : (
         <>
