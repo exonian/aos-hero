@@ -98,7 +98,7 @@ export const BuyableAbilities: TAbilities = {
     enhancement: true,
     characteristic: 'weapon.toHit',
     change: '+',
-    value: 1,
+    value: -1,
     cost: 2,
   },
   "Superior Strength" : {
@@ -107,7 +107,7 @@ export const BuyableAbilities: TAbilities = {
     enhancement: true,
     characteristic: 'weapon.toWound',
     change: '+',
-    value: 1,
+    value: -1,
     cost: 2,
   },
   "Ferocity" : {
