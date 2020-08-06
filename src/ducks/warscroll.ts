@@ -186,6 +186,7 @@ export const changeWeapon = (
   const addedWeapon = newWeapon ? {'weapon': newWeapon, 'customName': newWeapon.name} : null
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
+  if (!addedWeapon) dispatch(switchOrUnsetAbilityTargets(weaponField))
 }
 
 export const replaceGrantedAbility = (
@@ -276,6 +277,25 @@ export const switchAbilityTarget = (
       accum.push({...addedAbility, target: newTarget})
     }
     else accum.push(currentAddedAbility)
+    return accum
+  }, [] as TAddedAbility[])
+  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
+}
+
+export const switchOrUnsetAbilityTargets = (
+  target: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {abilities} = warscroll
+  const otherTargetField = target === "weaponOne" ? "weaponTwo" : "weaponOne"
+  const newTarget = warscroll[otherTargetField] ? otherTargetField : undefined
+
+  const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
+    if (addedAbility.target === target) {
+      accum.push({...addedAbility, target: newTarget})
+    }
+    else accum.push(addedAbility)
     return accum
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesWithChange))
