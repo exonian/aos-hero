@@ -290,9 +290,7 @@ export const editAbilityCustomName = (
   const {abilities} = warscroll
   const abilitiesWithEdit = abilities.map((addedAbility, i) => {
     if (addedAbility.ability.name === keyName) {
-      return Object.assign({}, addedAbility, {
-        customName: customName
-      })
+      return {...addedAbility, customName: customName}
     }
     else return addedAbility
   }, [] as TAddedAbility[])
@@ -306,9 +304,7 @@ export const editWeaponCustomName = (
   const state = getState()
   const {warscroll} = state
   const addedWeapon = warscroll[weaponField]
-  const renamedWeapon = Object.assign({}, addedWeapon, {
-    customName: customName
-  })
+  const renamedWeapon = addedWeapon ? {...addedWeapon, customName: customName} : null
   if (weaponField === "claws") dispatch(warscrollActions.setClaws(renamedWeapon))
   if (weaponField === "maw") dispatch(warscrollActions.setMaw(renamedWeapon))
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(renamedWeapon))
