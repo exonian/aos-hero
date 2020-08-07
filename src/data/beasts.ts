@@ -42,6 +42,13 @@ export const Beasts: TBeasts = {
         grantType: AutomaticGrant,
         abilityNames: ["Gargantuan Beast Wounds", "Gargantuan Beast Movement"],
       },
+    ],
+    damageTable: [
+      {'woundsFrom': 0, 'woundsTo': 3, 'move': 10, 'claws': 6, 'maw': 4},
+      {'woundsFrom': 4, 'woundsTo': 6, 'move': 8, 'claws': 5, 'maw': 3},
+      {'woundsFrom': 7, 'woundsTo': 9, 'move': 6, 'claws': 4, 'maw': 2},
+      {'woundsFrom': 10, 'woundsTo': 11, 'move': 4, 'claws': 3, 'maw': 1},
+      {'woundsFrom': 12, 'move': 2, 'claws': 2, 'maw': 1},
     ]
   },
 }

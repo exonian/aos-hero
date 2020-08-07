@@ -96,6 +96,14 @@ export type TAddedWeapon = {
   customName: string
 }
 
+export type TDamageTier = {
+  woundsFrom: number
+  woundsTo?: number
+  move: number
+  claws: number
+  maw: number
+}
+
 export type TBeast = {
   name: string
   beastAbilityName: string
@@ -104,6 +112,7 @@ export type TBeast = {
   exclusionExceptions?: TKeyword[]
   weapons: TWeapons
   grants: TGrants[]
+  damageTable?: TDamageTier[]
   cost: number
 }
 export type TBeasts = Record<string, TBeast>

@@ -12,6 +12,7 @@ import { calculateStats } from '../../utils/stats';
 import { BeastComponent } from './beast';
 import { StatsComponent } from './stats';
 import { KeywordsComponent } from './keywords';
+import { DamageTableComponent } from './damageTable';
 
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
@@ -31,6 +32,7 @@ export const WarscrollComponent: React.FC = () => {
       <DescriptionComponent />
       { beast && <BeastComponent /> }
       <WeaponsComponent />
+      { beast && beast.beast.damageTable && <DamageTableComponent /> }
       <AbilitiesComponent addedAbilities={abilities} />
     </div>
   )
