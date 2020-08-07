@@ -96,10 +96,6 @@ export type TAddedWeapon = {
   customName: string
 }
 
-export interface IRestrictableSelections {
-  exclusions?: TKeyword[]
-}
-
 export type TBeast = {
   name: string
   beastAbilityName: string
