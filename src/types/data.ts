@@ -10,6 +10,8 @@ export type TGrants = {
   abilityNames: string[]
 }
 
+export type TTargetTypes = "weapon" | "beastWeapon"
+
 export type TAbility = {
   name: string
   description: string
@@ -21,6 +23,7 @@ export type TAbility = {
   spell?: boolean
   enhancement?: boolean
   characteristic?: string
+  target?: TTargetTypes
   change?: "+" | "="
   value?: number
   keywords?: TKeyword[]

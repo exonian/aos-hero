@@ -65,7 +65,7 @@ export const calculateWeaponStats = (args: ICalculateWeaponStats): Record<string
   values.damage = weapon.damage
 
   enhancements.forEach(enhancement => {
-    const characteristic = enhancement.ability.characteristic.split('.')[1]
+    const characteristic = enhancement.ability.characteristic
     const currentValue = values[characteristic]
     if (typeof currentValue === "number") values[characteristic] = currentValue + enhancement.ability.value * enhancement.count
   })

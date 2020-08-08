@@ -224,7 +224,7 @@ export const addBoughtAbility = (
 
   const ability = Abilities[name]
   const addedAbility: TAddedAbility = {'ability': ability, 'source': '', customName: name, count: 1}
-  if (ability.characteristic && ability.characteristic.startsWith('weapon')) {
+  if (ability.target) {
     if (weaponOne || (!weaponOne && !weaponTwo)) addedAbility.target = "weaponOne"
     else addedAbility.target = "weaponTwo"
   }
@@ -303,7 +303,7 @@ export const setAbilityTargets = (
   const {abilities} = warscroll
 
   const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
-    if (addedAbility.target === oldTarget && addedAbility.ability.characteristic && addedAbility.ability.characteristic.startsWith('weapon')) {
+    if (addedAbility.target === oldTarget && addedAbility.target) {
       accum.push({...addedAbility, target: newTarget})
     }
     else accum.push(addedAbility)
