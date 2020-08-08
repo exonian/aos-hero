@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { selectWarscroll } from "../../ducks/warscroll";
 import { TAddedEnhancement, calculateWeaponStats } from "../../utils/stats";
-import { TWeapon, TAddedWeapon } from "../../types/data";
+import { TWeapon, TAddedWeapon, TDamageTier } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 
 
@@ -22,6 +22,10 @@ export const DamageTableComponent: React.FC = () => {
     return {...accum, weaponField: calculateWeaponStats({'weapon': addedWeapon.weapon as TWeapon, 'enhancements': enhancements})}
   }, {} as Record<string, {}>)
 
+  const getTierWounds = (tier: TDamageTier): string => {
+    return tier.woundsTo ? `${tier.woundsFrom}-${tier.woundsTo}` : `${tier.woundsFrom}+`
+  }
+
   return (
     <table className="table text-center">
       <thead className="thead-dark">
@@ -33,12 +37,16 @@ export const DamageTableComponent: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{ beast.beast.damageTable[0].woundsFrom } - { beast.beast.damageTable[0].woundsTo }</td>
-          <td>{ beast.beast.damageTable[0].move }</td>
-          <td>{ beast.beast.damageTable[0].claws }</td>
-          <td>{ beast.beast.damageTable[0].maw }</td>
-        </tr>
+        {beast.beast.damageTable.map((damageTier, i) => {
+          return (
+            <tr>
+              <td>{ getTierWounds(damageTier) }</td>
+              <td>{ damageTier.move }</td>
+              <td>{ damageTier.claws }</td>
+              <td>{ damageTier.maw }</td>
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )
