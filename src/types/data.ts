@@ -10,7 +10,7 @@ export type TGrants = {
   abilityNames: string[]
 }
 
-export type TTargetTypes = "weapon" | "beastWeapon"
+export type TTargetTypes = "weapon" | "beastWeapon" | "claws"
 
 export type TAbility = {
   name: string

@@ -12,4 +12,19 @@ export const BuyableBeastAbilities: TAbilities = {
     beastTypes: [`Gargantuan Beast`],
     cost: 4,
   },
+  "Vicious Charge" : {
+    name: `Vicious Charge`,
+    description: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+    cost: 1,
+  },
+  "Razor-sharp Claws" : {
+    name: `Razor-sharp Claws`,
+    description: `Improve the Rend characteristic of the bestial companion's Claws by 1 (to a maxmimum of -3).`,
+    enhancement: true,
+    target: 'claws',
+    characteristic: 'rend',
+    change: '+',
+    value: 1,
+    cost: 2,
+  },
 }
