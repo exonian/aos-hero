@@ -35,7 +35,7 @@ export const TargetWeaponComponent: React.FC<ITargetWeaponProps> = props => {
     <>
       <>&ndash; { targetCustomName } </>
       { alternativeCustomName &&
-        <button type="button" className="btn btnn-link" onClick={changeTarget}>
+        <button type="button" className="btn" onClick={changeTarget}>
           <span>&harr;</span>
         </button>
       }
