@@ -81,3 +81,7 @@ export const isStar = (stat: TStat): boolean => stat > STAR / 2
 export const statDisplayValue = (stat: TStat, suffix=``): string => {
   return stat ? isStar(stat) ? `*` : `${stat}${suffix}` : '-'
 }
+
+export const statStarModifier = (stat: TStat): number => {
+  return typeof stat === "number" ? stat - STAR : 0
+}

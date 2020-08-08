@@ -2,25 +2,31 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectWarscroll } from "../../ducks/warscroll";
-import { TAddedEnhancement, calculateWeaponStats } from "../../utils/stats";
-import { TWeapon, TAddedWeapon, TDamageTier } from "../../types/data";
+import { TAddedEnhancement, calculateWeaponStats, statStarModifier, calculateStats } from "../../utils/stats";
+import { TWeapon, TDamageTier } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 
 
 export const DamageTableComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
-  const { abilities, beast, claws, maw } = warscrollState
+  const { abilities, ancestry, beast, claws, maw } = warscrollState
 
   if (!beast || !beast.beast.damageTable || !claws || !maw) return null
 
-  const weapons: Record<string, TAddedWeapon> = {'claws': claws, 'maw': maw}
-  Object.entries(weapons).reduce((accum, item) => {
-    const [weaponField, addedWeapon] = item
-    const enhancements = abilities.filter(addedAbility => {
-      return addedAbility.ability.enhancement && addedAbility.target === weaponField
-    }) as TAddedEnhancement[]
-    return {...accum, weaponField: calculateWeaponStats({'weapon': addedWeapon.weapon as TWeapon, 'enhancements': enhancements})}
-  }, {} as Record<string, {}>)
+  const enhancements = abilities.filter(addedAbility => addedAbility.ability.enhancement)
+  const heroStats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
+  const clawsStats = calculateWeaponStats({
+    'weapon': claws.weapon as TWeapon,
+    'enhancements': enhancements.filter(enhancement => enhancement.target === 'claws') as TAddedEnhancement[],
+  })
+  const mawStats = calculateWeaponStats({
+    'weapon': maw.weapon as TWeapon,
+    'enhancements': enhancements.filter(enhancement => enhancement.target === 'maw') as TAddedEnhancement[],
+  })
+
+  const movementModifier = statStarModifier(heroStats.movement)
+  const clawsModifier = statStarModifier(clawsStats.attacks)
+  const mawModifier = statStarModifier(mawStats.damage)
 
   const getTierWounds = (tier: TDamageTier): string => {
     return tier.woundsTo ? `${tier.woundsFrom}-${tier.woundsTo}` : `${tier.woundsFrom}+`
@@ -41,9 +47,9 @@ export const DamageTableComponent: React.FC = () => {
           return (
             <tr>
               <td>{ getTierWounds(damageTier) }</td>
-              <td>{ damageTier.move }</td>
-              <td>{ damageTier.claws }</td>
-              <td>{ damageTier.maw }</td>
+              <td>{ damageTier.move + movementModifier }</td>
+              <td>{ damageTier.claws + clawsModifier}</td>
+              <td>{ damageTier.maw + mawModifier}</td>
             </tr>
           )
         })}
