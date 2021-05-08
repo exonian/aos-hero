@@ -5,7 +5,7 @@ import { selectWarscroll, warscrollActions } from "../../ducks/warscroll";
 import { logRename, logSelection } from "../../utils/analytics";
 import Select from "react-select";
 import { convertToOptions } from "./select";
-import { noOp, titleCaseSlashForBlank } from "../../utils/text";
+import { noOp, titleCaseSpaceWhenFalse } from "../../utils/text";
 
 const TitleInput: React.FC = () => {
   const { title } = useSelector(selectWarscroll)
@@ -48,11 +48,11 @@ const TitleInput: React.FC = () => {
 }
 
 const ArticleInput: React.FC = () => {
-  const options = convertToOptions(["A", "An", ""], noOp, titleCaseSlashForBlank)
+  const options = convertToOptions(["A", "An", ""], noOp, titleCaseSpaceWhenFalse)
   const dispatch = useDispatch()
   const { article } = useSelector(selectWarscroll)
   const { setArticle } = warscrollActions
-  const articleValue = convertToOptions([article], noOp, titleCaseSlashForBlank)[0]
+  const articleValue = convertToOptions([article], noOp, titleCaseSpaceWhenFalse)[0]
 
   const handleChange = useCallback(
     (...args) => {
