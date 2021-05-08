@@ -7,7 +7,7 @@ import { replaceSpecialChars } from "../../utils/text";
 
 export const DescriptionComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
-  const { title, weaponOne, weaponTwo } = warscrollState
+  const { article, title, weaponOne, weaponTwo } = warscrollState
 
   let weaponString = ``
   if (weaponOne || weaponTwo) {
@@ -24,7 +24,7 @@ export const DescriptionComponent: React.FC = () => {
   return (
     <>
       <h4>Description</h4>
-      <p>A {title} is a single model{weaponString}.</p>
+      <p>{article} {title} is a single model{weaponString}.</p>
     </>
   )
 }

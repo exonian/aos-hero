@@ -1,5 +1,7 @@
 export type TKeyword = string
 
+export type TArticle = string
+
 export type TStat = number | "D3"
 
 export const AutomaticGrant = "automatic"

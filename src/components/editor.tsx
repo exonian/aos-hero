@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 
-import { TitleInput } from './input/title';
+import { TitleRow } from './input/title';
 import { AncestryInput } from './input/ancestry';
 import { ArchetypeInput } from './input/archetype';
 import { selectWarscroll } from '../ducks/warscroll';
@@ -14,7 +14,7 @@ export const EditorComponent: React.FC = () => {
 
   return (
     <div>
-      <TitleInput />
+      <TitleRow />
       <AncestryInput />
       { ancestry && <ArchetypeInput /> }
       <WeaponInputs />

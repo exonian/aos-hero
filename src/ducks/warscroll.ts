@@ -4,13 +4,14 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TTargetWeapons } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TTargetWeapons, TArticle } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
+  article: 'a',
   ancestry: null,
   armyKeywords: [],
   archetype: null,
@@ -32,6 +33,10 @@ const setBeast: CaseReducer<IWarscrollSlice, PayloadAction<TAddedBeast|null>> = 
 
 const setTitle: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
   state.title = action.payload
+}
+
+const setArticle: CaseReducer<IWarscrollSlice, PayloadAction<TArticle>> = (state, action) => {
+  state.article = action.payload
 }
 
 const addAbilityByKey: CaseReducer<IWarscrollSlice, PayloadAction<string>> = (state, action) => {
@@ -75,6 +80,7 @@ export const warscrollSlice = createSlice({
       state.ancestry = Ancestries[payload]
     },
     setArmyKeywords,
+    setArticle,
     setBeast,
     setTitle,
     addAbilityByKey,
