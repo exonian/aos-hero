@@ -170,8 +170,8 @@ export const changeBeast = (
   dispatch(warscrollActions.setBeast(newAddedBeast))
 
   const { Claws, Maw } = newBeast ? newBeast.weapons : {'Claws': null, 'Maw': null}
-  const addedClaws = Claws ? {'weapon': Claws, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
-  const addedMaw = Maw ? {'weapon': Maw, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
+  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
+  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
 
   dispatch(warscrollActions.setClaws(addedClaws))
   dispatch(warscrollActions.setMaw(addedMaw))
@@ -189,7 +189,7 @@ export const changeWeapon = (
 
   dispatch(handleGrantedAbilities(oldWeapon, newWeapon))
 
-  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'customName': newWeapon.name} : null
+  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'key': newWeapon.name, 'customName': newWeapon.name} : null
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
   if (addedWeapon) dispatch(setAbilityTargets(undefined, weaponField))
@@ -346,4 +346,12 @@ export const editWeaponCustomName = (
   if (weaponField === "maw") dispatch(warscrollActions.setMaw(renamedWeapon))
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(renamedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(renamedWeapon))
+}
+
+export const refreshWeapons = (): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const { warscroll } = getState()
+  const { weaponOne, weaponTwo } = warscroll
+
+  weaponOne && dispatch(warscrollActions.setWeaponOne({...weaponOne, weapon: Weapons[weaponOne.key]}))
+  weaponTwo && dispatch(warscrollActions.setWeaponTwo({...weaponTwo, weapon: Weapons[weaponTwo.key]}))
 }
