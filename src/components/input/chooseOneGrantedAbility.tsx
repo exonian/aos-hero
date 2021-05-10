@@ -10,11 +10,11 @@ import { logSelection } from '../../utils/analytics';
 
 interface IChooseOneGrantedAbilityInputProps {
   abilityChoices: string[]
-  source: TArchetype|null
+  addedBy: TArchetype|null
 }
 
 export const ChooseOneGrantedAbilityInput: React.FC<IChooseOneGrantedAbilityInputProps> = props => {
-  const { abilityChoices, source } = props
+  const { abilityChoices, addedBy } = props
 
   const options = convertToOptions(abilityChoices)
   const dispatch = useDispatch()
@@ -25,10 +25,10 @@ export const ChooseOneGrantedAbilityInput: React.FC<IChooseOneGrantedAbilityInpu
 
   const handleChange = useCallback(
     (...args) => {
-      dispatch(replaceGrantedAbility(args[0].value, source))
+      dispatch(replaceGrantedAbility(args[0].value, addedBy))
       logSelection('Ability', args[0].value)
     },
-    [dispatch, source]
+    [dispatch, addedBy]
   )
 
   return (

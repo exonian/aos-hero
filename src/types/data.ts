@@ -36,7 +36,7 @@ export type TTargetWeapons = "weaponOne" | "weaponTwo" | "claws" | "maw"
 
 export type TAddedAbility = {
   ability: TAbility
-  source?: string
+  addedBy?: string
   customName: string
   count: number
   target?: TTargetWeapons
@@ -97,7 +97,7 @@ export type TWeapons = Record<string, TWeapon|TEquipment>
 
 export type TAddedWeapon = {
   weapon: TWeapon|TEquipment
-  source?: string
+  addedBy?: string
   customName: string
   key: string
 }

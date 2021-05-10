@@ -14,7 +14,7 @@ type TEnhancement = {
 
 export type TAddedEnhancement = {
   ability: TEnhancement
-  source?: string
+  addedBy?: string
   customName: string
   count: number
   targetWeapon?: TWeapon

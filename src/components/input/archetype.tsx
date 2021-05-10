@@ -43,7 +43,7 @@ export const ArchetypeInput: React.FC = () => {
         isSearchable={false}
       />
       {grantChoices.map((grant, i) => {
-        return <ChooseOneGrantedAbilityInput abilityChoices={grant.abilityNames} source={archetype} key={i} />
+        return <ChooseOneGrantedAbilityInput abilityChoices={grant.abilityNames} addedBy={archetype} key={i} />
       })}
     </div>
   )
