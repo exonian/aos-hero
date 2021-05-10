@@ -112,14 +112,14 @@ const handleGrantedAbilities = (
 
   const abilitiesToKeep = oldObject ?
     abilities.filter(ability => {
-      return ability.source !== oldObject.name
+      return ability.addedBy !== oldObject.name
     }) : abilities
   const automaticAbilities = newObject ?
     newObject.grants ? newObject.grants.reduce((accum, grant) => {
       const { grantType, abilityNames } = grant
       if (grantType === AutomaticGrant) {
         abilityNames.forEach(abilityName => {
-          accum.push({ability: Abilities[abilityName], source: newObject.name, customName: abilityName, count: 1})
+          accum.push({ability: Abilities[abilityName], addedBy: newObject.name, customName: abilityName, count: 1})
         })
       }
       return accum
@@ -198,21 +198,21 @@ export const changeWeapon = (
 
 export const replaceGrantedAbility = (
   name: string,
-  source: TArchetype|null,
+  addedBy: TArchetype|null,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
   const {abilities} = warscroll
-  const abilitiesToKeep = source ?
+  const abilitiesToKeep = addedBy ?
     abilities.filter(ability => {
-      return ability.source !== source.name
+      return ability.addedBy !== addedBy.name
     }) : abilities
-  const ability = {'ability': Abilities[name], 'source': source ? source.name : '', customName: name, count: 1}
-  const automaticAbilities = source ? source.grants.reduce((accum, grant) => {
+  const ability = {'ability': Abilities[name], 'addedBy': addedBy ? addedBy.name : '', customName: name, count: 1}
+  const automaticAbilities = addedBy ? addedBy.grants.reduce((accum, grant) => {
     const { grantType, abilityNames } = grant
     if (grantType === AutomaticGrant) {
       abilityNames.forEach(abilityName => {
-        accum.push({ability: Abilities[abilityName], source: source.name, customName: abilityName, count: 1})
+        accum.push({ability: Abilities[abilityName], addedBy: addedBy.name, customName: abilityName, count: 1})
       })
     }
     return accum
@@ -229,7 +229,7 @@ export const addBoughtAbility = (
   const { abilities, weaponOne, weaponTwo } = warscroll
 
   const ability = Abilities[name]
-  const addedAbility: TAddedAbility = {'ability': ability, 'source': '', customName: name, count: 1}
+  const addedAbility: TAddedAbility = {'ability': ability, 'addedBy': '', customName: name, count: 1}
   if (ability.target) {
     if (weaponOne || (!weaponOne && !weaponTwo)) addedAbility.target = "weaponOne"
     else addedAbility.target = "weaponTwo"
@@ -246,7 +246,7 @@ export const removeBoughtAbility = (
   const {abilities} = warscroll
 
   const abilitiesToKeep = abilities.reduce((accum, addedAbility) => {
-    if (addedAbility.source || addedAbility.ability.name !== name) accum.push(addedAbility)
+    if (addedAbility.addedBy || addedAbility.ability.name !== name) accum.push(addedAbility)
     return accum
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesToKeep))

@@ -8,7 +8,7 @@ export const calculateCost = (warscrollState: IWarscrollSlice): number | null =>
 
   abilities.forEach(addedAbility => {
     const abilityCost = addedAbility.ability.cost
-    if (abilityCost && !addedAbility.source) cost += abilityCost * addedAbility.count
+    if (abilityCost && !addedAbility.addedBy) cost += abilityCost * addedAbility.count
   })
 
   if (weaponOne && weaponOne.weapon.cost) cost += weaponOne.weapon.cost
