@@ -64,3 +64,9 @@ export const LargeBeastWeapons: TWeapons = {
     cost: 0,
   },
 }
+
+export const BeastWeapons: Record<string, TWeapons> = {
+  "Minor Beast": SmallBeastWeapons,
+  "Mounted Beast": SmallBeastWeapons,
+  "Gargantuan Beast": LargeBeastWeapons,
+}

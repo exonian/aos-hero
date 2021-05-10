@@ -8,6 +8,7 @@ import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWe
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
+import { BeastWeapons } from '../data/beastWeapons';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
@@ -170,8 +171,8 @@ export const changeBeast = (
   dispatch(warscrollActions.setBeast(newAddedBeast))
 
   const { Claws, Maw } = newBeast ? newBeast.weapons : {'Claws': null, 'Maw': null}
-  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
-  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
+  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'source': newBeast.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
+  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'source': newBeast.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
 
   dispatch(warscrollActions.setClaws(addedClaws))
   dispatch(warscrollActions.setMaw(addedMaw))
@@ -350,8 +351,15 @@ export const editWeaponCustomName = (
 
 export const refreshWeapons = (): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const { warscroll } = getState()
-  const { weaponOne, weaponTwo } = warscroll
+  const { weaponOne, weaponTwo, claws, maw } = warscroll
 
   weaponOne && dispatch(warscrollActions.setWeaponOne({...weaponOne, weapon: Weapons[weaponOne.key]}))
   weaponTwo && dispatch(warscrollActions.setWeaponTwo({...weaponTwo, weapon: Weapons[weaponTwo.key]}))
+
+  if (claws && claws.source) {
+    claws && dispatch(warscrollActions.setClaws({...claws, weapon: BeastWeapons[claws.source][claws.key]}))
+  }
+  if (maw && maw.source) {
+    maw && dispatch(warscrollActions.setMaw({...maw, weapon: BeastWeapons[maw.source][maw.key]}))
+  }
 }
