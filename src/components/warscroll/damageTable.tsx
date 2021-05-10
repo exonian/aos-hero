@@ -45,7 +45,7 @@ export const DamageTableComponent: React.FC = () => {
       <tbody>
         {beast.beast.damageTable.map((damageTier, i) => {
           return (
-            <tr>
+            <tr key={ damageTier.woundsFrom }>
               <td>{ getTierWounds(damageTier) }</td>
               <td>{ damageTier.move + movementModifier }</td>
               <td>{ damageTier.claws + clawsModifier}</td>
