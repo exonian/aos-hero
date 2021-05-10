@@ -11,7 +11,7 @@ import { Beasts } from '../data/beasts';
 
 export const initialState: IWarscrollSlice = {
   title: 'Untitled',
-  article: 'a',
+  article: 'A',
   ancestry: null,
   armyKeywords: [],
   archetype: null,
