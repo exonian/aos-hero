@@ -100,6 +100,7 @@ export type TAddedWeapon = {
   addedBy?: string
   customName: string
   key: string
+  source?: string
 }
 
 export type TDamageTier = {
