@@ -5,12 +5,15 @@ import { Switch, Route } from 'react-router';
 import './App.css';
 import Anvil from './components/routes/anvil';
 import FourOhFour from './components/routes/fourOhFour';
+import { useRefreshStoredItems } from './utils/useRefreshStoredItems';
 
 export const ROUTES = {
   ANVIL: '/',
 }
 
 const App = () => {
+  useRefreshStoredItems()
+
   return (
     <div className={`d-block`}>
       <BrowserRouter>
