@@ -2,6 +2,10 @@
   "name": "anvil",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "8.3.1",
+    "node": "14.16.0"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
