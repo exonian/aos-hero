@@ -17,7 +17,6 @@ export type TAddedEnhancement = {
   addedBy?: string
   customName: string
   count: number
-  targetWeapon?: TWeapon
 }
 
 interface ICalculateStats {

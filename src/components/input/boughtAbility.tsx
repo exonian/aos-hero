@@ -5,7 +5,6 @@ import { removeBoughtAbility, incrementBoughtAbility } from "../../ducks/warscro
 import { useDispatch } from "react-redux";
 import { logRemoval, logOptionEvent } from "../../utils/analytics";
 import { MAX_ENHANCEMENT_COUNT } from "../../data/abilities";
-import { TargetWeaponComponent } from "./targetWeapon";
 
 
 interface IBoughtAbilityProps {
@@ -51,7 +50,7 @@ export const BoughtAbilityComponent: React.FC<IBoughtAbilityProps> = props => {
           <button type="button" className="close" aria-label={`Remove ${ability.name}`} onClick={handleDecrementClick}>
             <span aria-hidden="true">&minus;</span>
           </button>
-          <p>{ addedAbility.count } &times; { ability.name } <TargetWeaponComponent addedAbility={addedAbility} /> ({ ability.cost && ability.cost * addedAbility.count }DP)</p>
+          <p>{ addedAbility.count } &times; { ability.name } ({ ability.cost && ability.cost * addedAbility.count }DP)</p>
         </>
       ) : (
         <>

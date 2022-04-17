@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ContentEditable from "react-contenteditable";
 
 import { TAddedWeapon, TWeapon } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 import { logRename } from "../../utils/analytics";
-import { editWeaponCustomName, selectWarscroll } from "../../ducks/warscroll";
+import { editWeaponCustomName } from "../../ducks/warscroll";
 import { WeaponProfile } from "./weaponTable";
 import { Abilities } from "../../data/abilities";
 import { calculateWeaponStats, TAddedEnhancement } from "../../utils/stats";
@@ -21,12 +21,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
   const customName = addedWeapon && addedWeapon.customName
   const dispatch = useDispatch()
 
-  const warscrollState = useSelector(selectWarscroll)
-  const { abilities } = warscrollState
-
-  const enhancements = abilities.filter(addedAbility => {
-    return addedAbility.ability.enhancement && addedAbility.target === weaponField
-  }) as TAddedEnhancement[]
+  const enhancements = addedWeapon?.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[]
   const stats = weapon ? calculateWeaponStats({'weapon': weapon as TWeapon, 'enhancements': enhancements}) : {}
 
   const handleCustomNameChange = useCallback(

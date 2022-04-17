@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TTargetWeapons, TArticle } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TArticle } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -171,8 +171,8 @@ export const changeBeast = (
   dispatch(warscrollActions.setBeast(newAddedBeast))
 
   const { Claws, Maw } = newBeast ? newBeast.weapons : {'Claws': null, 'Maw': null}
-  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'source': newBeast.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
-  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'source': newBeast.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
+  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'source': newBeast.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name, 'abilities': []} : null
+  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'source': newBeast.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name, 'abilities': []} : null
 
   dispatch(warscrollActions.setClaws(addedClaws))
   dispatch(warscrollActions.setMaw(addedMaw))
@@ -190,11 +190,9 @@ export const changeWeapon = (
 
   dispatch(handleGrantedAbilities(oldWeapon, newWeapon))
 
-  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'key': newWeapon.name, 'customName': newWeapon.name} : null
+  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'key': newWeapon.name, 'customName': newWeapon.name, 'abilities': []} : null
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
-  if (addedWeapon) dispatch(setAbilityTargets(undefined, weaponField))
-  else dispatch(switchOrUnsetAbilityTargets(weaponField))
 }
 
 export const replaceGrantedAbility = (
@@ -227,14 +225,10 @@ export const addBoughtAbility = (
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
-  const { abilities, weaponOne, weaponTwo } = warscroll
+  const { abilities } = warscroll
 
   const ability = Abilities[name]
   const addedAbility: TAddedAbility = {'ability': ability, 'addedBy': '', customName: name, count: 1}
-  if (ability.target) {
-    if (weaponOne || (!weaponOne && !weaponTwo)) addedAbility.target = "weaponOne"
-    else addedAbility.target = "weaponTwo"
-  }
   const combinedAbilities = abilities.concat(addedAbility)
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
@@ -265,53 +259,6 @@ export const incrementBoughtAbility = (
     if (addedAbility.ability.name === name) {
       const newCount = Math.min(addedAbility.count + change, MAX_ENHANCEMENT_COUNT)
       if (newCount) accum.push({...addedAbility, count: newCount})
-    }
-    else accum.push(addedAbility)
-    return accum
-  }, [] as TAddedAbility[])
-  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
-}
-
-export const switchAbilityTarget = (
-  addedAbility: TAddedAbility,
-): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  const state = getState()
-  const {warscroll} = state
-  const {abilities} = warscroll
-
-  const abilitiesWithChange = abilities.reduce((accum, currentAddedAbility) => {
-    if (currentAddedAbility === addedAbility) {
-      const newTarget = addedAbility.target === "weaponOne" ? "weaponTwo" : "weaponOne"
-      accum.push({...addedAbility, target: newTarget})
-    }
-    else accum.push(currentAddedAbility)
-    return accum
-  }, [] as TAddedAbility[])
-  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
-}
-
-export const switchOrUnsetAbilityTargets = (
-  target: TTargetWeapons,
-): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  const state = getState()
-  const {warscroll} = state
-  const otherTargetField = target === "weaponOne" ? "weaponTwo" : "weaponOne"
-  const newTarget = warscroll[otherTargetField] ? otherTargetField : undefined
-
-  dispatch(setAbilityTargets(target, newTarget))
-}
-
-export const setAbilityTargets = (
-  oldTarget: TTargetWeapons | undefined,
-  newTarget: TTargetWeapons | undefined,
-): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-  const state = getState()
-  const {warscroll} = state
-  const {abilities} = warscroll
-
-  const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
-    if (addedAbility.target === oldTarget && addedAbility.target) {
-      accum.push({...addedAbility, target: newTarget})
     }
     else accum.push(addedAbility)
     return accum

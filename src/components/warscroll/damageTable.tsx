@@ -17,11 +17,11 @@ export const DamageTableComponent: React.FC = () => {
   const heroStats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
   const clawsStats = calculateWeaponStats({
     'weapon': claws.weapon as TWeapon,
-    'enhancements': enhancements.filter(enhancement => enhancement.target === 'claws') as TAddedEnhancement[],
+    'enhancements': claws.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[],
   })
   const mawStats = calculateWeaponStats({
     'weapon': maw.weapon as TWeapon,
-    'enhancements': enhancements.filter(enhancement => enhancement.target === 'maw') as TAddedEnhancement[],
+    'enhancements': maw.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[],
   })
 
   const movementModifier = statStarModifier(heroStats.movement)
