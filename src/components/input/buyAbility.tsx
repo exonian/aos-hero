@@ -20,11 +20,12 @@ export const BuyAbilityInput: React.FC = () => {
   const { abilities } = state
 
   const blankOption = {value: '', label: '-----'}
+  const target = undefined
   const currentAbilityNames = abilities.map(addedAbility => addedAbility.ability.name)
   const unrestrictedBuyableAbilities = filterByRestrictions(BuyableAbilities, calculateKeywords(state)) as TAbilities
   const availableBuyableAbilities = Object.entries(unrestrictedBuyableAbilities).reduce((accum, item) => {
     const [name, ability] = item
-    if (!currentAbilityNames.includes(name)) accum.push(ability)
+    if (!currentAbilityNames.includes(name) && ability.target === target) accum.push(ability)
     return accum
   }, [] as TAbility[])
   const options = [blankOption].concat(convertToOptions(availableBuyableAbilities, nameFn, nameAndCostFn))
