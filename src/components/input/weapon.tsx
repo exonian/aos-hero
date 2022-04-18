@@ -42,7 +42,7 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
     return accum
   }, {} as TWeapons) : unrestrictedWeapons
 
-  const options = [{value: '', label: '-----'}].concat(convertToOptions(Object.values(compatibleWeapons), nameFn, nameAndCostFn))
+  const options = [{value: '', label: '-----'}].concat(convertToOptions(Object.values(unrestrictedWeapons), nameFn, nameAndCostFn))
   const value = currentWeapon ? convertToOptions([currentWeapon.weapon], nameFn, nameAndCostFn)[0] : null
   const valid = currentWeapon ? Object.keys(compatibleWeapons).includes(currentWeapon.weapon.name) : true
   const dispatch = useDispatch()
@@ -63,6 +63,7 @@ export const WeaponInput: React.FC<IWeaponInputProps> = props => {
       styles={valid ? {} : errorStyle}
       onChange={handleChange}
       isSearchable={false}
+      isOptionDisabled={(option) => option.value.length !== 0 && !Object.keys(compatibleWeapons).includes(option.value)}
     />
   ) : null
 }
