@@ -155,7 +155,7 @@ export const Weapons: TWeapons = {
     toWound: 3,
     rend: 1,
     damage: 2,
-    cost: 3,
+    cost: 2,
   },
   "Mage's Staff" : {
     name: `Mage's Staff`,
