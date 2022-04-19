@@ -18,8 +18,8 @@ const DisclaimerComponent = () => {
         <small>
           Disclaimer: This tool is in no way endorsed or sanctioned by Games Workshop - it is unofficial and fan-made.<br />
           I take absolutely no credit for any of the Games Workshop content displayed above.<br />
-          This tool was only ever intended to make it easier to use the Anvil of Apotheosis tool in General's Handbook
-          2020, so please go buy it if you like this web version!
+          This tool was only ever intended to make it easier to use the Anvil of Apotheosis tool, the current version of which
+          is in the Season of War: Thondia book, so please go buy it if you like this web version!
         </small>
       </div>
     </div>
