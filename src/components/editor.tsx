@@ -19,7 +19,7 @@ export const EditorComponent: React.FC = () => {
       { ancestry && <ArchetypeInput /> }
       <WeaponInputs />
       <BeastInput />
-      <BoughtAbilityInputs />
+      <BoughtAbilityInputs target={ null } />
     </div>
   )
 }

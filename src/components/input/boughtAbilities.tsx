@@ -4,7 +4,12 @@ import { selectWarscroll } from "../../ducks/warscroll";
 import { BuyAbilityInput } from "./buyAbility";
 import { BoughtAbilityComponent } from "./boughtAbility";
 
-export const BoughtAbilityInputs: React.FC = () => {
+interface IBoughtAbilityInputsProps {
+  target: "claws" | "maw" | "weaponOne" | "weaponTwo" | null
+}
+
+export const BoughtAbilityInputs: React.FC<IBoughtAbilityInputsProps> = props => {
+  const { target } = props
   const { abilities } = useSelector(selectWarscroll)
   const boughtAbilities = abilities.filter(addedAbility => !addedAbility.addedBy)
 
@@ -16,7 +21,7 @@ export const BoughtAbilityInputs: React.FC = () => {
           {boughtAbilities.map((addedAbility, i) => <BoughtAbilityComponent addedAbility={addedAbility} key={ addedAbility.ability.name } />)}
         </ul>
       </div>
-      <BuyAbilityInput />
+      <BuyAbilityInput target={ target } />
     </div>
   )
 }
