@@ -31,6 +31,7 @@ it('should handle setAncestryByKey', () => {
       "archetype": null,
       "beast": null,
       "abilities": [],
+      "enhancements": [],
     }
   )
 })
@@ -57,6 +58,7 @@ it('should handle setArmyKeywords', () => {
       "archetype": null,
       "beast": null,
       "abilities": [],
+      "enhancements": [],
     }
   )
 })
@@ -83,6 +85,7 @@ it('should handle setTitle', () => {
       "archetype": null,
       "beast": null,
       "abilities": [],
+      "enhancements": [],
     }
   )
 })
@@ -109,6 +112,7 @@ it('should handle addAbilityByKey', () => {
       "archetype": null,
       "beast": null,
       "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers", count: 1}],
+      "enhancements": [],
     }
   )
   expect(
@@ -125,6 +129,7 @@ it('should handle addAbilityByKey', () => {
         "archetype": null,
         "beast": null,
         "abilities": [{ability: Abilities["Divine Prayers"], customName: "Divine Prayers", count: 1}],
+        "enhancements": [],
       }
     , {
       type: addAbilityByKey.type,
@@ -146,6 +151,7 @@ it('should handle addAbilityByKey', () => {
         {ability: Abilities["Divine Prayers"], customName:"Divine Prayers", count: 1},
         {ability: Abilities["Wrathful Invocation"], customName:"Wrathful Invocation", count: 1},
       ],
+      "enhancements": [],
     }
   )
 })
