@@ -3,14 +3,8 @@ import { useSelector } from "react-redux";
 import { selectWarscroll } from "../../ducks/warscroll";
 import { BuyAbilityInput } from "./buyAbility";
 import { BoughtAbilityComponent } from "./boughtAbility";
-import { TEnhancementTarget } from "../../types/data";
 
-interface IBoughtAbilityInputsProps {
-  target: TEnhancementTarget
-}
-
-export const BoughtAbilityInputs: React.FC<IBoughtAbilityInputsProps> = props => {
-  const { target } = props
+export const BoughtAbilityInputs: React.FC = () => {
   const { abilities } = useSelector(selectWarscroll)
   const boughtAbilities = abilities.filter(addedAbility => !addedAbility.addedBy)
 
