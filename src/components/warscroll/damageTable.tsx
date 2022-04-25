@@ -2,26 +2,27 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectWarscroll } from "../../ducks/warscroll";
-import { TAddedEnhancement, calculateWeaponStats, statStarModifier, calculateStats } from "../../utils/stats";
+import { calculateWeaponStats, statStarModifier, calculateStats } from "../../utils/stats";
 import { TWeapon, TDamageTier } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 
 
 export const DamageTableComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
-  const { abilities, ancestry, beast, claws, maw } = warscrollState
+  const { enhancements, ancestry, beast, claws, maw } = warscrollState
 
   if (!beast || !beast.beast.damageTable || !claws || !maw) return null
 
-  const enhancements = abilities.filter(addedAbility => addedAbility.ability.enhancement)
   const heroStats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
   const clawsStats = calculateWeaponStats({
     'weapon': claws.weapon as TWeapon,
-    'enhancements': claws.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[],
+    'enhancements': enhancements,
+    'weaponField': "claws",
   })
   const mawStats = calculateWeaponStats({
     'weapon': maw.weapon as TWeapon,
-    'enhancements': maw.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[],
+    'enhancements': enhancements,
+    'weaponField': "maw",
   })
 
   const movementModifier = statStarModifier(heroStats.movement)

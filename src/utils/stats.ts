@@ -41,17 +41,13 @@ export const calculateStats = (args: ICalculateStats): Record<string, number> =>
 
 
 interface ICalculateWeaponStats {
+  weapon: TWeapon
+  enhancements: TAddedEnhancement[]
   weaponField: TWeaponField
 }
 
 export const calculateWeaponStats = (args: ICalculateWeaponStats): Record<string, TStat> => {
-  const { weaponField } = args
-  const warscrollState = useSelector(selectWarscroll)
-
-  const { enhancements } = warscrollState
-  const addedWeapon = warscrollState[weaponField]
-  if (!addedWeapon) return {}
-  const weapon = addedWeapon.weapon as TWeapon
+  const { weapon, enhancements, weaponField } = args
 
   const values: Record<string, TStat> = {}
 

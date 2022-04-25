@@ -22,7 +22,7 @@ export const BoughtAbilityInputs: React.FC<IBoughtAbilityInputsProps> = props =>
           {boughtAbilities.map((addedAbility, i) => <BoughtAbilityComponent addedAbility={addedAbility} key={ addedAbility.ability.name } />)}
         </ul>
       </div>
-      <BuyAbilityInput target={ target } />
+      <BuyAbilityInput />
     </div>
   )
 }
