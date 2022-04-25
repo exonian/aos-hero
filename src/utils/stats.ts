@@ -1,27 +1,21 @@
-import { TAncestry, TKeyword, TStat, TAddedAbility, TWeapon } from "../types/data";
-
-type TEnhancement = {
-  name: string
-  description: string
-  cost?: number
-  exclusions?: TKeyword[]
-  cannotRename?: boolean
-  enhancement: boolean
-  characteristic: string
-  change: "+" | "="
-  value: number
-}
-
-export type TAddedEnhancement = {
-  ability: TEnhancement
-  addedBy?: string
-  customName: string
-  count: number
-}
+import { useSelector } from "react-redux";
+import { selectWarscroll } from "../ducks/warscroll";
+import { TAncestry, TStat, TAddedAbility, TWeapon, TAddedEnhancement, TEnhancementTarget, TWeaponField } from "../types/data";
 
 interface ICalculateStats {
   ancestry: TAncestry | null;
-  enhancements: TAddedAbility[];
+  enhancements: TAddedEnhancement[];
+}
+
+interface IAddedCharacteristicEnhancement {
+  enhancement: ICharacteristicEnhancement
+  targets: TEnhancementTarget[]
+}
+
+interface ICharacteristicEnhancement {
+  characteristic: string
+  change: "+" | "="
+  value: number
 }
 
 export const calculateStats = (args: ICalculateStats): Record<string, number> => {
@@ -35,24 +29,29 @@ export const calculateStats = (args: ICalculateStats): Record<string, number> =>
   values.save = ancestry.save
   values.bravery = ancestry.bravery
 
-  const replacements = enhancements.filter(i => i.ability.change === '=') as TAddedEnhancement[]
-  const modifiers = enhancements.filter(i => i.ability.change === '+') as TAddedEnhancement[]
+  const replacements = enhancements.filter(i => i.enhancement.change === '=') as IAddedCharacteristicEnhancement[]
+  const modifiers = enhancements.filter(i => i.enhancement.change === '+') as IAddedCharacteristicEnhancement[]
 
-  replacements.forEach(replacement => values[replacement.ability.characteristic] = replacement.ability.value)
+  replacements.forEach(replacement => values[replacement.enhancement.characteristic] = replacement.enhancement.value)
 
-  modifiers.forEach(modifier => values[modifier.ability.characteristic] += modifier.ability.value * modifier.count)
+  modifiers.forEach(modifier => values[modifier.enhancement.characteristic] += modifier.enhancement.value * modifier.targets.length)
 
   return values
 }
 
 
 interface ICalculateWeaponStats {
-  weapon: TWeapon;
-  enhancements: TAddedEnhancement[];
+  weaponField: TWeaponField
 }
 
 export const calculateWeaponStats = (args: ICalculateWeaponStats): Record<string, TStat> => {
-  const {weapon, enhancements} = args
+  const { weaponField } = args
+  const warscrollState = useSelector(selectWarscroll)
+
+  const { enhancements } = warscrollState
+  const addedWeapon = warscrollState[weaponField]
+  if (!addedWeapon) return {}
+  const weapon = addedWeapon.weapon as TWeapon
 
   const values: Record<string, TStat> = {}
 
@@ -63,10 +62,12 @@ export const calculateWeaponStats = (args: ICalculateWeaponStats): Record<string
   values.rend = weapon.rend
   values.damage = weapon.damage
 
-  enhancements.forEach(enhancement => {
-    const characteristic = enhancement.ability.characteristic
-    const currentValue = values[characteristic]
-    if (typeof currentValue === "number") values[characteristic] = currentValue + enhancement.ability.value * enhancement.count
+  enhancements.forEach(addedEnhancement => {
+    const characteristic = addedEnhancement.enhancement.characteristic
+    if (characteristic && addedEnhancement.enhancement.value) {
+      const currentValue = values[characteristic]
+      if (typeof currentValue === "number") values[characteristic] = currentValue + addedEnhancement.enhancement.value * addedEnhancement.targets.filter(t => t === weaponField).length
+    }
   })
 
   return values

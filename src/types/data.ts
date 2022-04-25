@@ -12,7 +12,8 @@ export type TGrants = {
   abilityNames: string[]
 }
 
-export type TTargetTypes = "weapon" | "beastWeapon" | "claws"
+export type TTargetType = "weapon" | "beastWeapon" | "claws"
+export type TWeaponField = "weaponOne" | "weaponTwo" | "claws" | "maw"
 
 export type TAbility = {
   name: string
@@ -23,11 +24,6 @@ export type TAbility = {
   beastTypes?: string[]
   cannotRename?: boolean
   spell?: boolean
-  enhancement?: boolean
-  characteristic?: string
-  target?: TTargetTypes
-  change?: "+" | "="
-  value?: number
   keywords?: TKeyword[]
 }
 export type TAbilities = Record<string, TAbility>
@@ -37,6 +33,23 @@ export type TAddedAbility = {
   addedBy?: string
   customName: string
   count: number
+}
+
+export type TEnhancement = TAbility & {
+  characteristic?: string
+  target?: TTargetType
+  change?: "+" | "="
+  value?: number
+}
+export type TEnhancements = Record<string, TEnhancement>
+
+export type TEnhancementTarget = "hero" | "weaponOne" | "weaponTwo" | "claws" | "maw"
+
+export type TAddedEnhancement = {
+  enhancement: TEnhancement
+  addedBy?: string
+  customName: string
+  targets: TEnhancementTarget[]
 }
 
 export type TAncestry = {
@@ -94,7 +107,6 @@ export type TWeapons = Record<string, TWeapon|TEquipment>
 
 export type TAddedWeapon = {
   weapon: TWeapon|TEquipment
-  abilities: TAddedAbility[]
   addedBy?: string
   customName: string
   key: string

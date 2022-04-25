@@ -4,7 +4,7 @@ import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
 import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TArticle } from '../types/data';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TArticle, TAddedEnhancement } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -17,6 +17,7 @@ export const initialState: IWarscrollSlice = {
   armyKeywords: [],
   archetype: null,
   abilities: [],
+  enhancements: [],
   beast: null,
   weaponOne: null,
   weaponTwo: null,
@@ -50,6 +51,13 @@ const setAbilities: CaseReducer<IWarscrollSlice, PayloadAction<TAddedAbility[]>>
     accum.push(ability)
     return accum
   }, [] as TAddedAbility[])
+}
+
+const setEnhancements: CaseReducer<IWarscrollSlice, PayloadAction<TAddedEnhancement[]>> = (state, action) => {
+  state.enhancements = action.payload.reduce((accum, enhancement) => {
+    accum.push(enhancement)
+    return accum
+  }, [] as TAddedEnhancement[])
 }
 
 const setClaws: CaseReducer<IWarscrollSlice, PayloadAction<TAddedWeapon|null>> = (state, action) => {
@@ -86,6 +94,7 @@ export const warscrollSlice = createSlice({
     setTitle,
     addAbilityByKey,
     setAbilities,
+    setEnhancements,
     setClaws,
     setMaw,
     setWeaponOne,
@@ -247,23 +256,19 @@ export const removeBoughtAbility = (
   dispatch(warscrollActions.setAbilities(abilitiesToKeep))
 }
 
-export const incrementBoughtAbility = (
+export const incrementBoughtEnhancement = (
   name: string,
   change: -1 | 1
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
   const state = getState()
   const {warscroll} = state
-  const {abilities} = warscroll
+  const {enhancements} = warscroll
 
-  const abilitiesWithChange = abilities.reduce((accum, addedAbility) => {
-    if (addedAbility.ability.name === name) {
-      const newCount = Math.min(addedAbility.count + change, MAX_ENHANCEMENT_COUNT)
-      if (newCount) accum.push({...addedAbility, count: newCount})
-    }
-    else accum.push(addedAbility)
+  const enhancementsWithChange = enhancements.reduce((accum, addedEnhancement) => {
+    accum.push(addedEnhancement)
     return accum
-  }, [] as TAddedAbility[])
-  dispatch(warscrollActions.setAbilities(abilitiesWithChange))
+  }, [] as TAddedEnhancement[])
+  dispatch(warscrollActions.setEnhancements(enhancementsWithChange))
 }
 
 export const editAbilityCustomName = (

@@ -2,17 +2,17 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import ContentEditable from "react-contenteditable";
 
-import { TAddedWeapon, TWeapon } from "../../types/data";
+import { TAddedWeapon, TWeapon, TWeaponField } from "../../types/data";
 import { replaceSpecialChars } from "../../utils/text";
 import { logRename } from "../../utils/analytics";
 import { editWeaponCustomName } from "../../ducks/warscroll";
 import { WeaponProfile } from "./weaponTable";
 import { Abilities } from "../../data/abilities";
-import { calculateWeaponStats, TAddedEnhancement } from "../../utils/stats";
+import { calculateWeaponStats } from "../../utils/stats";
 
 interface IAbilityProps {
   addedWeapon: TAddedWeapon | null
-  weaponField: "claws" | "maw" | "weaponOne" | "weaponTwo",
+  weaponField: TWeaponField
 }
 
 export const WeaponComponent: React.FC<IAbilityProps> = props => {
@@ -21,8 +21,7 @@ export const WeaponComponent: React.FC<IAbilityProps> = props => {
   const customName = addedWeapon && addedWeapon.customName
   const dispatch = useDispatch()
 
-  const enhancements = addedWeapon?.abilities.filter(addedAbility => addedAbility.ability.enhancement) as TAddedEnhancement[]
-  const stats = weapon ? calculateWeaponStats({'weapon': weapon as TWeapon, 'enhancements': enhancements}) : {}
+  const stats = weapon ? calculateWeaponStats({'weaponField': weaponField}) : {}
 
   const handleCustomNameChange = useCallback(
     e => {

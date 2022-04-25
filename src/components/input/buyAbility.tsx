@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import Select from 'react-select'
 
 import { convertToOptions } from './select';
-import { TAbility, TAbilities } from '../../types/data';
+import { TAbility, TAbilities, TEnhancementTarget } from '../../types/data';
 import { BuyableAbilities } from '../../data/buyableAbilities';
 import { titleCase } from '../../utils/text';
 import { logSelection } from '../../utils/analytics';
@@ -16,7 +16,7 @@ const nameFn = (item: TAbility): string => { return item.name }
 const nameAndCostFn = (item: TAbility): string => { return titleCase(item.name) + ' (' + item.cost  + 'DP)' }
 
 interface IBuyAbilityInputsProps {
-  target: "claws" | "maw" | "weaponOne" | "weaponTwo" | null
+  target: TEnhancementTarget
 }
 
 export const BuyAbilityInput: React.FC<IBuyAbilityInputsProps> = props => {

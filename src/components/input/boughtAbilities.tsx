@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { selectWarscroll } from "../../ducks/warscroll";
 import { BuyAbilityInput } from "./buyAbility";
 import { BoughtAbilityComponent } from "./boughtAbility";
+import { TEnhancementTarget } from "../../types/data";
 
 interface IBoughtAbilityInputsProps {
-  target: "claws" | "maw" | "weaponOne" | "weaponTwo" | null
+  target: TEnhancementTarget
 }
 
 export const BoughtAbilityInputs: React.FC<IBoughtAbilityInputsProps> = props => {
