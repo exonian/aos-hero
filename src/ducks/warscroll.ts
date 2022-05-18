@@ -128,7 +128,7 @@ const handleGrantedAbilities = (
     newObject.grants ? newObject.grants.reduce((accum, grant) => {
       const { grantType, abilityNames } = grant
       if (grantType === AutomaticGrant) {
-        abilityNames.forEach(abilityName => {
+        abilityNames?.forEach(abilityName => {
           accum.push({ability: Abilities[abilityName], addedBy: newObject.name, customName: abilityName, count: 1})
         })
       }
@@ -180,8 +180,8 @@ export const changeBeast = (
   dispatch(warscrollActions.setBeast(newAddedBeast))
 
   const { Claws, Maw } = newBeast ? newBeast.weapons : {'Claws': null, 'Maw': null}
-  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'source': newBeast.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name, 'abilities': []} : null
-  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'source': newBeast.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name, 'abilities': []} : null
+  const addedClaws = Claws ? {'weapon': Claws, 'key': Claws.name, 'source': newBeast.name, 'customName': oldAddedClaws ? oldAddedClaws.customName : Claws.name} : null
+  const addedMaw = Maw ? {'weapon': Maw, 'key': Maw.name, 'source': newBeast.name, 'customName': oldAddedMaw ? oldAddedMaw.customName : Maw.name} : null
 
   dispatch(warscrollActions.setClaws(addedClaws))
   dispatch(warscrollActions.setMaw(addedMaw))
@@ -199,7 +199,7 @@ export const changeWeapon = (
 
   dispatch(handleGrantedAbilities(oldWeapon, newWeapon))
 
-  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'key': newWeapon.name, 'customName': newWeapon.name, 'abilities': []} : null
+  const addedWeapon = newWeapon ? {'weapon': newWeapon, 'key': newWeapon.name, 'customName': newWeapon.name} : null
   if (weaponField === "weaponOne") dispatch(warscrollActions.setWeaponOne(addedWeapon))
   if (weaponField === "weaponTwo") dispatch(warscrollActions.setWeaponTwo(addedWeapon))
 }
@@ -219,7 +219,7 @@ export const replaceGrantedAbility = (
   const automaticAbilities = addedBy ? addedBy.grants.reduce((accum, grant) => {
     const { grantType, abilityNames } = grant
     if (grantType === AutomaticGrant) {
-      abilityNames.forEach(abilityName => {
+      abilityNames?.forEach(abilityName => {
         accum.push({ability: Abilities[abilityName], addedBy: addedBy.name, customName: abilityName, count: 1})
       })
     }

@@ -12,7 +12,7 @@ export const Beasts: TBeasts = {
     grants: [
       {
         grantType: AutomaticGrant,
-        abilityNames: ["Minor Beast Wounds"],
+        enhancementNames: ["Minor Beast Wounds"],
       },
     ]
   },
@@ -26,7 +26,7 @@ export const Beasts: TBeasts = {
     grants: [
       {
         grantType: AutomaticGrant,
-        abilityNames: ["Mounted Beast Wounds", "Mounted Beast Movement"],
+        enhancementNames: ["Mounted Beast Wounds", "Mounted Beast Movement"],
       },
     ]
   },
@@ -40,7 +40,7 @@ export const Beasts: TBeasts = {
     grants: [
       {
         grantType: AutomaticGrant,
-        abilityNames: ["Gargantuan Beast Wounds", "Gargantuan Beast Movement"],
+        enhancementNames: ["Gargantuan Beast Wounds", "Gargantuan Beast Movement"],
       },
     ],
     damageTable: [

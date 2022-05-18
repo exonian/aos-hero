@@ -9,7 +9,8 @@ export const ChooseOneGrant = "chooseOne"
 export type TGrantType = "automatic"|"chooseOne"
 export type TGrants = {
   grantType: TGrantType
-  abilityNames: string[]
+  abilityNames?: string[]
+  enhancementNames?: string[]
 }
 
 export type TTargetType = "weapon" | "beastWeapon" | "claws"
