@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { selectWarscroll } from "../ducks/warscroll";
-import { TAncestry, TStat, TAddedAbility, TWeapon, TAddedEnhancement, TEnhancementTarget, TWeaponField } from "../types/data";
+import { TAncestry, TStat, TWeapon, TAddedEnhancement, TEnhancementTarget, TWeaponField } from "../types/data";
 
 interface ICalculateStats {
   ancestry: TAncestry | null;

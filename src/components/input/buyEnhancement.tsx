@@ -2,38 +2,38 @@ import React, { useCallback } from 'react'
 import Select from 'react-select'
 
 import { convertToOptions } from './select';
-import { TAbility, TAbilities, TEnhancementTarget } from '../../types/data';
-import { BuyableAbilities } from '../../data/buyableAbilities';
+import { TEnhancementTarget, TEnhancement, TEnhancements } from '../../types/data';
+import { BuyableEnhancements } from '../../data/buyableAbilities';
 import { titleCase } from '../../utils/text';
 import { logSelection } from '../../utils/analytics';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBoughtAbility, selectWarscroll } from '../../ducks/warscroll';
+import { addBoughtEnhancement, selectWarscroll } from '../../ducks/warscroll';
 import { filterByRestrictions } from '../../utils/restrictions';
 import { calculateKeywords } from '../../utils/keywords';
 
 
-const nameFn = (item: TAbility): string => { return item.name }
-const nameAndCostFn = (item: TAbility): string => { return titleCase(item.name) + ' (' + item.cost  + 'DP)' }
+const nameFn = (item: TEnhancement): string => { return item.name }
+const nameAndCostFn = (item: TEnhancement): string => { return titleCase(item.name) + ' (' + item.cost  + 'DP)' }
 
-interface IBuyAbilityInputsProps {
+interface IBuyEnhancementInputsProps {
   target: TEnhancementTarget
 }
 
-export const BuyAbilityInput: React.FC<IBuyAbilityInputsProps> = props => {
+export const BuyEnhancementInput: React.FC<IBuyEnhancementInputsProps> = props => {
   const { target } = props
   const state = useSelector(selectWarscroll)
-  const { abilities } = useSelector(selectWarscroll)
+  const { enhancements } = useSelector(selectWarscroll)
 
   const blankOption = {value: '', label: '-----'}
   const targetType = target === "weaponOne" || target === "weaponTwo" ? "weapon" : undefined
-  const currentAbilityNames = abilities.map(addedAbility => addedAbility.ability.name)
-  const unrestrictedBuyableAbilities = filterByRestrictions(BuyableAbilities, calculateKeywords(state)) as TAbilities
-  const availableBuyableAbilities = Object.entries(unrestrictedBuyableAbilities).reduce((accum, item) => {
-    const [name, ability] = item
-    if (!currentAbilityNames.includes(name) && ability.target === targetType) accum.push(ability)
+  const currentEnhancementNames = enhancements.map(addedEnhancement => addedEnhancement.enhancement.name)
+  const unrestrictedBuyableEnhancements = filterByRestrictions(BuyableEnhancements, calculateKeywords(state)) as TEnhancements
+  const availableBuyableEnhancements = Object.entries(unrestrictedBuyableEnhancements).reduce((accum, item) => {
+    const [name, enhancement] = item
+    if (!currentEnhancementNames.includes(name) && enhancement.target === targetType) accum.push(enhancement)
     return accum
-  }, [] as TAbility[])
-  const options = [blankOption].concat(convertToOptions(availableBuyableAbilities, nameFn, nameAndCostFn))
+  }, [] as TEnhancement[])
+  const options = [blankOption].concat(convertToOptions(availableBuyableEnhancements, nameFn, nameAndCostFn))
   const value = blankOption
   const dispatch = useDispatch()
 
@@ -41,8 +41,8 @@ export const BuyAbilityInput: React.FC<IBuyAbilityInputsProps> = props => {
     (...args) => {
       const value = args[0].value
       if (value) {
-        dispatch(addBoughtAbility(value))
-        logSelection('Bought Ability', value)
+        dispatch(addBoughtEnhancement(value, target))
+        logSelection('Bought Enhancement', value)
       }
     },
     [dispatch]

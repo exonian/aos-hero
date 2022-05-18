@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage'
 import warscrollReducer from './warscroll'
 
 const persistConfig = {
-  key: 'root-v210510a',
+  key: 'root-v220518a',
   storage,
 }
 

@@ -17,9 +17,8 @@ import { DamageTableComponent } from './damageTable';
 export const WarscrollComponent: React.FC = () => {
   const warscrollState = useSelector(selectWarscroll)
   const keywords = calculateKeywords(warscrollState)
-  const { abilities, ancestry, beast, title } = warscrollState
+  const { abilities, ancestry, beast, enhancements, title } = warscrollState
 
-  const enhancements = abilities.filter(addedAbility => addedAbility.ability.enhancement)
   const stats = calculateStats({'ancestry': ancestry, 'enhancements': enhancements})
 
   const cost = calculateCost(warscrollState)

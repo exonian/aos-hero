@@ -3,8 +3,8 @@ import { createSlice, CaseReducer, PayloadAction, ThunkAction, Action } from '@r
 import { IWarscrollSlice, IStore } from '../types/store'
 import { Ancestries } from '../data/ancestries';
 import { Archetypes } from '../data/archetypes';
-import { Abilities, MAX_ENHANCEMENT_COUNT } from '../data/abilities';
-import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TArticle, TAddedEnhancement } from '../types/data';
+import { Abilities, Enhancements } from '../data/abilities';
+import { AutomaticGrant, TAddedAbility, TArchetype, TAddedWeapon, TAncestry, TWeapon, TEquipment, TBeast, TAddedBeast, TArticle, TAddedEnhancement, TEnhancementTarget } from '../types/data';
 import { RootState } from './store';
 import { Weapons } from '../data/weapons';
 import { Beasts } from '../data/beasts';
@@ -242,6 +242,20 @@ export const addBoughtAbility = (
   dispatch(warscrollActions.setAbilities(combinedAbilities))
 }
 
+export const addBoughtEnhancement = (
+  name: string,
+  target: TEnhancementTarget,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const { enhancements } = warscroll
+
+  const enhancement = Enhancements[name]
+  const addedEnhancement: TAddedEnhancement = {'enhancement': enhancement, 'addedBy': '', customName: name, targets:[target]}
+  const combinedEnhancements = enhancements.concat(addedEnhancement)
+  dispatch(warscrollActions.setEnhancements(combinedEnhancements))
+}
+
 export const removeBoughtAbility = (
   name: string,
 ): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
@@ -254,6 +268,20 @@ export const removeBoughtAbility = (
     return accum
   }, [] as TAddedAbility[])
   dispatch(warscrollActions.setAbilities(abilitiesToKeep))
+}
+
+export const removeBoughtEnhancement = (
+  name: string,
+): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  const state = getState()
+  const {warscroll} = state
+  const {enhancements} = warscroll
+
+  const enhancementsToKeep = enhancements.reduce((accum, addedEnhancement) => {
+    if (addedEnhancement.addedBy || addedEnhancement.enhancement.name !== name) accum.push(addedEnhancement)
+    return accum
+  }, [] as TAddedEnhancement[])
+  dispatch(warscrollActions.setEnhancements(enhancementsToKeep))
 }
 
 export const incrementBoughtEnhancement = (

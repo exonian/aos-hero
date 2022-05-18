@@ -1,6 +1,6 @@
-import { TAbilities } from "../types/data";
+import { TAbilities, TEnhancements } from "../types/data";
 import { STAR } from "../utils/stats";
-import { BuyableAbilities } from "./buyableAbilities";
+import { BuyableAbilities, BuyableEnhancements } from "./buyableAbilities";
 import { BuyableBeastAbilities } from "./buyableBeastAbilities";
 
 export const MAX_ENHANCEMENT_COUNT: number = 3
@@ -66,11 +66,15 @@ export const Abilities: TAbilities = {
     spell: true,
     cannotRename: true
   },
+  ...BuyableAbilities,
+  ...BuyableBeastAbilities,
+}
+
+export const Enhancements: TEnhancements = {
   // Shield
   "Shield" : {
     name: `Shield`,
     description: `Improve your hero's save characteristic by 1`,
-    enhancement: true,
     characteristic: 'save',
     change: '+',
     value: -1,
@@ -79,7 +83,6 @@ export const Abilities: TAbilities = {
   "Minor Beast Wounds" : {
     name: `Minor Beast Wounds`,
     description: `Add 1 to your hero's Wounds characteristic`,
-    enhancement: true,
     characteristic: 'wounds',
     change: '+',
     value: 1,
@@ -88,7 +91,6 @@ export const Abilities: TAbilities = {
   "Mounted Beast Wounds" : {
     name: `Mounted Beast Wounds`,
     description: `Add 2 to your hero's Wounds characteristic`,
-    enhancement: true,
     characteristic: 'wounds',
     change: '+',
     value: 2,
@@ -96,7 +98,6 @@ export const Abilities: TAbilities = {
   "Mounted Beast Movement" : {
     name: `Mounted Beast Movement]`,
     description: `Change your hero's Move characteristic to 8"`,
-    enhancement: true,
     characteristic: 'movement',
     change: '=',
     value: 8,
@@ -105,7 +106,6 @@ export const Abilities: TAbilities = {
   "Gargantuan Beast Wounds" : {
     name: `Gargantuan Beast Wounds`,
     description: `Add 8 to your hero's Wounds characteristic`,
-    enhancement: true,
     characteristic: 'wounds',
     change: '+',
     value: 8,
@@ -113,11 +113,9 @@ export const Abilities: TAbilities = {
   "Gargantuan Beast Movement" : {
     name: `Gargantuan Beast Movement]`,
     description: `Change your hero's Move characteristic to *"`,
-    enhancement: true,
     characteristic: 'movement',
     change: '=',
     value: STAR,
   },
-  ...BuyableAbilities,
-  ...BuyableBeastAbilities,
+  ...BuyableEnhancements,
 }

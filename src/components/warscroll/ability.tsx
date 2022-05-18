@@ -48,7 +48,7 @@ export const AbilityComponent: React.FC<IAbilityProps> = props => {
     }
   }
 
-  return ability.enhancement ? null : (
+  return (
     <div>
       <ContentEditable
         html={customName}

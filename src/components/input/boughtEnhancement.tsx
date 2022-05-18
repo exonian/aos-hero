@@ -1,10 +1,9 @@
 import React, { useCallback } from "react";
 
-import { TAddedAbility, TAddedEnhancement } from "../../types/data";
-import { incrementBoughtEnhancement } from "../../ducks/warscroll";
+import { TAddedEnhancement } from "../../types/data";
+import { removeBoughtEnhancement } from "../../ducks/warscroll";
 import { useDispatch } from "react-redux";
-import { logRemoval, logOptionEvent } from "../../utils/analytics";
-import { MAX_ENHANCEMENT_COUNT } from "../../data/abilities";
+import { logRemoval } from "../../utils/analytics";
 
 
 interface IBoughtEnhancementProps {
@@ -16,31 +15,20 @@ export const BoughtEnhancementComponent: React.FC<IBoughtEnhancementProps> = pro
   const enhancement = addedEnhancement.enhancement
   const dispatch = useDispatch()
 
-  const handleIncrementClick = useCallback(
+  const handleRemovalClick = useCallback(
     e => {
-      dispatch(incrementBoughtEnhancement(enhancement.name, 1))
-      logOptionEvent('Bought Enhancement', 'Increment', enhancement.name)
-    },
-    [dispatch, enhancement.name]
-  )
-
-  const handleDecrementClick = useCallback(
-    e => {
-      dispatch(incrementBoughtEnhancement(enhancement.name, -1))
-      logOptionEvent('Bought Enhancement', 'Decrement', enhancement.name)
+      dispatch(removeBoughtEnhancement(enhancement.name))
+      logRemoval('Bought Ability', enhancement.name)
     },
     [dispatch, enhancement.name]
   )
 
   return (
     <li className="list-group-item">
-      <button type="button" className="close" aria-label={`Add ${enhancement.name}`} onClick={handleIncrementClick} disabled={addedEnhancement.targets.length >= MAX_ENHANCEMENT_COUNT}>
-        <span aria-hidden="true">&#43;</span>
+      <button type="button" className="close" aria-label={`Remove ${enhancement.name}`} onClick={handleRemovalClick}>
+        <span aria-hidden="true">&times;</span>
       </button>
-      <button type="button" className="close" aria-label={`Remove ${enhancement.name}`} onClick={handleDecrementClick}>
-        <span aria-hidden="true">&minus;</span>
-      </button>
-      {/* <p>{ addedEnhancement.count } &times; { enhancement.name } ({ enhancement.cost && enhancement.cost * addedEnhancement.count }DP)</p> */}
+      <p>{ enhancement.name } ({ enhancement.cost }DP)</p>
     </li>
   )
 }

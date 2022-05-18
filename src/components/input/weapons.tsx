@@ -1,5 +1,5 @@
 import React from "react";
-import { BoughtAbilityInputs } from "./boughtAbilities";
+import { BoughtEnhancementInputs } from "./boughtEnhancements";
 
 import { WeaponInput } from "./weapon";
 
@@ -8,9 +8,9 @@ export const WeaponInputs: React.FC = () => {
     <div className="form-group">
       <label>Weapons</label>
       <WeaponInput weaponField="weaponOne" />
-      <BoughtAbilityInputs target="weaponOne" />
+      <BoughtEnhancementInputs target="weaponOne" />
       <WeaponInput weaponField="weaponTwo" />
-      <BoughtAbilityInputs target="weaponTwo" />
+      <BoughtEnhancementInputs target="weaponTwo" />
     </div>
   )
 }

@@ -3,8 +3,7 @@ import React, { useCallback } from "react";
 import { TAddedAbility } from "../../types/data";
 import { removeBoughtAbility } from "../../ducks/warscroll";
 import { useDispatch } from "react-redux";
-import { logRemoval, logOptionEvent } from "../../utils/analytics";
-import { MAX_ENHANCEMENT_COUNT } from "../../data/abilities";
+import { logRemoval } from "../../utils/analytics";
 
 
 interface IBoughtAbilityProps {
